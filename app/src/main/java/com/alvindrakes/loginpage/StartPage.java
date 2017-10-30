@@ -20,6 +20,7 @@ public class StartPage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent StartPageIntent = new Intent(StartPage.this, Login.class);
                 startActivity(StartPageIntent);
+                System.out.println("Hello");
             }
         });
     }
