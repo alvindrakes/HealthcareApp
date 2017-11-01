@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button DecBtn;
     Button ResetBtn;
     TextView progress;
-    int progress_value = 1000;
+    int progress_value = 0;
     CircleProgressBar Goal;
 
     @Override
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
         IncBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                Goal.setProgress(1000 - progress_value);
-                if (progress_value != 0)
-                    progress_value--;
+                Goal.setProgress(progress_value);
+                if (progress_value != 1000)
+                    progress_value++;
                 progress.setText(Integer.toString(progress_value));
                 return false;
             }
@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
         DecBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                Goal.setProgress(1000 - progress_value);
-                if (progress_value != 1000)
-                    progress_value++;
+                Goal.setProgress(progress_value);
+                if (progress_value != 0)
+                    progress_value--;
                 progress.setText(Integer.toString(progress_value));
                 return false;
             }
