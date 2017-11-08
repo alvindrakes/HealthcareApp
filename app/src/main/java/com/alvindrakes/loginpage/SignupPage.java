@@ -3,16 +3,25 @@ package com.alvindrakes.loginpage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class SignupPage extends AppCompatActivity {
@@ -20,20 +29,31 @@ public class SignupPage extends AppCompatActivity {
   private String name;
   private String email;
   private String password;
+  private String checkPassword;
   private int age;
   private int weight;
   private int height;
-
+  
   DatabaseReference database;
+  
+  EditText nameText;
+  EditText emailText;
+  EditText passwordText;
+  EditText checkPasswordText;
+  EditText ageText;
+  EditText weightText;
+  EditText heightText;
   
   public SignupPage () {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
   
-  public SignupPage (String name, String email, String password, int age, int weight, int height) {
+  public SignupPage (String name, String email, String password, String checkPassword, int age,
+                     int weight, int height) {
     this.name = name;
     this.email = email;
     this.password = password;
+    this.checkPassword = checkPassword;
     this.age = age;
     this.weight = weight;
     this.height = height;
@@ -46,47 +66,55 @@ public class SignupPage extends AppCompatActivity {
     
     database = FirebaseDatabase.getInstance().getReference();
     
-    final EditText nameText = (EditText) findViewById(R.id.nameform);
-    final EditText emailText = (EditText) findViewById(R.id.emailform);
-    final EditText passwordText = (EditText) findViewById(R.id.passform);
-    final EditText ageText = (EditText) findViewById(R.id.agef);
-    final EditText weightText = (EditText) findViewById(R.id.weightf);
-    final EditText heightText = (EditText) findViewById(R.id.heightf);
+    nameText = (EditText) findViewById(R.id.nameform);
+    emailText = (EditText) findViewById(R.id.emailform);
+    passwordText = (EditText) findViewById(R.id.passform);
+    checkPasswordText = (EditText) findViewById(R.id.cform);
+    ageText = (EditText) findViewById(R.id.agef);
+    weightText = (EditText) findViewById(R.id.weightf);
+    heightText = (EditText) findViewById(R.id.heightf);
     
     Button register = (Button) findViewById(R.id.register);
     
     register.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick (View view) {
-        createAccount(nameText.getText().toString(),
-                      emailText.getText().toString(),
-                      passwordText.getText().toString(),
-                      Integer.parseInt(ageText.getText().toString()),
-                      Integer.parseInt(weightText.getText().toString()),
-                      Integer.parseInt(heightText.getText().toString()));
-        Intent StartPageIntent = new Intent(SignupPage.this, MainActivity.class);
-        startActivity(StartPageIntent);
+        if (createAccount(nameText.getText().toString(),
+                          emailText.getText().toString(),
+                          passwordText.getText().toString(),
+                          checkPasswordText.getText().toString(),
+                          Integer.parseInt(ageText.getText().toString()),
+                          Integer.parseInt(weightText.getText().toString()),
+                          Integer.parseInt(heightText.getText().toString()))) {
+          Intent StartPageIntent = new Intent(SignupPage.this, MainActivity.class);
+          startActivity(StartPageIntent);
+        }
       }
     });
     
   }
   
-  private void createAccount (String name, String email, String password, int age, int weight,
-                              int height) {
+  private boolean createAccount (String name, String email, String password, String checkPassword,
+                                 int age, int weight, int height) {
     
-    SignupPage newuser = new SignupPage(name, email, password, age, weight, height);
+    SignupPage newuser = new SignupPage(name, email, password, checkPassword, age, weight, height);
+    
+    if (!validateForm(newuser)) {
+      return false;
+    }
+    
     String user_id = database.child("users").push().getKey();
-    Map<String, Object> postValues = newuser.toMap();
-  
+    Map<String, Object> userValue = newuser.toMap();
+    
     Map<String, Object> childUpdates = new HashMap<>();
-    childUpdates.put("/users/" + user_id, postValues);
+    childUpdates.put("/users/" + user_id, userValue);
     
     database.updateChildren(childUpdates);
-
+    return true;
   }
   
   @Exclude
-  public Map<String, Object> toMap() {
+  public Map<String, Object> toMap () {
     HashMap<String, Object> result = new HashMap<>();
     result.put("name", name);
     result.put("email", email);
@@ -97,6 +125,67 @@ public class SignupPage extends AppCompatActivity {
     
     return result;
   }
+  
+  public boolean validateForm (final SignupPage newuser) {
+  
+    final boolean[] validate = {true};
+  
+    if (newuser.password != null) {
+      Query query = database.child("users").orderByChild("email").equalTo(newuser.email);
+      query.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+          if (dataSnapshot.exists()) {
+            emailText.setError("Email already exist");
+            validate[0] = false;
+          }
+        }
+      
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+        
+        }
+      });
+    } else {
+      passwordText.setError("Field is empty");
+      validate[0] = false;
+    }
+  
+    if (!isValidEmailAddress(newuser.email)){
+      emailText.setError("Invalid email");
+      validate[0] = false;
+    }
+  
+    if (!Objects.equals(newuser.password, newuser.checkPassword)) {
+      passwordText.setError("Password does not match");
+      validate[0] = false;
+    }
+    
+    if (newuser.age < 1 || newuser.age > 100) {
+      ageText.setError("Invalid age. Please enter a value between 1 to 100");
+      validate[0] = false;
+    }
+    
+    if (newuser.weight < 1 || newuser.weight > 300) {
+      weightText.setError("Invalid weight. Please enter a value between 1 to 300");
+      validate[0] = false;
+    }
+    
+    if (newuser.height < 100 || newuser.height > 250) {
+      heightText.setError("Invalid height. Please enter a value between 100 to 250");
+      validate[0] = false;
+    }
+    
+    return validate[0];
+  }
+  
+  public boolean isValidEmailAddress(String email) {
+    String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+    java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+    java.util.regex.Matcher m = p.matcher(email);
+    return m.matches();
+  }
+  
 }
 
 
