@@ -18,7 +18,9 @@ public class MainActivity extends AppCompatActivity {
     Button DecBtn;
     Button ResetBtn;
     TextView progress;
+    TextView coins;
     int progress_value = 0;
+    int coins_amount=0;
     CircleProgressBar Goal;
 
     @Override
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         DecBtn = (Button) findViewById(R.id.DecBtn);
         ResetBtn = (Button) findViewById(R.id.ResetBtn);
         progress = (TextView) findViewById(R.id.Progress);
+        coins = (TextView) findViewById(R.id.amount);
 
         ResetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,9 +63,12 @@ public class MainActivity extends AppCompatActivity {
                 if (progress_value != 1000)
                     progress_value++;
                 progress.setText(Integer.toString(progress_value));
+                if (progress_value == 1000) {
+                    coins_amount++;
+                    coins.setText(Integer.toString(coins_amount));
+                }
                 return false;
             }
-
             public boolean performClick() {
                 return true;
             }
