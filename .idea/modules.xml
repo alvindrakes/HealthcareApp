@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HealthcareApps.iml" filepath="$PROJECT_DIR$/HealthcareApps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HealthcareApp.iml" filepath="$PROJECT_DIR$/HealthcareApp.iml" />
+      <module fileurl="file://C:\Users\super\Desktop\Computer Science\SE Project\HealthcareApp\HealthcareApps.iml" filepath="C:\Users\super\Desktop\Computer Science\SE Project\HealthcareApp\HealthcareApps.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

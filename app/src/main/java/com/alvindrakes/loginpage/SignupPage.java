@@ -42,8 +42,10 @@ public class SignupPage extends AppCompatActivity {
   private int age;
   private int weight;
   private int height;
+  private int steps;
   
   DatabaseReference database;
+  FirebaseAuth auth;
   
   EditText nameText;
   EditText emailText;
@@ -71,12 +73,15 @@ public class SignupPage extends AppCompatActivity {
     this.age = age;
     this.weight = weight;
     this.height = height;
+    this.steps = 0;
   }
   
   @Override
   protected void onCreate (Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.signup);
+    
+    auth = FirebaseAuth.getInstance();
     
     database = FirebaseDatabase.getInstance().getReference();
     
@@ -106,59 +111,35 @@ public class SignupPage extends AppCompatActivity {
           weightText.setError("Field is empty");
         } else if (TextUtils.isEmpty(heightText.getText().toString())) {
           heightText.setError("Field is empty");
-        } else if (createAccount(nameText.getText().toString(),
-                                 emailText.getText().toString(),
-                                 passwordText.getText().toString(),
-                                 checkPasswordText.getText().toString(),
-                                 Integer.parseInt(ageText.getText().toString()),
-                                 Integer.parseInt(weightText.getText().toString()),
-                                 Integer.parseInt(heightText.getText().toString()))) {
-          
-          Intent StartPageIntent = new Intent(SignupPage.this, MainActivity.class);
-          startActivity(StartPageIntent);
+        } else {
+          createAccount(nameText.getText().toString(),
+                        emailText.getText().toString(),
+                        passwordText.getText().toString(),
+                        checkPasswordText.getText().toString(),
+                        Integer.parseInt(ageText.getText().toString()),
+                        Integer.parseInt(weightText.getText().toString()),
+                        Integer.parseInt(heightText.getText().toString()));
         }
       }
     });
     
   }
   
-  private boolean createAccount (String name,
-                                 String email,
-                                 String password,
-                                 String checkPassword,
-                                 int age,
-                                 int weight,
-                                 int height) {
+  private void createAccount (String name,
+                              String email,
+                              String password,
+                              String checkPassword,
+                              int age,
+                              int weight,
+                              int height) {
     
     SignupPage newuser = new SignupPage(name, email, password, checkPassword, age, weight, height);
     
     if (!validateForm(newuser)) {
-      return false;
+      return;
     }
-  
+    
     authenticateAccount(email, password, newuser);
-    
-    String user_id = database.child("users").push().getKey();
-    Map<String, Object> userValue = newuser.toMap();
-    
-    Map<String, Object> childUpdates = new HashMap<>();
-    childUpdates.put("/users/" + user_id, userValue);
-    
-    database.updateChildren(childUpdates);
-    return true;
-  }
-  
-  @Exclude
-  public Map<String, Object> toMap () {
-    HashMap<String, Object> result = new HashMap<>();
-    result.put("name", name);
-    result.put("email", email);
-    result.put("password", password);
-    result.put("age", age);
-    result.put("weight", weight);
-    result.put("height", height);
-    
-    return result;
   }
   
   public boolean validateForm (final SignupPage newuser) {
@@ -168,22 +149,6 @@ public class SignupPage extends AppCompatActivity {
     if (!EmailValidator.getInstance().isValid(newuser.email)) {
       emailText.setError("Invalid email");
       validate[0] = false;
-    } else {
-      Query query = database.child("users").orderByChild("email").equalTo(newuser.email);
-      query.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange (DataSnapshot dataSnapshot) {
-          if (dataSnapshot.exists()) {
-            emailText.setError("Email already exist");
-            validate[0] = false;
-          }
-        }
-        
-        @Override
-        public void onCancelled (DatabaseError databaseError) {
-        
-        }
-      });
     }
     
     if ((newuser.password).length() < 6) {
@@ -216,19 +181,50 @@ public class SignupPage extends AppCompatActivity {
   }
   
   private void authenticateAccount (String email, String password, SignupPage newuser) {
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    System.out.println("BBB");
+    final SignupPage userAccount = newuser;
     auth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
           @Override
           public void onComplete (@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
+              
+              FirebaseUser user = auth.getCurrentUser();
+              
+              Map<String, Object> userValue = userAccount.toMap();
+              
+              Map<String, Object> childUpdates = new HashMap<>();
+              childUpdates.put("/users/" + user.getUid(), userValue);
+              
+              database.updateChildren(childUpdates);
+              
               Log.d("EmailPassword", "createUserWithEmail:success");
+              Toast.makeText(SignupPage.this, "Account created", Toast.LENGTH_SHORT).show();
+              Intent StartPageIntent = new Intent(SignupPage.this, MainActivity.class);
+              startActivity(StartPageIntent);
             } else {
               Log.w("EmailPassword", "createUserWithEmail:failure", task.getException());
+              Toast.makeText(SignupPage.this, "Failed to create account", Toast.LENGTH_SHORT)
+                  .show();
+              emailText.setError("Email already exist");
             }
             
           }
         });
+  }
+  
+  @Exclude
+  public Map<String, Object> toMap () {
+    HashMap<String, Object> result = new HashMap<>();
+    result.put("name", name);
+    result.put("email", email);
+    result.put("password", password);
+    result.put("age", age);
+    result.put("weight", weight);
+    result.put("height", height);
+    result.put("steps", steps);
+    
+    return result;
   }
 }
 
