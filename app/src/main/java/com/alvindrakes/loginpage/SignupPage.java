@@ -35,14 +35,6 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 public class SignupPage extends AppCompatActivity {
   
-  private String name;
-  private String email;
-  private String password;
-  private String checkPassword;
-  private int age;
-  private int weight;
-  private int height;
-  private int steps;
   
   DatabaseReference database;
   FirebaseAuth auth;
@@ -57,23 +49,6 @@ public class SignupPage extends AppCompatActivity {
   
   public SignupPage () {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
-  }
-  
-  public SignupPage (String name,
-                     String email,
-                     String password,
-                     String checkPassword,
-                     int age,
-                     int weight,
-                     int height) {
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.checkPassword = checkPassword;
-    this.age = age;
-    this.weight = weight;
-    this.height = height;
-    this.steps = 0;
   }
   
   @Override
@@ -112,91 +87,86 @@ public class SignupPage extends AppCompatActivity {
         } else if (TextUtils.isEmpty(heightText.getText().toString())) {
           heightText.setError("Field is empty");
         } else {
-          createAccount(nameText.getText().toString(),
-                        emailText.getText().toString(),
-                        passwordText.getText().toString(),
-                        checkPasswordText.getText().toString(),
-                        Integer.parseInt(ageText.getText().toString()),
-                        Integer.parseInt(weightText.getText().toString()),
-                        Integer.parseInt(heightText.getText().toString()));
+          User user = new User(nameText.getText().toString(),
+                               emailText.getText().toString(),
+                               passwordText.getText().toString(),
+                               Integer.parseInt(ageText.getText().toString()),
+                               Integer.parseInt(weightText.getText().toString()),
+                               Integer.parseInt(heightText.getText().toString()));
+          
+          createAccount(user);
         }
       }
     });
     
   }
   
-  private void createAccount (String name,
-                              String email,
-                              String password,
-                              String checkPassword,
-                              int age,
-                              int weight,
-                              int height) {
+  private void createAccount (User user) {
     
-    SignupPage newuser = new SignupPage(name, email, password, checkPassword, age, weight, height);
-    
-    if (!validateForm(newuser)) {
+    if (!validateForm(user)) {
       return;
     }
     
-    authenticateAccount(email, password, newuser);
+    authenticateAccount(user);
   }
   
-  public boolean validateForm (final SignupPage newuser) {
+  public boolean validateForm (final User user) {
     
     final boolean[] validate = {true};
     
-    if (!EmailValidator.getInstance().isValid(newuser.email)) {
+    if (!EmailValidator.getInstance().isValid(user.getEmail())) {
       emailText.setError("Invalid email");
       validate[0] = false;
     }
     
-    if ((newuser.password).length() < 6) {
+    if ((user.getPassword()).length() < 6) {
       passwordText.setError("Must be at least 6 characters long");
       validate[0] = false;
     }
     
-    if (!Objects.equals(newuser.password, newuser.checkPassword)) {
+    if (!Objects.equals(user.getPassword(), checkPasswordText.getText().toString())) {
       checkPasswordText.setError("Password does not match");
       validate[0] = false;
     }
     
-    if (newuser.age < 1 || newuser.age > 100) {
+    if (user.getAge() < 1 || user.getAge() > 100) {
       ageText.setError("Invalid age. Please enter a value between 1 to 100");
       validate[0] = false;
     }
     
-    if (newuser.weight < 1 || newuser.weight > 300) {
+    if (user.getWeight() < 1 || user.getWeight() > 300) {
       weightText.setError("Invalid weight. Please enter a value between 1 to 300");
       validate[0] = false;
     }
     
-    if (newuser.height < 100 || newuser.height > 250) {
+    if (user.getHeight() < 100 || user.getHeight() > 250) {
       heightText.setError("Invalid height. Please enter a value between 100 to 250");
       validate[0] = false;
     }
     
-    
     return validate[0];
   }
   
-  private void authenticateAccount (String email, String password, SignupPage newuser) {
-    System.out.println("BBB");
-    final SignupPage userAccount = newuser;
-    auth.createUserWithEmailAndPassword(email, password)
+  private void authenticateAccount (final User user) {
+    
+    auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
           @Override
           public void onComplete (@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
               
-              FirebaseUser user = auth.getCurrentUser();
+              FirebaseUser firebaseUser = auth.getCurrentUser();
+  
+              database.child("users").child(firebaseUser.getUid()).setValue(user);
               
-              Map<String, Object> userValue = userAccount.toMap();
+/*
+              Map<String, Object> userValue = toMap(user);
               
               Map<String, Object> childUpdates = new HashMap<>();
-              childUpdates.put("/users/" + user.getUid(), userValue);
+              childUpdates.put("/users/" + firebaseUser.getUid(), userValue);
               
               database.updateChildren(childUpdates);
+*/
               
               Log.d("EmailPassword", "createUserWithEmail:success");
               Toast.makeText(SignupPage.this, "Account created", Toast.LENGTH_SHORT).show();
@@ -214,15 +184,15 @@ public class SignupPage extends AppCompatActivity {
   }
   
   @Exclude
-  public Map<String, Object> toMap () {
+  public Map<String, Object> toMap (User user) {
     HashMap<String, Object> result = new HashMap<>();
-    result.put("name", name);
-    result.put("email", email);
-    result.put("password", password);
-    result.put("age", age);
-    result.put("weight", weight);
-    result.put("height", height);
-    result.put("steps", steps);
+    result.put("name", user.getName());
+    result.put("email", user.getEmail());
+    result.put("password", user.getPassword());
+    result.put("age", user.getAge());
+    result.put("weight", user.getWeight());
+    result.put("height", user.getHeight());
+    result.put("steps", user.getSteps());
     
     return result;
   }
