@@ -35,7 +35,6 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 public class SignupPage extends AppCompatActivity {
   
-  
   DatabaseReference database;
   FirebaseAuth auth;
   
@@ -158,16 +157,7 @@ public class SignupPage extends AppCompatActivity {
               FirebaseUser firebaseUser = auth.getCurrentUser();
   
               database.child("users").child(firebaseUser.getUid()).setValue(user);
-              
-/*
-              Map<String, Object> userValue = toMap(user);
-              
-              Map<String, Object> childUpdates = new HashMap<>();
-              childUpdates.put("/users/" + firebaseUser.getUid(), userValue);
-              
-              database.updateChildren(childUpdates);
-*/
-              
+
               Log.d("EmailPassword", "createUserWithEmail:success");
               Toast.makeText(SignupPage.this, "Account created", Toast.LENGTH_SHORT).show();
               Intent StartPageIntent = new Intent(SignupPage.this, MainActivity.class);
@@ -183,19 +173,6 @@ public class SignupPage extends AppCompatActivity {
         });
   }
   
-  @Exclude
-  public Map<String, Object> toMap (User user) {
-    HashMap<String, Object> result = new HashMap<>();
-    result.put("name", user.getName());
-    result.put("email", user.getEmail());
-    result.put("password", user.getPassword());
-    result.put("age", user.getAge());
-    result.put("weight", user.getWeight());
-    result.put("height", user.getHeight());
-    result.put("steps", user.getSteps());
-    
-    return result;
-  }
 }
 
 
