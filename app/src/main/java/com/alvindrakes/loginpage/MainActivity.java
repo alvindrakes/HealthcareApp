@@ -1,6 +1,7 @@
 package com.alvindrakes.loginpage;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button IncBtn;
     Button DecBtn;
     Button ResetBtn;
+    Button AccountBtn;
     TextView progress;
     TextView coins;
     int progress_value = 0;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         IncBtn = (Button) findViewById(R.id.IncBtn);
         DecBtn = (Button) findViewById(R.id.DecBtn);
         ResetBtn = (Button) findViewById(R.id.ResetBtn);
+        AccountBtn = (Button) findViewById(R.id.go_to_account_details);
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
 
@@ -82,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
                     progress_value--;
                 progress.setText(Integer.toString(progress_value));
                 return false;
+            }
+        });
+        
+        AccountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                Intent AccountIntent = new Intent(MainActivity.this, Account.class);
+                startActivity(AccountIntent);
             }
         });
     }

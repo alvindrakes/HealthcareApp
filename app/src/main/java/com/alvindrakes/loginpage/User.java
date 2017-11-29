@@ -1,5 +1,12 @@
 package com.alvindrakes.loginpage;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 /**
  * Created by super on 11/26/2017.
  */
@@ -13,13 +20,12 @@ public class User {
   private int weight;
   private int height;
   private int steps;
+  private int coin;
   
-  public User (String name,
-               String email,
-               String password,
-               int age,
-               int weight,
-               int height) {
+  public User () {
+  }
+  
+  public User (String name, String email, String password, int age, int weight, int height) {
     this.name = name;
     this.email = email;
     this.password = password;
@@ -27,14 +33,7 @@ public class User {
     this.weight = weight;
     this.height = height;
     this.steps = 0;
-  }
-  
-  public void setName (String name) {
-    this.name = name;
-  }
-  
-  public void setPassword (String password) {
-    this.password = password;
+    this.coin = 0;
   }
   
   public void setAge (int age) {
@@ -47,10 +46,6 @@ public class User {
   
   public void setHeight (int height) {
     this.height = height;
-  }
-  
-  public void setSteps (int steps) {
-    this.steps = steps;
   }
   
   public String getName () {
@@ -79,5 +74,20 @@ public class User {
   
   public int getSteps () {
     return steps;
+  }
+  
+  public int getCoin () {
+    return coin;
+  }
+  
+  public static void updateData (User user) {
+    
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    
+    FirebaseDatabase.getInstance()
+        .getReference()
+        .child("users")
+        .child(firebaseUser.getUid())
+        .setValue(user);
   }
 }

@@ -109,41 +109,41 @@ public class SignupPage extends AppCompatActivity {
     authenticateAccount(user);
   }
   
-  public boolean validateForm (final User user) {
+  public boolean validateForm (User user) {
     
-    final boolean[] validate = {true};
+    boolean validate = true;
     
     if (!EmailValidator.getInstance().isValid(user.getEmail())) {
       emailText.setError("Invalid email");
-      validate[0] = false;
+      validate = false;
     }
     
     if ((user.getPassword()).length() < 6) {
       passwordText.setError("Must be at least 6 characters long");
-      validate[0] = false;
+      validate = false;
     }
     
     if (!Objects.equals(user.getPassword(), checkPasswordText.getText().toString())) {
       checkPasswordText.setError("Password does not match");
-      validate[0] = false;
+      validate = false;
     }
     
     if (user.getAge() < 1 || user.getAge() > 100) {
       ageText.setError("Invalid age. Please enter a value between 1 to 100");
-      validate[0] = false;
+      validate = false;
     }
     
     if (user.getWeight() < 1 || user.getWeight() > 300) {
       weightText.setError("Invalid weight. Please enter a value between 1 to 300");
-      validate[0] = false;
+      validate = false;
     }
     
     if (user.getHeight() < 100 || user.getHeight() > 250) {
       heightText.setError("Invalid height. Please enter a value between 100 to 250");
-      validate[0] = false;
+      validate = false;
     }
     
-    return validate[0];
+    return validate;
   }
   
   private void authenticateAccount (final User user) {
@@ -154,9 +154,7 @@ public class SignupPage extends AppCompatActivity {
           public void onComplete (@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
               
-              FirebaseUser firebaseUser = auth.getCurrentUser();
-  
-              database.child("users").child(firebaseUser.getUid()).setValue(user);
+              User.updateData(user);
 
               Log.d("EmailPassword", "createUserWithEmail:success");
               Toast.makeText(SignupPage.this, "Account created", Toast.LENGTH_SHORT).show();
