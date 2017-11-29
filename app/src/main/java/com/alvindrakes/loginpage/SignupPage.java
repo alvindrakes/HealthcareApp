@@ -86,12 +86,12 @@ public class SignupPage extends AppCompatActivity {
         } else if (TextUtils.isEmpty(heightText.getText().toString())) {
           heightText.setError("Field is empty");
         } else {
-          User user = new User(nameText.getText().toString(),
-                               emailText.getText().toString(),
+          User user = new User(nameText.getText().toString().trim(),
+                               emailText.getText().toString().trim(),
                                passwordText.getText().toString(),
-                               Integer.parseInt(ageText.getText().toString()),
-                               Integer.parseInt(weightText.getText().toString()),
-                               Integer.parseInt(heightText.getText().toString()));
+                               Integer.parseInt(ageText.getText().toString().trim()),
+                               Integer.parseInt(weightText.getText().toString().trim()),
+                               Integer.parseInt(heightText.getText().toString().trim()));
           
           createAccount(user);
         }

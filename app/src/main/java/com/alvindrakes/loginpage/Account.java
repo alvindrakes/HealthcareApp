@@ -153,7 +153,7 @@ public class Account extends AppCompatActivity {
     
     boolean validate = true;
     
-    int age = Integer.parseInt(ageInfoEdit.getText().toString());
+    int age = Integer.parseInt(ageInfoEdit.getText().toString().trim());
     if (age < 1 || age > 100) {
       ageInfoEdit.setError("Invalid age. Please enter a value between 1 to 100");
       validate = false;
@@ -161,7 +161,7 @@ public class Account extends AppCompatActivity {
       user.setAge(age);
     }
     
-    int weight = Integer.parseInt(weightInfoEdit.getText().toString());
+    int weight = Integer.parseInt(weightInfoEdit.getText().toString().trim());
     if (weight < 1 || weight > 300) {
       weightInfoEdit.setError("Invalid weight. Please enter a value between 1 to 300");
       validate = false;
@@ -169,7 +169,7 @@ public class Account extends AppCompatActivity {
       user.setWeight(weight);
     }
     
-    int height = Integer.parseInt(heightInfoEdit.getText().toString());
+    int height = Integer.parseInt(heightInfoEdit.getText().toString().trim());
     if (height < 100 || height > 250) {
       heightInfoEdit.setError("Invalid height. Please enter a value between 100 to 250");
       validate = false;
