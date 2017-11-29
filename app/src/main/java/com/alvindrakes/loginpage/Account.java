@@ -66,6 +66,9 @@ public class Account extends AppCompatActivity {
       public void onClick (View v) {
         insertData();
         updatingData();
+        ageInfoEdit.setError(null);
+        weightInfoEdit.setError(null);
+        heightInfoEdit.setError(null);
       }
     });
     
