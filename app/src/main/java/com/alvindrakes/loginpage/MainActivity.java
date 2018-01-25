@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.store);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent StartPageIntent = new Intent(MainActivity.this, Store.class);
+                startActivity(StartPageIntent);
             }
         });
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="259dp"
+        android:layout_height="171dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/test"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="92dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="259dp"
+        android:layout_height="171dp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/test"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="283dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/close_store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="23dp"
+        android:layout_toEndOf="@+id/imageView2"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/btn_dialog" />
+
+    <ImageView
+        android:id="@+id/coin2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/close_store"
+        android:layout_alignParentTop="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/amount2"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/coin2"
+        android:text="0"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/coin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="259dp"
+        android:layout_height="171dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="18dp"
+        app:srcCompat="@drawable/test" />
+</android.widget.RelativeLayout>
