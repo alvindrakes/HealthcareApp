@@ -6,29 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.alvindrakes.loginpage.MainActivity"
+    tools:layout_editor_absoluteY="25dp"
     tools:showIn="@layout/activity_main">
 
 
     <Button
-        android:id="@+id/DecBtn"
+        android:id="@+id/SaveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:layout_marginLeft="45dp"
-        android:text="-"
-        app:layout_constraintBottom_toTopOf="@+id/ResetBtn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1" />
-
-    <Button
-        android:id="@+id/ResetBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="69dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="8dp"
-        android:text="Reset"
+        android:layout_marginBottom="80dp"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,12 +26,11 @@
         android:id="@+id/IncBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="45dp"
+        android:layout_marginBottom="28dp"
         android:text="+"
-        app:layout_constraintBottom_toBottomOf="@+id/DecBtn"
+        app:layout_constraintBottom_toTopOf="@+id/SaveBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/DecBtn"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
@@ -53,9 +39,10 @@
         android:id="@+id/Progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="84dp"
         android:text="0"
         android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,11 +50,12 @@
     <com.alvindrakes.loginpage.CircleProgressBar
         android:id="@+id/DailyGoal"
         android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
+        android:layout_height="338dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:progress="0"
         app:progressBarThickness="4dp" />
@@ -76,9 +64,9 @@
         android:id="@+id/steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="140dp"
         android:text="STEPS"
-        app:layout_constraintTop_toBottomOf="@+id/Progress"
+        app:layout_constraintTop_toTopOf="parent"
         custom:layout_constraintLeft_toLeftOf="parent"
         custom:layout_constraintRight_toRightOf="parent" />
 
@@ -86,17 +74,18 @@
         android:id="@+id/coin"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         custom:srcCompat="@drawable/coin" />
 
     <TextView
         android:id="@+id/amount"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:text="0"
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/coin"
@@ -107,10 +96,61 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="16dp"
         android:text="Account Details"
         app:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/heartView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:text="HeartBeat: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/heartData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:inputType="number"
+        android:text="80"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/heartView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Day : "
+        app:layout_constraintLeft_toLeftOf="parent"
+        custom:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dayValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@+id/dayText"
+        custom:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

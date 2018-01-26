@@ -4,35 +4,66 @@ package com.alvindrakes.loginpage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
     Button IncBtn;
-    Button DecBtn;
-    Button ResetBtn;
+    Button SaveBtn;
     Button AccountBtn;
     TextView progress;
     TextView coins;
-    int progress_value = 0;
-    int coins_amount=0;
+    TextView dayValue;
+    EditText heartData;
+    
     CircleProgressBar Goal;
-
+    
+    User user;
+    FirebaseUser firebaseUser;
+    
+    StatisticData data = new StatisticData();
+    
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-
-
+    
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    user = dataSnapshot.getValue(User.class);
+                    dayValue.setText(Integer.toString(user.getDay()));
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                }
+            });
+        
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.store);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,47 +75,47 @@ public class MainActivity extends AppCompatActivity {
 
         Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
         IncBtn = (Button) findViewById(R.id.IncBtn);
-        DecBtn = (Button) findViewById(R.id.DecBtn);
-        ResetBtn = (Button) findViewById(R.id.ResetBtn);
+        SaveBtn = (Button) findViewById(R.id.SaveBtn);
         AccountBtn = (Button) findViewById(R.id.go_to_account_details);
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
-
-        ResetBtn.setOnClickListener(new View.OnClickListener() {
+        dayValue = (TextView) findViewById(R.id.dayValue);
+        heartData = (EditText) findViewById(R.id.heartData);
+        
+        SaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progress_value = 0;
+                data.setHeartData(Integer.parseInt(heartData.getText().toString().trim()));
+                StatisticData.updateData(data,user.getDay(),user.getCoin());
+                
+                data.setSteps(0);
                 Goal.setProgress(0);
-                progress.setText(Integer.toString(progress_value));
+                progress.setText(Integer.toString(data.getSteps()));
+                
+                user.setDay(user.getDay()+1);
+                
+                Log.d("Status", "Save success");
+                Toast.makeText(MainActivity.this, "Save successfully.", Toast.LENGTH_SHORT).show();
             }
         });
 
         IncBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                Goal.setProgress(progress_value);
-                if (progress_value != 1000)
-                    progress_value++;
-                progress.setText(Integer.toString(progress_value));
-                if (progress_value == 1000) {
-                    coins_amount++;
-                    coins.setText(Integer.toString(coins_amount));
+                data.setSteps(data.getSteps()+1);
+                progress.setText(Integer.toString(data.getSteps()));
+    
+                if (data.getSteps() < 1000){
+                    Goal.setProgress(data.getSteps());
+                }
+                else {
+                    user.setCoin(user.getCoin() + 1);
+                    coins.setText(Integer.toString(user.getCoin()));
                 }
                 return false;
             }
             public boolean performClick() {
                 return true;
-            }
-        });
-
-        DecBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                Goal.setProgress(progress_value);
-                if (progress_value != 0)
-                    progress_value--;
-                progress.setText(Integer.toString(progress_value));
-                return false;
             }
         });
         
