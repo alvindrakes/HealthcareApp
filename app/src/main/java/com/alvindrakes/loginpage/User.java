@@ -93,26 +93,17 @@ public class User {
     
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     
-    Map<String, Object> userValues = toMap(user);
-  
     Map<String, Object> childUpdates = new HashMap<>();
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/", userValues);
-  
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/name/", user.getName());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/email/", user.getEmail());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/password/", user.getPassword());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/age/", user.getAge());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/weight/", user.getWeight());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/height/", user.getHeight());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", user.getCoin());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/day/", user.getDay());
+
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
   }
   
-  @Exclude
-  private static Map<String, Object> toMap (User user) {
-    HashMap<String, Object> result = new HashMap<>();
-    result.put("name", user.getName());
-    result.put("email", user.getEmail());
-    result.put("password", user.getPassword());
-    result.put("age", user.getAge());
-    result.put("weight", user.getWeight());
-    result.put("height", user.getHeight());
-    result.put("coin", user.getCoin());
-    result.put("day", user.getDay());
-    
-    return result;
-  }
 }

@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange (DataSnapshot dataSnapshot) {
                     user = dataSnapshot.getValue(User.class);
                     dayValue.setText(Integer.toString(user.getDay()));
+                    coins.setText(Integer.toString(user.getCoin()));
                 }
             
                 @Override
