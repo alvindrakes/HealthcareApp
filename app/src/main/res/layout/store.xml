@@ -10,8 +10,8 @@
         android:id="@+id/imageView"
         android:layout_width="259dp"
         android:layout_height="171dp"
+        android:layout_alignStart="@+id/imageView2"
         android:layout_below="@+id/imageView3"
-        android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/test"
         tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="92dp" />
@@ -20,8 +20,9 @@
         android:id="@+id/imageView2"
         android:layout_width="259dp"
         android:layout_height="171dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="18dp"
         app:srcCompat="@drawable/test"
         tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="283dp" />
@@ -30,9 +31,9 @@
         android:id="@+id/close_store"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/button4"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="23dp"
-        android:layout_toEndOf="@+id/imageView2"
+        android:layout_marginBottom="21dp"
         android:clickable="true"
         app:srcCompat="@android:drawable/btn_dialog" />
 
@@ -65,4 +66,30 @@
         android:layout_alignStart="@+id/imageView"
         android:layout_marginTop="18dp"
         app:srcCompat="@drawable/test" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView"
+        android:layout_marginBottom="54dp"
+        android:layout_toEndOf="@+id/imageView3"
+        android:text="50" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/imageView"
+        android:text="100" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/close_store"
+        android:layout_alignEnd="@+id/button3"
+        android:layout_marginBottom="40dp"
+        android:text="200" />
 </android.widget.RelativeLayout>

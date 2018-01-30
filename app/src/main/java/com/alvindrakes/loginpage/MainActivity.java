@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     TextView coins;
     TextView dayValue;
     EditText heartData;
-    
     CircleProgressBar Goal;
     
     User user;
@@ -101,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
             public void onClick(View view) {
                 data.setHeartData(Integer.parseInt(heartData.getText().toString().trim()));
                 StatisticData.updateData(data,user.getDay(),user.getCoin());
-                
                 data.setSteps(0);
                 Goal.setProgress(0);
                 progress.setText(Integer.toString(data.getSteps()));
