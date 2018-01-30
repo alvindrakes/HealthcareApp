@@ -31,8 +31,8 @@ public class Store extends MainActivity{
                 startActivity(StartPageIntent);
             }
         });
-        //user.getCoin();
-        //coin.setText(Integer.toString(user.getCoin()));
+        int value= getIntent().getExtras().getInt("coin");
+        coin.setText(Integer.toString(value));
         Button price_1 = (Button) findViewById(R.id.button2);
         Button price_2 = (Button) findViewById(R.id.button3);
         Button price_3 = (Button) findViewById(R.id.button4);

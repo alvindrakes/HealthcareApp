@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     TextView coins;
     TextView dayValue;
     EditText heartData;
-    
     CircleProgressBar Goal;
     
     User user;
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent StartPageIntent = new Intent(MainActivity.this, Store.class);
+                StartPageIntent.putExtra("coin",user.getCoin());
                 startActivity(StartPageIntent);
             }
         });
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 data.setHeartData(Integer.parseInt(heartData.getText().toString().trim()));
                 StatisticData.updateData(data,user.getDay(),user.getCoin());
-                
                 data.setSteps(0);
                 Goal.setProgress(0);
                 progress.setText(Integer.toString(data.getSteps()));
