@@ -21,16 +21,27 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.DataPoint;
+import com.google.android.gms.fitness.data.DataSource;
+import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.data.Field;
+import com.google.android.gms.fitness.data.Value;
+import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
+import com.google.android.gms.fitness.request.SensorRequest;
+import com.google.android.gms.fitness.result.DataSourcesResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
@@ -191,8 +202,46 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
     //Abstract methods from GoogleApi's interfaces
     @Override
-    public void onConnected(@Nullable Bundle bundle) {
+    public void onConnected(Bundle bundle) {
+        DataSourcesRequest dataSourceRequest = new DataSourcesRequest.Builder()
+                .setDataTypes( DataType.TYPE_STEP_COUNT_CUMULATIVE )
+                .setDataSourceTypes( DataSource.TYPE_DERIVED )
+                .build();
 
+        ResultCallback<DataSourcesResult> dataSourcesResultCallback = new ResultCallback<DataSourcesResult>() {
+            @Override
+            public void onResult(DataSourcesResult dataSourcesResult) {
+                for( DataSource dataSource : dataSourcesResult.getDataSources() ) {
+                    if( DataType.TYPE_STEP_COUNT_CUMULATIVE.equals( dataSource.getDataType() ) ) {
+                        registerFitnessDataListener(dataSource, DataType.TYPE_STEP_COUNT_CUMULATIVE);
+                    }
+                }
+            }
+        };
+
+        Fitness.SensorsApi.findDataSources(mApiClient, dataSourceRequest)
+                .setResultCallback(dataSourcesResultCallback);
+    }
+
+
+    //method to find step count every 3 seconds, when new data is available,listener is triggered;If no new data is found, the OnDataPointListener is not triggered and the Fitness API waits another three seconds before checking again.
+    private void registerFitnessDataListener(DataSource dataSource, DataType dataType) {
+
+        SensorRequest request = new SensorRequest.Builder()
+                .setDataSource( dataSource )
+                .setDataType( dataType )
+                .setSamplingRate( 3, TimeUnit.SECONDS )
+                .build();
+
+        Fitness.SensorsApi.add( mApiClient, request, this )
+                .setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        if (status.isSuccess()) {
+                            Log.e( "GoogleFit", "SensorApi successfully added" );
+                        }
+                    }
+                });
     }
 
     @Override
@@ -218,9 +267,18 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
             }
     }
 
+    //when a change in counter is detected, loop through the variable and display step counter
     @Override
     public void onDataPoint(DataPoint dataPoint) {
-
+        for( final Field field : dataPoint.getDataType().getFields() ) {
+            final Value value = dataPoint.getValue( field );
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Field: " + field.getName() + " Value: " + value, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     //user either grants application permission to use their data or they close the dialog, canceling the process
@@ -238,5 +296,27 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         } else {
             Log.e("GoogleFit", "requestCode NOT request_oauth");
         }
+    }
+
+    //disconnecting from the SensorApi and Google Play Services when done using them
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Fitness.SensorsApi.remove( mApiClient, this )
+                .setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        if (status.isSuccess()) {
+                            mApiClient.disconnect();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(AUTH_PENDING, authInProgress);
     }
 }
