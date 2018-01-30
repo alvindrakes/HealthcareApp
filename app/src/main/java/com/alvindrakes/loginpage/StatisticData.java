@@ -32,7 +32,7 @@ public class StatisticData {
     this.heartData = heartData;
   }
   
-  public static void updateData (StatisticData data, int day, int coin) {
+  public static void updateData (StatisticData data, int day) {
     
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     
@@ -42,9 +42,18 @@ public class StatisticData {
     
     childUpdates.put("/users/" + firebaseUser.getUid() + "/heartbeat/" + day + "/", data.getHeartData());
     childUpdates.put("/users/" + firebaseUser.getUid() + "/day/", day+1);
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", coin);
-    
     
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
+  }
+  
+  public static void updateCoin (int coin){
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+  
+    Map<String, Object> childUpdates = new HashMap<>();
+  
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", coin);
+  
+    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
+  
   }
 }

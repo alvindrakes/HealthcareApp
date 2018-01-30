@@ -42,7 +42,7 @@ public class Store extends MainActivity{
               if (user.getCoin()>= 50) {
                   user.setCoin(user.getCoin() - 50);
                   coin.setText(Integer.toString(user.getCoin()));
-                  StatisticData.updateData(data,user.getDay(),user.getCoin());
+                  StatisticData.updateCoin(user.getCoin());
               }
                 else {
                   Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
@@ -56,7 +56,7 @@ public class Store extends MainActivity{
                 if (user.getCoin()>= 100) {
                     user.setCoin(user.getCoin() - 100);
                     coin.setText(Integer.toString(user.getCoin()));
-                    StatisticData.updateData(data,user.getDay(),user.getCoin());
+                    StatisticData.updateCoin(user.getCoin());
                 }
                 else {
                     Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
@@ -70,7 +70,7 @@ public class Store extends MainActivity{
                 if (user.getCoin()>= 200) {
                     user.setCoin(user.getCoin() - 200);
                     coin.setText(Integer.toString(user.getCoin()));
-                    StatisticData.updateData(data,user.getDay(),user.getCoin());
+                    StatisticData.updateCoin(user.getCoin());
                 }
                 else {
                     Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();

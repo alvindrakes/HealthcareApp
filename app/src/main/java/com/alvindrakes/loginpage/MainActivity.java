@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 data.setHeartData(Integer.parseInt(heartData.getText().toString().trim()));
-                StatisticData.updateData(data,user.getDay(),user.getCoin());
+                StatisticData.updateData(data,user.getDay());
+                
                 data.setSteps(0);
                 Goal.setProgress(0);
                 progress.setText(Integer.toString(data.getSteps()));
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     user.setCoin(user.getCoin() + 1);
+                    StatisticData.updateCoin(user.getCoin());
                     coins.setText(Integer.toString(user.getCoin()));
                 }
                 return false;
