@@ -2,6 +2,7 @@ package com.alvindrakes.loginpage;
 
 
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,11 +56,25 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     
     
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+        //Initialize the GoogleApiClient instance by adding the Fitness Sensors API, defining a scope, and registering the application callbacks
+        if (savedInstanceState != null)
+        {
+            authInProgress = savedInstanceState.getBoolean(AUTH_PENDING);
+        }
+
+        mApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Fitness.SENSORS_API)
+                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance()
@@ -162,6 +180,13 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         return super.onOptionsItemSelected(item);
     }
 
+    //connect to Google's backend
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mApiClient.connect();
+    }
+
     //Abstract methods from GoogleApi's interfaces
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -174,12 +199,42 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
+        if( !authInProgress )
+        {
+            try {
+                authInProgress = true;
+                connectionResult.startResolutionForResult( MainActivity.this, REQUEST_OAUTH );
+            } catch(IntentSender.SendIntentException e ) {
 
+            }
+        }
+        else
+            {
+                Log.e( "GoogleFit", "authInProgress" );
+            }
     }
 
     @Override
     public void onDataPoint(DataPoint dataPoint) {
 
+    }
+
+    //user either grants application permission to use their data or they close the dialog, canceling the process
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( requestCode == REQUEST_OAUTH ) {
+            authInProgress = false;
+            if( resultCode == RESULT_OK ) {
+                if( !mApiClient.isConnecting() && !mApiClient.isConnected() ) {
+                    mApiClient.connect();
+                }
+            } else if( resultCode == RESULT_CANCELED ) {
+                Log.e( "GoogleFit", "RESULT_CANCELED" );
+            }
+        } else {
+            Log.e("GoogleFit", "requestCode NOT request_oauth");
+        }
     }
 }
