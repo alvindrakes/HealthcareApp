@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#8A2BE2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,9 +11,10 @@
         android:id="@+id/imageView"
         android:layout_width="259dp"
         android:layout_height="171dp"
-        android:layout_alignStart="@+id/imageView2"
-        android:layout_below="@+id/imageView3"
-        app:srcCompat="@drawable/test"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/todo1"
+        app:srcCompat="@drawable/testimage2"
         tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="92dp" />
 
@@ -20,10 +22,11 @@
         android:id="@+id/imageView2"
         android:layout_width="259dp"
         android:layout_height="171dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView"
-        android:layout_marginStart="18dp"
-        app:srcCompat="@drawable/test"
+        android:layout_alignBottom="@+id/close_store"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginBottom="27dp"
+        android:contentDescription="@string/todo2"
+        app:srcCompat="@drawable/testimage3"
         tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="283dp" />
 
@@ -31,29 +34,32 @@
         android:id="@+id/close_store"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/button4"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="12dp"
+        android:layout_toEndOf="@+id/amount2"
         android:clickable="true"
+        android:focusable="true"
         app:srcCompat="@android:drawable/btn_dialog" />
 
     <ImageView
         android:id="@+id/coin2"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_alignEnd="@+id/close_store"
+        android:layout_alignEnd="@+id/button2"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="21dp"
+        android:contentDescription="@string/todo3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/coinbackground" />
 
     <TextView
         android:id="@+id/amount2"
         android:layout_width="40dp"
         android:layout_height="20dp"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/coin2"
         android:layout_toStartOf="@+id/coin2"
-        android:text="0"
+        android:text="@string/_0"
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/coin"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,19 +68,20 @@
         android:id="@+id/imageView3"
         android:layout_width="259dp"
         android:layout_height="171dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_marginTop="18dp"
-        app:srcCompat="@drawable/test" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/amount2"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/todo4"
+        app:srcCompat="@drawable/testimage" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView"
-        android:layout_marginBottom="54dp"
+        android:layout_below="@+id/coin2"
+        android:layout_marginTop="54dp"
         android:layout_toEndOf="@+id/imageView3"
-        android:text="50" />
+        android:text="@string/_50" />
 
     <Button
         android:id="@+id/button3"
@@ -82,14 +89,14 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/imageView"
-        android:text="100" />
+        android:text="@string/_100" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/close_store"
-        android:layout_alignEnd="@+id/button3"
-        android:layout_marginBottom="40dp"
-        android:text="200" />
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignStart="@+id/button3"
+        android:layout_marginBottom="59dp"
+        android:text="@string/_200" />
 </android.widget.RelativeLayout>

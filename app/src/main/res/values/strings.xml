@@ -10,4 +10,12 @@
     <string name="age">Age:</string>
     <string name="name">Name:</string>
     <string name="account">Account</string>
+    <string name="_0">0</string>
+    <string name="_50">50</string>
+    <string name="_200">200</string>
+    <string name="todo1">TODO</string>
+    <string name="_100">100</string>
+    <string name="todo2">TODO</string>
+    <string name="todo3">TODO</string>
+    <string name="todo4">TODO</string>
 </resources>
