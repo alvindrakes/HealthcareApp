@@ -75,6 +75,7 @@ public class ActivityOfGoogleFit extends AppCompatActivity
     {
         //Start Service and wait for broadcast
         Intent service = new Intent(this, ServiceOfGoogleFit.class);
+
         service.putExtra(ServiceOfGoogleFit.SERVICE_REQUEST_TYPE, ServiceOfGoogleFit.TYPE_GET_STEP_TODAY_DATA);
         startService(service);
     }//end of method handle GetStepsButton

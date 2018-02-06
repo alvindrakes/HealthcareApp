@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -18,6 +19,8 @@ import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.gms.fitness.result.DataReadResult;
+
+import org.apache.commons.beanutils.converters.IntegerConverter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -157,6 +160,7 @@ public class ServiceOfGoogleFit extends IntentService {
     private void publishTodaysStepData(int totalSteps)
     {
         Intent intent = new Intent(HISTORY_INTENT);
+        Toast.makeText(ServiceOfGoogleFit.this, Integer.toString(totalSteps),Toast.LENGTH_SHORT);
         // You can also include some extra data.
         intent.putExtra(HISTORY_EXTRA_STEPS_TODAY, totalSteps);
 
