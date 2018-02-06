@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
                 data.setSteps(data.getSteps()+1);
                 progress.setText(Integer.toString(data.getSteps()));
     
-                if (data.getSteps() < 1000){
+                if (data.getSteps() < 20){
                     Goal.setProgress(data.getSteps());
                 }
                 else {
