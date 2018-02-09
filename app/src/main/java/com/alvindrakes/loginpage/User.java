@@ -26,6 +26,12 @@ public class User {
   public User () {
   }
   
+  public User (String name, String email) {
+    this.name = name;
+    this.email = email;
+    this.day = 1;
+  }
+  
   public User (String name, String email, String password, int age, int weight, int height) {
     this.name = name;
     this.email = email;

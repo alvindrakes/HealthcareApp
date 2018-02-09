@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -34,6 +36,8 @@ import com.google.android.gms.fitness.request.DataSourcesRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     Button IncBtn;
     Button SaveBtn;
     Button AccountBtn;
+    Button signOutBtn;
     TextView progress;
     TextView coins;
     TextView dayValue;
@@ -56,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     
     User user;
     FirebaseUser firebaseUser;
+    GoogleSignInClient googleSignInClient;
     
     StatisticData data = new StatisticData();
 
@@ -88,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
                 .build();
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
@@ -119,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         IncBtn = (Button) findViewById(R.id.IncBtn);
         SaveBtn = (Button) findViewById(R.id.SaveBtn);
         AccountBtn = (Button) findViewById(R.id.go_to_account_details);
+        signOutBtn = (Button) findViewById(R.id.signOutBtn);
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
@@ -169,6 +177,22 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
                 startActivity(AccountIntent);
             }
         });
+  
+      signOutBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick (View v) {
+          FirebaseAuth.getInstance().signOut();
+          googleSignInClient.revokeAccess()
+              .addOnCompleteListener(MainActivity.this, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete (@NonNull Task<Void> task) {
+                  Toast.makeText(MainActivity.this, "Log out successfully", Toast.LENGTH_SHORT).show();
+                  Intent startIntent = new Intent(MainActivity.this, StartPage.class);
+                  startActivity(startIntent);
+                }
+              });
+        }
+      });
     }
 
     @Override
