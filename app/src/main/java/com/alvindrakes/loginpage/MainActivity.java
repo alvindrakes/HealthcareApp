@@ -47,6 +47,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
+import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
+
 public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     Button IncBtn;
@@ -193,6 +195,16 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
               });
         }
       });
+
+      //----------------Game section---------------------------------
+
+      Button LaunchButton = (Button) findViewById(R.id.launchGame);
+
+      LaunchButton.setOnClickListener(new View.OnClickListener() {
+          public void onClick(View v) { GoToUnity(v); }
+      });
+
+      //---------------------------------------------------------------
     }
 
     @Override
@@ -342,5 +354,14 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(AUTH_PENDING, authInProgress);
+    }
+
+
+    // go to game when button is clicked
+    public void GoToUnity(View view)
+    {
+        Intent intent = new Intent(this, UnityPlayerActivity.class);
+        startActivity(intent);
+        System.out.print("Game is running !!!!!!!");
     }
 }
