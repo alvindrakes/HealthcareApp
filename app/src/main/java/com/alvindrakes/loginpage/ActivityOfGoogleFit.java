@@ -38,21 +38,21 @@ public class ActivityOfGoogleFit extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
 
-        mConnectButton = (Button)findViewById(R.id.connectBtn);
-        mConnectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleConnectButton();
-            }
-        });
-
-        mGetStepsButton = (Button)findViewById(R.id.getStepsBtn);
-        mGetStepsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleGetStepsButton();
-            }
-        });
+//        mConnectButton = (Button)findViewById(R.id.connectBtn);
+//        mConnectButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                handleConnectButton();
+//            }
+//        });
+//
+//        mGetStepsButton = (Button)findViewById(R.id.getStepsBtn);
+//        mGetStepsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                handleGetStepsButton();
+//            }
+//        });
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mFitStatusReceiver, new IntentFilter(ServiceOfGoogleFit.FIT_NOTIFY_INTENT));
         LocalBroadcastManager.getInstance(this).registerReceiver(mFitDataReceiver, new IntentFilter(ServiceOfGoogleFit.HISTORY_INTENT));
