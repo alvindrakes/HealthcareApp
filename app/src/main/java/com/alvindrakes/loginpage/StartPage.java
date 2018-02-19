@@ -91,6 +91,7 @@ public class StartPage extends AppCompatActivity {
       } catch (ApiException e) {
         // Google Sign In failed, update UI appropriately
         Log.w(TAG, "Google sign in failed", e);
+        Toast.makeText(this,"Google sign in failed",Toast.LENGTH_SHORT).show();
         // ...
       }
     }
