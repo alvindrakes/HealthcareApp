@@ -51,8 +51,8 @@ import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 
 public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
-    Button IncBtn;
-    Button SaveBtn;
+//    Button IncBtn;
+//    Button SaveBtn;
     Button AccountBtn;
     Button signOutBtn;
     TextView progress;
@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         });
 
         Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
-        IncBtn = (Button) findViewById(R.id.IncBtn);
-        SaveBtn = (Button) findViewById(R.id.SaveBtn);
+//        IncBtn = (Button) findViewById(R.id.IncBtn);
+//        SaveBtn = (Button) findViewById(R.id.SaveBtn);
         AccountBtn = (Button) findViewById(R.id.go_to_account_details);
         signOutBtn = (Button) findViewById(R.id.signOutBtn);
         progress = (TextView) findViewById(R.id.Progress);
@@ -134,44 +134,44 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         dayValue = (TextView) findViewById(R.id.dayValue);
         heartData = (EditText) findViewById(R.id.heartData);
         
-        SaveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                data.setHeartData(Integer.parseInt(heartData.getText().toString().trim()));
-                StatisticData.updateData(data,user.getDay());
-                
-                data.setSteps(0);
-                Goal.setProgress(0);
-                progress.setText(Integer.toString(data.getSteps()));
-                
-                user.setDay(user.getDay()+1);
-                
-                Log.d("Status", "Save success");
-                Toast.makeText(MainActivity.this, "Save successfully.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        IncBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                data.setSteps(data.getSteps()+1);
-                progress.setText(Integer.toString(data.getSteps()));
-    
-                if (data.getSteps() < 20){
-                    Goal.setProgress(data.getSteps());
-                }
-                else {
-                    user.setCoin(user.getCoin() + 1);
-                    StatisticData.updateCoin(user.getCoin());
-                    coins.setText(Integer.toString(user.getCoin()));
-                }
-                return false;
-            }
-            public boolean performClick() {
-                return true;
-            }
-        });
-        
+//        SaveBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                data.setHeartData(Integer.parseInt(heartData.getText().toString().trim()));
+//                StatisticData.updateData(data,user.getDay());
+//
+//                data.setSteps(0);
+//                Goal.setProgress(0);
+//                progress.setText(Integer.toString(data.getSteps()));
+//
+//                user.setDay(user.getDay()+1);
+//
+//                Log.d("Status", "Save success");
+//                Toast.makeText(MainActivity.this, "Save successfully.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        IncBtn.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//                data.setSteps(data.getSteps()+1);
+//                progress.setText(Integer.toString(data.getSteps()));
+//
+//                if (data.getSteps() < 20){
+//                    Goal.setProgress(data.getSteps());
+//                }
+//                else {
+//                    user.setCoin(user.getCoin() + 1);
+//                    StatisticData.updateCoin(user.getCoin());
+//                    coins.setText(Integer.toString(user.getCoin()));
+//                }
+//                return false;
+//            }
+//            public boolean performClick() {
+//                return true;
+//            }
+//        });
+//
         AccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
