@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "150473942816-812v5hftjrpn006hk6rmtkp4v1e65laa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alvindrakes.loginpage",
+            "certificate_hash": "906daed963d698f3ccd6468a103b948ce1737a31"
+          }
+        },
+        {
+          "client_id": "150473942816-n3hfgu7rfdc91odlsbsfb6tpcoveq8p9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alvindrakes.loginpage",
+            "certificate_hash": "62ebd92dabf024c2ec7cc7f9b97eb3fbfa7256e0"
+          }
+        },
+        {
           "client_id": "150473942816-av8csk5kl8mok14nc2d7p5hu6rhjt33s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -44,6 +60,37 @@
               "client_type": 3
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150473942816:android:c0f2090c040c386b",
+        "android_client_info": {
+          "package_name": "de.j4velin.pedometer.ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150473942816-edimsiu46igt06g2n3ehbseslna9b2me.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL_KoUfL4BPy6S7ZUU6f18MnBFWi74k40"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
