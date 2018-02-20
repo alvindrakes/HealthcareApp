@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
+        app:headerLayout="@layout/my_header"
         app:itemTextColor="#FFF"
         app:itemIconTint="#FFF"
         app:menu="@menu/my_menu"
