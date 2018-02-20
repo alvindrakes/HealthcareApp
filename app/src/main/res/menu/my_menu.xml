@@ -10,4 +10,6 @@
         android:id="@+id/setting"
         android:icon="@drawable/settings"
         android:title="Setting" />
+
+
 </menu>

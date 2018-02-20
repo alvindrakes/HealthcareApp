@@ -6,6 +6,8 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -71,6 +73,10 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     private static final String AUTH_PENDING = "auth_state_pending";
     private boolean authInProgress = false;
     private GoogleApiClient mApiClient;
+
+    //for navigation drawer
+    private DrawerLayout myDrawer;
+    private ActionBarDrawerToggle myToggle;
     
     
     @Override
@@ -80,6 +86,14 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+        myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
+        myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
+
+        myDrawer.addDrawerListener(myToggle);
+        myToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Initialize the GoogleApiClient instance by adding the Fitness Sensors API, defining a scope, and registering the application callbacks
         if (savedInstanceState != null)
@@ -209,24 +223,19 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_menu, menu);
-        return true;
+//        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return false;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (myToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     //connect to Google's backend
     @Override
