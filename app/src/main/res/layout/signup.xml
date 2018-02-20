@@ -3,7 +3,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3F2FD"
+    android:background="#8A2BE2"
     android:minHeight="0dp"
     android:minWidth="0dp">
 
@@ -16,7 +16,7 @@
         android:layout_marginTop="29dp"
         android:text="@string/signup"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="35sp"
         android:textStyle="bold" />
 
@@ -27,6 +27,7 @@
         android:layout_alignStart="@+id/signup"
         android:layout_below="@+id/signup"
         android:layout_marginTop="52dp"
+        android:textColor="#FFFFFF"
         android:text="@string/email"
         android:textAlignment="center"
         android:textSize="17sp" />
@@ -62,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/passform"
         android:layout_marginBottom="1dp"
+        android:textColor="#FFFFFF"
         android:layout_toStartOf="@+id/passform"
         android:text="@string/password"
         android:textSize="17sp" />
@@ -72,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/cform"
         android:layout_marginTop="40dp"
+        android:textColor="#FFFFFF"
         android:layout_toStartOf="@+id/cform"
         android:text="@string/confirm_password"
         android:textSize="17sp"/>
@@ -106,6 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signup"
         android:layout_marginTop="6dp"
+        android:textColor="#FFFFFF"
         android:layout_toStartOf="@+id/nameform"
         android:text="@string/name"
         android:textSize="17sp"/>
@@ -116,6 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/agef"
+        android:textColor="#FFFFFF"
         android:layout_alignBottom="@+id/agef"
         android:text="@string/age"
         android:textSize="17sp"/>
@@ -155,6 +160,7 @@
         android:layout_toStartOf="@+id/weightf"
         android:layout_alignBottom="@+id/weightf"
         android:text="@string/weight"
+        android:textColor="#FFFFFF"
         android:textSize="17sp"/>
 
     <TextView
@@ -164,6 +170,7 @@
         android:layout_toStartOf="@+id/heightf"
         android:layout_alignBottom="@+id/heightf"
         android:textSize="17sp"
+        android:textColor="#FFFFFF"
         android:text="@string/height" />
 
     <EditText

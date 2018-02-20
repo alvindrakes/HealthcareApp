@@ -34,6 +34,10 @@
 
         <activity
             android:name=".StartPage"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Splash"
             android:screenOrientation="portrait">
 
             <intent-filter>
