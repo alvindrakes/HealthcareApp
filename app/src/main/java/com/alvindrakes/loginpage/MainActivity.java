@@ -6,6 +6,7 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +51,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 
-public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener{
 
 //    Button IncBtn;
 //    Button SaveBtn;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     //for navigation drawer
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
+    private NavigationView navigationView;
     
     
     @Override
@@ -90,10 +92,16 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
         myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
 
+        navigationView = (NavigationView) findViewById(R.id.my_navigation);
+        navigationView.bringToFront();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //Initialize the GoogleApiClient instance by adding the Fitness Sensors API, defining a scope, and registering the application callbacks
         if (savedInstanceState != null)
@@ -235,6 +243,23 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    // TODO need to implement the buttons to move to other pages
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        if(id == R.id. profile){
+            Intent i = new Intent(MainActivity.this, ProfilePage.class);
+            startActivity(i);
+            Toast.makeText(this, "the profile is clicked", Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
+
+
+
 
 
     //connect to Google's backend

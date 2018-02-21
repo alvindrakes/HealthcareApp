@@ -47,7 +47,9 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: '**/*.aar')
             .each { File file ->
-        dependencies.add("compile", [name: file.name.lastIndexOf('.').with { it != -1 ? file.name[0..<it] : file.name }, ext: 'aar'])
+        dependencies.add("compile", [name: file.name.lastIndexOf('.').with {
+            it != -1 ? file.name[0..<it] : file.name
+        }, ext                           : 'aar'])
     }
     implementation 'com.android.support:appcompat-v7:26.0.2'
     implementation 'com.android.support:design:26.0.2'
