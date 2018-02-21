@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class ProfilePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SettingPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //for navigation drawer
     private DrawerLayout myDrawer;
@@ -19,7 +19,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_page);
+        setContentView(R.layout.activity_setting_page);
 
         myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
         myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
@@ -50,12 +50,12 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 
         switch (id) {
             case R.id.profile:
-                Intent i = new Intent(ProfilePage.this, ProfilePage.class);
+                Intent i = new Intent(SettingPage.this, ProfilePage.class);
                 startActivity(i);
                 Toast.makeText(this, "the profile is clicked", Toast.LENGTH_SHORT).show();
 
             case R.id.setting:
-                Intent h = new Intent(ProfilePage.this, SettingPage.class);
+                Intent h = new Intent(SettingPage.this, SettingPage.class);
                 startActivity(h);
                 Toast.makeText(this, "the setting is clicked", Toast.LENGTH_SHORT).show();
         }

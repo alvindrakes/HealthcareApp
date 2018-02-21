@@ -38,7 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Account" />
-        <activity android:name=".ProfilePage"></activity>
+        <activity android:name=".ProfilePage" />
+        <activity android:name=".SettingPage"></activity>
     </application>
 
 </manifest>
