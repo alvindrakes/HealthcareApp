@@ -253,15 +253,24 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.profile:
+
+            case R.id.home_page:
+                Intent g = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(g);
+                Toast.makeText(this, "the home is clicked", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.profile_page:
                 Intent i = new Intent(MainActivity.this, ProfilePage.class);
                 startActivity(i);
                 Toast.makeText(this, "the profile is clicked", Toast.LENGTH_SHORT).show();
+                break;
 
-            case R.id.setting:
+            case R.id.setting_page:
                 Intent h = new Intent(MainActivity.this, SettingPage.class);
                 startActivity(h);
                 Toast.makeText(this, "the setting is clicked", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;
     }
