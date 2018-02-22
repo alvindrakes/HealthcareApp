@@ -12,7 +12,7 @@
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="#6F2D84"
         app:headerLayout="@layout/my_header"
         app:itemTextColor="#FFF"
         app:itemIconTint="#FFF"
@@ -33,6 +33,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
+            android:background="#6F2D84"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
