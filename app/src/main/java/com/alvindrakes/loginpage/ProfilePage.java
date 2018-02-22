@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
+import android.view.Window;
 
 public class ProfilePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,7 +26,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         bar.setTitle("Profile");
         getSupportActionBar().show();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_profile_page);
+        setContentView(R.layout.activity_setting_page);
 
         myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
         myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
