@@ -3,6 +3,10 @@ package com.alvindrakes.loginpage;
 
 import android.content.Intent;
 import android.content.IntentSender;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +57,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 
-public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener{
 
 //    Button IncBtn;
 //    Button SaveBtn;
@@ -80,6 +85,15 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
     private NavigationView navigationView;
+
+    //Fields for step tracker
+    private StepDetector simpleStepDetector;
+    private SensorManager sensorManager;
+    private Sensor accel;
+    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
+    private int numSteps;
+    private TextView TvSteps;
+    private ProgressBar progress_of_steps;
     
     
     @Override
@@ -89,6 +103,27 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+
+        //=======================Pedometer============
+        // Get an instance of the SensorManager
+
+        TvSteps = (TextView) findViewById(R.id.tv_steps);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
+
+        //numSteps = 0;
+        //sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+
+        //progress_of_steps = (ProgressBar)findViewById(R.id.steps_progress);
+
+        //progress_of_steps.setProgress(numSteps);
+        //      progress_of_steps.setMax(1000);
+
+        //============== End of Pedometer==============
 
         myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
         myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
@@ -154,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
-        heartData = (EditText) findViewById(R.id.heartData);
+
         
 //        SaveBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -227,6 +262,29 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
       });
 
       //---------------------------------------------------------------
+
+
+
+
+    }
+
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            simpleStepDetector.updateAccel(
+                    event.timestamp, event.values[0], event.values[1], event.values[2]);
+        }
+    }
+
+    @Override
+    public void step(long timeNs) {
+        numSteps++;
+        TvSteps.setText(numSteps);
     }
 
     @Override
@@ -405,4 +463,5 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         startActivity(intent);
         System.out.print("Game is running !!!!!!!");
     }
+
 }
