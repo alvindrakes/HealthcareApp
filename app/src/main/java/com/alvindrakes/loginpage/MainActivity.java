@@ -57,9 +57,6 @@ import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 
 public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener{
 
-//    Button IncBtn;
-//    Button SaveBtn;
-    Button AccountBtn;
     Button signOutBtn;
     TextView progress;
     TextView coins;
@@ -156,7 +153,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
 //        IncBtn = (Button) findViewById(R.id.IncBtn);
 //        SaveBtn = (Button) findViewById(R.id.SaveBtn);
-        AccountBtn = (Button) findViewById(R.id.go_to_account_details);
         signOutBtn = (Button) findViewById(R.id.signOutBtn);
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
@@ -201,13 +197,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 //            }
 //        });
 //
-        AccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                Intent AccountIntent = new Intent(MainActivity.this, Account.class);
-                startActivity(AccountIntent);
-            }
-        });
   
       signOutBtn.setOnClickListener(new View.OnClickListener() {
         @Override
