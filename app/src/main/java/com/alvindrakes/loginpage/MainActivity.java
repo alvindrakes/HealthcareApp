@@ -13,12 +13,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -59,9 +62,6 @@ import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 
 public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener{
 
-//    Button IncBtn;
-//    Button SaveBtn;
-    Button AccountBtn;
     Button signOutBtn;
     TextView progress;
     TextView coins;
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -135,8 +136,11 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar bar = getSupportActionBar();
+        bar.setTitle("Homepage");
+        getSupportActionBar().show();
+
 
 
         //Initialize the GoogleApiClient instance by adding the Fitness Sensors API, defining a scope, and registering the application callbacks
@@ -184,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
 //        IncBtn = (Button) findViewById(R.id.IncBtn);
 //        SaveBtn = (Button) findViewById(R.id.SaveBtn);
-        AccountBtn = (Button) findViewById(R.id.go_to_account_details);
         signOutBtn = (Button) findViewById(R.id.signOutBtn);
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
@@ -229,13 +232,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 //            }
 //        });
 //
-        AccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                Intent AccountIntent = new Intent(MainActivity.this, Account.class);
-                startActivity(AccountIntent);
-            }
-        });
   
       signOutBtn.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -311,15 +307,24 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.profile:
+
+            case R.id.home_page:
+                Intent g = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(g);
+                Toast.makeText(this, "the home is clicked", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.profile_page:
                 Intent i = new Intent(MainActivity.this, ProfilePage.class);
                 startActivity(i);
                 Toast.makeText(this, "the profile is clicked", Toast.LENGTH_SHORT).show();
+                break;
 
-            case R.id.setting:
+            case R.id.setting_page:
                 Intent h = new Intent(MainActivity.this, SettingPage.class);
                 startActivity(h);
                 Toast.makeText(this, "the setting is clicked", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;
     }

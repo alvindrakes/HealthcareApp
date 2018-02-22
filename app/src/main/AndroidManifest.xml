@@ -28,6 +28,7 @@
         <activity
             android:name=".StartPage"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Splash"
             android:screenOrientation="portrait">
@@ -37,9 +38,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+            <activity
+                android:name=".ProfilePage"
+                android:screenOrientation="portrait" />
+
+            <activity
+                android:name=".SettingPage"
+                android:screenOrientation="portrait" />
+
         <activity android:name=".Account" />
-        <activity android:name=".ProfilePage" />
-        <activity android:name=".SettingPage"></activity>
+
+
     </application>
 
 </manifest>

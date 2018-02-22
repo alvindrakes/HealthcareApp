@@ -2,12 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.healthcare.MainActivity">
+
     <item
-        android:id="@+id/profile"
+        android:id="@+id/home_page"
+        android:icon="@drawable/homepage"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/profile_page"
         android:icon="@drawable/profile"
         android:title="Profile" />
     <item
-        android:id="@+id/setting"
+        android:id="@+id/setting_page"
         android:icon="@drawable/settings"
         android:title="Setting" />
 
