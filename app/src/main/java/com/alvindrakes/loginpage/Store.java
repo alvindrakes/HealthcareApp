@@ -3,11 +3,14 @@ package com.alvindrakes.loginpage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.Window;
 
 /**
  * Created by ming on 24/1/2018.
@@ -19,6 +22,10 @@ public class Store extends MainActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        ActionBar bar = getSupportActionBar();
+        bar.setTitle("Store");
+        getSupportActionBar().show();
         setContentView(R.layout.store);
         coin = (TextView) findViewById(R.id.amount2);
 

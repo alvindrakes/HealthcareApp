@@ -14,5 +14,9 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <style name="NoNav" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
 </resources>

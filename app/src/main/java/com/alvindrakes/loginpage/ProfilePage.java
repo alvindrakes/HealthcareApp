@@ -3,10 +3,12 @@ package com.alvindrakes.loginpage;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class ProfilePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -19,6 +21,10 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar bar = getSupportActionBar();
+        bar.setTitle("Profile");
+        getSupportActionBar().show();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_page);
 
         myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
