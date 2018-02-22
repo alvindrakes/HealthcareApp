@@ -3,10 +3,15 @@ package com.alvindrakes.loginpage;
 
 import android.content.Intent;
 import android.content.IntentSender;
+<<<<<<< HEAD
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+=======
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+>>>>>>> dec9aeda3537e6fd15737f3a0d5798a2b11ee93d
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -157,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6F2D84")));
         bar.setTitle("Homepage");
         getSupportActionBar().show();
 

@@ -1,6 +1,8 @@
 package com.alvindrakes.loginpage;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -52,6 +54,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Profile");
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6F2D84")));
         getSupportActionBar().show();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_page);
