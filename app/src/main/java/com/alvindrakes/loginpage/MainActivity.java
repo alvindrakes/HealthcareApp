@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Homepage");
         getSupportActionBar().show();
