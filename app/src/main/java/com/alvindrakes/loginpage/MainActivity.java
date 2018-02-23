@@ -3,15 +3,15 @@ package com.alvindrakes.loginpage;
 
 import android.content.Intent;
 import android.content.IntentSender;
-<<<<<<< HEAD
+
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-=======
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
->>>>>>> dec9aeda3537e6fd15737f3a0d5798a2b11ee93d
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -211,52 +211,13 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         });
 
         Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
-//        IncBtn = (Button) findViewById(R.id.IncBtn);
-//        SaveBtn = (Button) findViewById(R.id.SaveBtn);
         signOutBtn = (Button) findViewById(R.id.signOutBtn);
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
 
         
-//        SaveBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                data.setHeartData(Integer.parseInt(heartData.getText().toString().trim()));
-//                StatisticData.updateData(data,user.getDay());
-//
-//                data.setSteps(0);
-//                Goal.setProgress(0);
-//                progress.setText(Integer.toString(data.getSteps()));
-//
-//                user.setDay(user.getDay()+1);
-//
-//                Log.d("Status", "Save success");
-//                Toast.makeText(MainActivity.this, "Save successfully.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        IncBtn.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent event) {
-//                data.setSteps(data.getSteps()+1);
-//                progress.setText(Integer.toString(data.getSteps()));
-//
-//                if (data.getSteps() < 20){
-//                    Goal.setProgress(data.getSteps());
-//                }
-//                else {
-//                    user.setCoin(user.getCoin() + 1);
-//                    StatisticData.updateCoin(user.getCoin());
-//                    coins.setText(Integer.toString(user.getCoin()));
-//                }
-//                return false;
-//            }
-//            public boolean performClick() {
-//                return true;
-//            }
-//        });
-//
+
   
       signOutBtn.setOnClickListener(new View.OnClickListener() {
         @Override
