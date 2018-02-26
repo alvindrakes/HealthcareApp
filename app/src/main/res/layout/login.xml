@@ -20,15 +20,17 @@
 
     <EditText
         android:id="@+id/email"
-        android:hint="Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/password"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="18dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/border"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"/>
 
     <EditText
         android:id="@+id/password"
