@@ -2,30 +2,23 @@ package com.alvindrakes.loginpage;
 
 
 import android.content.Intent;
-import android.content.IntentSender;
-
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,25 +26,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataSource;
-import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
-import com.google.android.gms.fitness.data.Value;
-import com.google.android.gms.fitness.request.DataSourcesRequest;
-import com.google.android.gms.fitness.request.OnDataPointListener;
-import com.google.android.gms.fitness.request.SensorRequest;
-import com.google.android.gms.fitness.result.DataSourcesResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,11 +39,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.concurrent.TimeUnit;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
-
-public class MainActivity extends AppCompatActivity implements OnDataPointListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener{
 
     Button signOutBtn;
     TextView progress;
@@ -74,17 +52,15 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     EditText heartData;
     CircleProgressBar Goal;
     
+    //Data from Firebase
     User user;
-    FirebaseUser firebaseUser;
-    GoogleSignInClient googleSignInClient;
+    StatisticData dataValue;
     
-    StatisticData data = new StatisticData();
-
-    //Member variables for GoogleAPIs
-    private static final int REQUEST_OAUTH = 1;
-    private static final String AUTH_PENDING = "auth_state_pending";
-    private boolean authInProgress = false;
-    private GoogleApiClient mApiClient;
+    //Firebase Authentication
+    FirebaseUser firebaseUser;
+    
+    //Google Sign-In Authentication
+    GoogleSignInClient googleSignInClient;
 
     //for navigation drawer
     private DrawerLayout myDrawer;
@@ -100,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     private TextView TvSteps;
     private ProgressBar progress_of_steps;
     private Button BtnStart;
+    
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    
 
     
     @Override
@@ -121,12 +100,11 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
 
-        numSteps = 0;
+        // numSteps = 0;
+        
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
         progress_of_steps = (ProgressBar)findViewById(R.id.steps_progress);
-
-
-
+        
         //============== End of Pedometer==============
 
         myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
@@ -144,21 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6F2D84")));
         bar.setTitle("Homepage");
         getSupportActionBar().show();
-
-
-
-        //Initialize the GoogleApiClient instance by adding the Fitness Sensors API, defining a scope, and registering the application callbacks
-        if (savedInstanceState != null)
-        {
-            authInProgress = savedInstanceState.getBoolean(AUTH_PENDING);
-        }
-
-        mApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Fitness.SENSORS_API)
-                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+        
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
@@ -172,10 +136,29 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
                     user = dataSnapshot.getValue(User.class);
                     dayValue.setText(Integer.toString(user.getDay()));
                     coins.setText(Integer.toString(user.getCoin()));
+                    
                 }
             
                 @Override
                 public void onCancelled (DatabaseError databaseError) {
+                }
+            });
+    
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .child("data")
+            .child(date)
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    dataValue = dataSnapshot.getValue(StatisticData.class);
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
                 }
             });
         
@@ -201,16 +184,13 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
       signOutBtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick (View v) {
-          FirebaseAuth.getInstance().signOut();
-          googleSignInClient.revokeAccess()
-              .addOnCompleteListener(MainActivity.this, new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete (@NonNull Task<Void> task) {
-                  Toast.makeText(MainActivity.this, "Log out successfully", Toast.LENGTH_SHORT).show();
-                  Intent startIntent = new Intent(MainActivity.this, StartPage.class);
-                  startActivity(startIntent);
-                }
-              });
+            if (googleSignInClient != null)
+                googleSignInClient.revokeAccess();
+            FirebaseAuth.getInstance().signOut();
+          
+            Toast.makeText(MainActivity.this, "Log out successfully", Toast.LENGTH_SHORT).show();
+            Intent startIntent = new Intent(MainActivity.this, StartPage.class);
+            startActivity(startIntent);
         }
       });
 
@@ -223,9 +203,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
       });
 
       //---------------------------------------------------------------
-
-
-
 
     }
 
@@ -244,12 +221,15 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
     @Override
     public void step(long timeNs) {
-
-
+        if (dataValue == null){
+            dataValue = new StatisticData();
+        }
+        TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
         numSteps++;
-        TvSteps.setText(TEXT_NUM_STEPS + numSteps);
         progress_of_steps.setProgress(numSteps);
-
+        
+        dataValue.setSteps(numSteps);
+        StatisticData.updateData(dataValue, date);
     }
 
     @Override
@@ -297,139 +277,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         }
         return true;
     }
-
-
-
-
-
-    //connect to Google's backend
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mApiClient.connect();
-    }
-
-    //Abstract methods from GoogleApi's interfaces
-    @Override
-    public void onConnected(Bundle bundle) {
-        DataSourcesRequest dataSourceRequest = new DataSourcesRequest.Builder()
-                .setDataTypes( DataType.TYPE_STEP_COUNT_CUMULATIVE )
-                .setDataSourceTypes( DataSource.TYPE_DERIVED )
-                .build();
-
-        ResultCallback<DataSourcesResult> dataSourcesResultCallback = new ResultCallback<DataSourcesResult>() {
-            @Override
-            public void onResult(DataSourcesResult dataSourcesResult) {
-                for( DataSource dataSource : dataSourcesResult.getDataSources() ) {
-                    if( DataType.TYPE_STEP_COUNT_CUMULATIVE.equals( dataSource.getDataType() ) ) {
-                        registerFitnessDataListener(dataSource, DataType.TYPE_STEP_COUNT_CUMULATIVE);
-                    }
-                }
-            }
-        };
-
-        Fitness.SensorsApi.findDataSources(mApiClient, dataSourceRequest)
-                .setResultCallback(dataSourcesResultCallback);
-    }
-
-
-    //method to find step count every 3 seconds, when new data is available,listener is triggered;If no new data is found, the OnDataPointListener is not triggered and the Fitness API waits another three seconds before checking again.
-    private void registerFitnessDataListener(DataSource dataSource, DataType dataType) {
-
-        SensorRequest request = new SensorRequest.Builder()
-                .setDataSource( dataSource )
-                .setDataType( dataType )
-                .setSamplingRate( 3, TimeUnit.SECONDS )
-                .build();
-
-        Fitness.SensorsApi.add( mApiClient, request, this )
-                .setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        if (status.isSuccess()) {
-                            Log.e( "GoogleFit", "SensorApi successfully added" );
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult)
-    {
-        if( !authInProgress )
-        {
-            try {
-                authInProgress = true;
-                connectionResult.startResolutionForResult( MainActivity.this, REQUEST_OAUTH );
-            } catch(IntentSender.SendIntentException e ) {
-
-            }
-        }
-        else
-            {
-                Log.e( "GoogleFit", "authInProgress" );
-            }
-    }
-
-    //when a change in counter is detected, loop through the variable and display step counter
-    @Override
-    public void onDataPoint(DataPoint dataPoint) {
-        for( final Field field : dataPoint.getDataType().getFields() ) {
-            final Value value = dataPoint.getValue( field );
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(), "Field: " + field.getName() + " Value: " + value, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-    //user either grants application permission to use their data or they close the dialog, canceling the process
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if( requestCode == REQUEST_OAUTH ) {
-            authInProgress = false;
-            if( resultCode == RESULT_OK ) {
-                if( !mApiClient.isConnecting() && !mApiClient.isConnected() ) {
-                    mApiClient.connect();
-                }
-            } else if( resultCode == RESULT_CANCELED ) {
-                Log.e( "GoogleFit", "RESULT_CANCELED" );
-            }
-        } else {
-            Log.e("GoogleFit", "requestCode NOT request_oauth");
-        }
-    }
-
-    //disconnecting from the SensorApi and Google Play Services when done using them
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        Fitness.SensorsApi.remove( mApiClient, this )
-                .setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        if (status.isSuccess()) {
-                            mApiClient.disconnect();
-                        }
-                    }
-                });
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(AUTH_PENDING, authInProgress);
-    }
-
-
+    
     // go to game when button is clicked
     public void GoToUnity(View view)
     {

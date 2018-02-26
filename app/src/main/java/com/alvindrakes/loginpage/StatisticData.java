@@ -32,17 +32,27 @@ public class StatisticData {
     this.heartData = heartData;
   }
   
-  public static void updateData (StatisticData data, int day) {
+  public static void updateData (StatisticData data, String day) {
     
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     
     Map<String, Object> childUpdates = new HashMap<>();
     
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/steps/" + day + "/", data.getSteps());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/data/" + day + "/steps/" , data.getSteps());
     
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/heartbeat/" + day + "/", data.getHeartData());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/day/", day+1);
+    // childUpdates.put("/data/" + firebaseUser.getUid() + day + "/heartbeat/" , data.getHeartData());
     
+    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
+
+  }
+  
+  public static void incrementDay (int day){
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+  
+    Map<String, Object> childUpdates = new HashMap<>();
+  
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/day/", day + 1);
+  
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
   }
   
