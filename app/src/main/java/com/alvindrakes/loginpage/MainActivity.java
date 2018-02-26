@@ -100,9 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     private TextView TvSteps;
     private ProgressBar progress_of_steps;
     private Button BtnStart;
-    //private Button BtnStop;
-    public int Steps;
-    
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -118,10 +116,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         // Get an instance of the SensorManager
 
         TvSteps = (TextView) findViewById(R.id.tv_steps);
-        //BtnStart =(Button) findViewById(R.id.start_btn);
-        //BtnStop = (Button) findViewById(R.id.btn_stop);
-
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
@@ -129,21 +123,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
         numSteps = 0;
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
-
-
-
-        /*
-        BtnStop.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                sensorManager.unregisterListener(MainActivity.this);
-
-            }
-        });
-        */
-
         progress_of_steps = (ProgressBar)findViewById(R.id.steps_progress);
 
 
@@ -269,8 +248,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
         numSteps++;
         TvSteps.setText(TEXT_NUM_STEPS + numSteps);
-        Steps = numSteps;
-        progress_of_steps.setProgress(Steps);
+        progress_of_steps.setProgress(numSteps);
 
     }
 
