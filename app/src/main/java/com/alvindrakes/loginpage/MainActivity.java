@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     private ProgressBar progress_of_steps;
     private Button BtnStart;
 
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -195,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
 
+
         
 
   
@@ -213,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
               });
         }
       });
+
 
       //----------------Game section---------------------------------
 

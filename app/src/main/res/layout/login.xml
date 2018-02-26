@@ -14,6 +14,7 @@
         android:layout_height="140dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
         android:background="@drawable/signin"
         android:paddingTop="8dp" />
 
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/password"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/ic_person_white_24dp"
         android:drawablePadding="12dp"
@@ -77,4 +79,28 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
         app:srcCompat="@drawable/ship" />
+
+    <TextView
+        android:id="@+id/not_yet_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/password"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:text="Not yet sign up?"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/not_yet_sign_up"
+        android:layout_alignBottom="@+id/not_yet_sign_up"
+        android:layout_alignEnd="@+id/imageView6"
+        android:layout_marginEnd="9dp"
+        android:background="#3C125C"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
 </android.widget.RelativeLayout>
