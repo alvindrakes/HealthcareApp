@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
     
 
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
 
+
         
 
   
@@ -193,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(startIntent);
         }
       });
+
 
       //----------------Game section---------------------------------
 
