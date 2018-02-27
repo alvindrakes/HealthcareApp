@@ -103,4 +103,16 @@
         android:text="Sign Up"
         android:textColor="#FFFFFF"
         android:textSize="20dp" />
+
+
+    <com.shobhitpuri.custombuttons.GoogleSignInButton
+        android:id="@+id/google_signinBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:text="Sign in with Google"
+        app:isDarkTheme="true" />
+
+
 </android.widget.RelativeLayout>

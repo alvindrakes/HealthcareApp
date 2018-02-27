@@ -75,12 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int numSteps;
     private TextView TvSteps;
     private ProgressBar progress_of_steps;
-    private Button BtnStart;
     
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-    
-
-
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -100,8 +96,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
-
-        // numSteps = 0;
         
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
         progress_of_steps = (ProgressBar)findViewById(R.id.steps_progress);
@@ -155,6 +149,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onDataChange (DataSnapshot dataSnapshot) {
                     dataValue = dataSnapshot.getValue(StatisticData.class);
+                    if (dataValue == null){
+                        dataValue = new StatisticData();
+                    }
+                    TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
+                    progress_of_steps.setProgress(dataValue.getSteps());
                 }
             
                 @Override
@@ -227,11 +226,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (dataValue == null){
             dataValue = new StatisticData();
         }
-        TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
-        numSteps++;
-        progress_of_steps.setProgress(numSteps);
+        dataValue.setSteps(dataValue.getSteps() + 1);
         
-        dataValue.setSteps(numSteps);
+        TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
+        progress_of_steps.setProgress(dataValue.getSteps());
+        
         StatisticData.updateData(dataValue, date);
     }
 
