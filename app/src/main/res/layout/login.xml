@@ -12,9 +12,8 @@
         android:id="@+id/login"
         android:layout_width="200dp"
         android:layout_height="140dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
         android:background="@drawable/signin"
         android:paddingTop="8dp" />
 
@@ -23,9 +22,9 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/password"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="40dp"
+        android:layout_below="@+id/imageView6"
+        android:layout_marginTop="17dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/ic_mail_white_24dp"
         android:drawablePadding="12dp"
@@ -49,7 +48,7 @@
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/view2"
+        android:layout_alignBottom="@+id/view2"
         android:layout_alignParentStart="true"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/ic_lock_white_24dp"
@@ -63,30 +62,30 @@
         android:textColorHint="#FFFFFF" />
 
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_above="@+id/login"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="21dp"
-        android:background="#FFFFFF"
-        android:id="@+id/view2" />
+        android:layout_below="@+id/email"
+        android:layout_marginTop="65dp"
+        android:background="#FFFFFF" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_above="@+id/view"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="23dp"
+        android:layout_marginTop="8dp"
         app:srcCompat="@drawable/ship" />
 
     <TextView
         android:id="@+id/not_yet_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/password"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
+        android:layout_alignStart="@+id/imageView6"
+        android:layout_marginBottom="22dp"
         android:text="Haven't sign up?"
         android:textColor="#FFFFFF"
         android:textSize="20dp" />
@@ -98,7 +97,6 @@
         android:layout_alignBaseline="@+id/not_yet_sign_up"
         android:layout_alignBottom="@+id/not_yet_sign_up"
         android:layout_alignEnd="@+id/imageView6"
-        android:layout_marginEnd="9dp"
         android:background="#3C125C"
         android:text="Sign Up"
         android:textColor="#FFFFFF"
@@ -109,7 +107,7 @@
         android:id="@+id/google_signinBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
+        android:layout_above="@+id/sign_up_button"
         android:layout_centerHorizontal="true"
         android:text="Sign in with Google"
         app:isDarkTheme="true" />
