@@ -25,10 +25,17 @@ public class User {
   
   public User () {
   }
-  
-  public User (String name, String email) {
+
+  public User(String name, String email) {
     this.name = name;
     this.email = email;
+    this.day = 1;
+  }
+
+  public User (String name, String email, String password) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
     this.day = 1;
   }
   
