@@ -74,6 +74,8 @@ public class StartPage extends AppCompatActivity {
 //            }
 //        });
 //
+
+
     }
   
   private void signIn () {

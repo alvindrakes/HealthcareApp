@@ -36,7 +36,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     
     boolean clock = true;
     
-    Button backBtn;
+
     Button editBtn;
     Button cancelBtn;
     Button updateBtn;
@@ -72,7 +72,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     
-        backBtn = (Button) findViewById(R.id.back_to_main);
+
         editBtn = (Button) findViewById(R.id.edit_account_button);
         cancelBtn = (Button) findViewById(R.id.cancel_edit_account_button);
         updateBtn = (Button) findViewById(R.id.update_account_button);
@@ -84,14 +84,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         heightInfoEdit = (EditText) findViewById(R.id.heightInfo_edit);
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                Intent backIntent = new Intent(ProfilePage.this, MainActivity.class);
-                startActivity(backIntent);
-            }
-        });
+
+
     
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +120,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         });
-    
+
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")

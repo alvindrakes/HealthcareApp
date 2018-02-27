@@ -10,9 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 import android.view.Window;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -20,6 +25,9 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
     private NavigationView navigationView;
+
+    Button signOutBtn;
+    GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +51,24 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
         myToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+
+        signOutBtn = (Button) findViewById(R.id.signOutBtn);
+
+
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+       @Override
+        public void onClick (View v) {
+            if (googleSignInClient != null)
+                googleSignInClient.revokeAccess();
+            FirebaseAuth.getInstance().signOut();
+
+            Toast.makeText(SettingPage.this, "Log out successfully", Toast.LENGTH_SHORT).show();
+            Intent startIntent = new Intent(SettingPage.this, Login.class);
+            startActivity(startIntent);
+        }
+      });
+
+        }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

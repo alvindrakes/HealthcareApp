@@ -45,7 +45,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener{
 
-    Button signOutBtn;
+
     TextView progress;
     TextView coins;
     TextView dayValue;
@@ -172,28 +172,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
         Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
-        signOutBtn = (Button) findViewById(R.id.signOutBtn);
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
 
 
-        
-
-  
-      signOutBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick (View v) {
-            if (googleSignInClient != null)
-                googleSignInClient.revokeAccess();
-            FirebaseAuth.getInstance().signOut();
-          
-            Toast.makeText(MainActivity.this, "Log out successfully", Toast.LENGTH_SHORT).show();
-            Intent startIntent = new Intent(MainActivity.this, StartPage.class);
-            startActivity(startIntent);
-        }
-      });
 
 
       //----------------Game section---------------------------------
