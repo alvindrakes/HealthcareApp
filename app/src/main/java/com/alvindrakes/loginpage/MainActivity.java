@@ -149,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onDataChange (DataSnapshot dataSnapshot) {
                     dataValue = dataSnapshot.getValue(StatisticData.class);
+                    if (dataValue == null){
+                        dataValue = new StatisticData();
+                    }
                     TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
                     progress_of_steps.setProgress(dataValue.getSteps());
                 }
