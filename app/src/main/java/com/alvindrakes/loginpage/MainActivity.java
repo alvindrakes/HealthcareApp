@@ -1,8 +1,6 @@
 package com.alvindrakes.loginpage;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +11,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -22,22 +19,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +43,8 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener{
 
-
+    TextView userId;
+    TextView userEmail;
     TextView progress;
     TextView coins;
     TextView dayValue;
@@ -103,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        mContext = getApplicationContext();
 //        mTextView = (TextView) findViewById(R.id.ConstraintLayout);
 //        mActivity = MainActivity.this;
-
+    
+    
         //=======================Pedometer============
         // Get an instance of the SensorManager
         TvSteps = (TextView) findViewById(R.id.tv_steps);
@@ -111,20 +105,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
-        
+    
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
         progress_of_steps = (ProgressBar)findViewById(R.id.steps_progress);
-        
+    
         //============== End of Pedometer==============
-
+    
         myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
         myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
-
+    
         navigationView = (NavigationView) findViewById(R.id.my_navigation);
         navigationView.bringToFront();
-
+    
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headerView = navigationView.getHeaderView(0);
+    
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -132,8 +127,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6F2D84")));
         bar.setTitle("Home");
         getSupportActionBar().show();
-        
     
+        Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
+        progress = (TextView) findViewById(R.id.Progress);
+        coins = (TextView) findViewById(R.id.amount);
+        dayValue = (TextView) findViewById(R.id.dayValue);
+        userId = (TextView) headerView.findViewById(R.id.User_ID);
+        userEmail = (TextView) headerView.findViewById(R.id.User_email);
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         FirebaseDatabase.getInstance()
@@ -146,7 +147,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     user = dataSnapshot.getValue(User.class);
                     dayValue.setText(Integer.toString(user.getDay()));
                     coins.setText(Integer.toString(user.getCoin()));
-                    
+                    userId.setText(user.getName());
+                    userEmail.setText(user.getEmail());
                 }
             
                 @Override
@@ -176,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 
                 }
             });
-        
+    
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.store);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,14 +188,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(StartPageIntent);
             }
         });
-
-
-
-        Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
-        progress = (TextView) findViewById(R.id.Progress);
-        coins = (TextView) findViewById(R.id.amount);
-        dayValue = (TextView) findViewById(R.id.dayValue);
-
 
 
 

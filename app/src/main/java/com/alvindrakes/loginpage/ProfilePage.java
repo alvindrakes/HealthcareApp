@@ -35,7 +35,6 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     User user;
     
     boolean clock = true;
-    
 
     Button editBtn;
     Button cancelBtn;
@@ -46,6 +45,9 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     EditText ageInfoEdit;
     EditText weightInfoEdit;
     EditText heightInfoEdit;
+    
+    TextView userId;
+    TextView userEmail;
     
     FirebaseUser firebaseUser;
     
@@ -66,7 +68,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         navigationView.bringToFront();
 
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headerView = navigationView.getHeaderView(0);
+        
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
 
@@ -82,6 +85,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         ageInfoEdit = (EditText) findViewById(R.id.ageInfo_edit);
         weightInfoEdit = (EditText) findViewById(R.id.weightInfo_edit);
         heightInfoEdit = (EditText) findViewById(R.id.heightInfo_edit);
+        userId = (TextView) headerView.findViewById(R.id.User_ID);
+        userEmail = (TextView) headerView.findViewById(R.id.User_email);
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -131,7 +136,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     user = dataSnapshot.getValue(User.class);
                     insertData();
                     clock = false;
-                
+                    userId.setText(user.getName());
+                    userEmail.setText(user.getEmail());
                 }
             
                 @Override

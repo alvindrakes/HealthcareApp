@@ -13,11 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Window;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SettingPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,7 +31,13 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
     private NavigationView navigationView;
-
+    
+    TextView userId;
+    TextView userEmail;
+    
+    User user;
+    FirebaseUser firebaseUser;
+    
     Button signOutBtn;
     GoogleSignInClient googleSignInClient;
 
@@ -46,6 +58,10 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
         navigationView.bringToFront();
 
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        userId = (TextView) headerView.findViewById(R.id.User_ID);
+        userEmail = (TextView) headerView.findViewById(R.id.User_email);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
@@ -67,8 +83,25 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
             startActivity(startIntent);
         }
       });
-
-        }
+    
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    user = dataSnapshot.getValue(User.class);
+                    userId.setText(user.getName());
+                    userEmail.setText(user.getEmail());
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
+                }
+            });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
