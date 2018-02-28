@@ -188,9 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(StartPageIntent);
             }
         });
-
-
-
+        
       //----------------Game section---------------------------------
 
       Button LaunchButton = (Button) findViewById(R.id.launchGame);
@@ -257,6 +255,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.home_page:
                 Intent g = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(g);
+                break;
+
+
+            case R.id.sleep_tracker:
+                Intent b = new Intent(MainActivity.this, SleepTracker.class);
+                startActivity(b);
                 break;
 
             case R.id.profile_page:

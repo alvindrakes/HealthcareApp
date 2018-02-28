@@ -9,6 +9,12 @@
         android:title="Home" />
 
     <item
+        android:id="@+id/sleep_tracker"
+        android:icon="@drawable/moonsleep"
+        android:title="Sleep" />
+
+
+    <item
         android:id="@+id/profile_page"
         android:icon="@drawable/profile"
         android:title="Profile" />

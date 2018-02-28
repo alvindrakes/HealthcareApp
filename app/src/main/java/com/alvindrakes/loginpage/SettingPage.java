@@ -131,6 +131,11 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
                 Intent g = new Intent(SettingPage.this, MainActivity.class);
                 startActivity(g);
                 break;
+
+            case R.id.sleep_tracker:
+                Intent b = new Intent(SettingPage.this, SleepTracker.class);
+                startActivity(b);
+                break;
         }
 
         return true;
