@@ -49,15 +49,29 @@
         android:layout_height="match_parent"
         android:background="#280a48">
 
-        <Button
-            android:id="@+id/signOutBtn"
-            android:layout_width="91dp"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="363dp"
+            android:layout_height="223dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Sign Out"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/signOutBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/gratitudepost2" />
+
+        <Button
+            android:id="@+id/signOutBtn"
+            android:layout_width="200dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/signoutbtn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

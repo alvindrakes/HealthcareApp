@@ -5,7 +5,7 @@
     android:background="#3F1060"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/myDrawer"
+    android:id="@+id/storeLayout"
     tools:context="com.alvindrakes.loginpage.Store">
 
 

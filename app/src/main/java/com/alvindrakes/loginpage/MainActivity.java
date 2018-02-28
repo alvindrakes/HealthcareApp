@@ -1,6 +1,10 @@
 package com.alvindrakes.loginpage;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,7 +22,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView dayValue;
     EditText heartData;
     CircleProgressBar Goal;
-    
+
     //Data from Firebase
     User user;
     StatisticData dataValue;
@@ -77,7 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar progress_of_steps;
     
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-    
+
+
+    Context mContext;
+    View mTextView;
+    Activity mActivity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -88,9 +100,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        setSupportActionBar(toolbar);
 
 
+//        mContext = getApplicationContext();
+//        mTextView = (TextView) findViewById(R.id.ConstraintLayout);
+//        mActivity = MainActivity.this;
+
         //=======================Pedometer============
         // Get an instance of the SensorManager
-
         TvSteps = (TextView) findViewById(R.id.tv_steps);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -171,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(StartPageIntent);
             }
         });
+
 
 
         Goal = (CircleProgressBar) findViewById(R.id.DailyGoal);
