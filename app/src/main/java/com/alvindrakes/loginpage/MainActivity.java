@@ -265,6 +265,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(g);
                 break;
 
+
+            case R.id.sleep_tracker:
+                Intent b = new Intent(MainActivity.this, SleepTracker.class);
+                startActivity(b);
+                break;
+
             case R.id.profile_page:
                 Intent i = new Intent(MainActivity.this, ProfilePage.class);
                 startActivity(i);

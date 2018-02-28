@@ -119,14 +119,12 @@
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
         android:paddingTop="8dp"
-        android:text="Launch Game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125"
-        tools:text="Launch game" />
+        app:layout_constraintVertical_bias="0.125" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -146,8 +144,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.548"
-        app:srcCompat="@drawable/moonnew"
-        custom:srcCompat="@drawable/moon" />
+        app:srcCompat="@drawable/moonnew" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -167,8 +164,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.548"
-        app:srcCompat="@drawable/saturnnew"
-        custom:srcCompat="@drawable/saturn" />
+        app:srcCompat="@drawable/saturnnew" />
 
     <ImageView
         android:id="@+id/imageView9"

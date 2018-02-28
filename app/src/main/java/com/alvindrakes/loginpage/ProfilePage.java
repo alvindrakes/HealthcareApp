@@ -234,6 +234,11 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 Intent g = new Intent(ProfilePage.this, MainActivity.class);
                 startActivity(g);
                 break;
+
+            case R.id.sleep_tracker:
+                Intent b = new Intent(ProfilePage.this, SleepTracker.class);
+                startActivity(b);
+                break;
         }
 
         return true;
