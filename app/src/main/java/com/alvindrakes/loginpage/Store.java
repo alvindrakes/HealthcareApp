@@ -24,18 +24,22 @@ public class Store extends MainActivity{
     TextView coin;
 
     //for navigation drawer
-    private DrawerLayout myDrawer;
-    private ActionBarDrawerToggle myToggle;
-    private NavigationView navigationView;
+//    private DrawerLayout myDrawer;
+//    private ActionBarDrawerToggle myToggle;
+//    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Store");
         getSupportActionBar().show();
         setContentView(R.layout.store);
+
+
         coin = (TextView) findViewById(R.id.amount2);
 
         FloatingActionButton back = (FloatingActionButton) findViewById(R.id.close_store);
@@ -47,6 +51,7 @@ public class Store extends MainActivity{
                 startActivity(StartPageIntent);
             }
         });
+
         int value= getIntent().getExtras().getInt("coin");
         coin.setText(Integer.toString(value));
         Button price_1 = (Button) findViewById(R.id.button2);
@@ -82,6 +87,7 @@ public class Store extends MainActivity{
 
             }
         });
+
         price_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,53 +104,50 @@ public class Store extends MainActivity{
             }
         });
 
-        myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
-        myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
-
-        navigationView = (NavigationView) findViewById(R.id.my_navigation);
-        navigationView.bringToFront();
-
-        navigationView.setNavigationItemSelectedListener(this);
-
-        myDrawer.addDrawerListener(myToggle);
-        myToggle.syncState();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
+//        myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
+//
+//        navigationView = (NavigationView) findViewById(R.id.my_navigation);
+//        navigationView.bringToFront();
+//
+//        navigationView.setNavigationItemSelectedListener(this);
+//
+//        myDrawer.addDrawerListener(myToggle);
+//        myToggle.syncState();
+//
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (myToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        switch (id) {
-            case R.id.profile_page:
-                Intent i = new Intent(Store.this, ProfilePage.class);
-                startActivity(i);
-                Toast.makeText(this, "the profile is clicked", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.setting_page:
-                Intent h = new Intent(Store.this, SettingPage.class);
-                startActivity(h);
-                Toast.makeText(this, "the setting is clicked", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.home_page:
-                Intent g = new Intent(Store.this, MainActivity.class);
-                startActivity(g);
-                Toast.makeText(this, "the home is clicked", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        if (myToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+//
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//
+//        switch (id) {
+//            case R.id.profile_page:
+//                Intent i = new Intent(Store.this, ProfilePage.class);
+//                startActivity(i);
+//                break;
+//
+//            case R.id.setting_page:
+//                Intent h = new Intent(Store.this, SettingPage.class);
+//                startActivity(h);
+//                break;
+//
+//            case R.id.home_page:
+//                Intent g = new Intent(Store.this, MainActivity.class);
+//                startActivity(g);
+//                break;
+//        }
+//
+//        return true;
+//    }
 }

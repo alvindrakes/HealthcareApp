@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6F2D84")));
-        bar.setTitle("Homepage");
+        bar.setTitle("Home");
         getSupportActionBar().show();
         
     
@@ -247,19 +247,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.home_page:
                 Intent g = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(g);
-                Toast.makeText(this, "the home is clicked", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.profile_page:
                 Intent i = new Intent(MainActivity.this, ProfilePage.class);
                 startActivity(i);
-                Toast.makeText(this, "the profile is clicked", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.setting_page:
                 Intent h = new Intent(MainActivity.this, SettingPage.class);
                 startActivity(h);
-                Toast.makeText(this, "the setting is clicked", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
