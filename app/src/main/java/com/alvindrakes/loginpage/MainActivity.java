@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView coins;
     TextView dayValue;
     EditText heartData;
-    CircleProgressBar Goal;
 
     //Data from Firebase
     User user;
