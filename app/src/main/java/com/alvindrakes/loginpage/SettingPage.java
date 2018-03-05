@@ -17,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Window;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +64,7 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
         userId = (TextView) headerView.findViewById(R.id.User_ID);
         userEmail = (TextView) headerView.findViewById(R.id.User_email);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
