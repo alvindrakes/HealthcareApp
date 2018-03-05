@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.alvindrakes.loginpage">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -46,8 +47,8 @@
         <activity
             android:name=".SettingPage"
             android:screenOrientation="portrait" />
-        <activity android:name=".Account" />
         <activity android:name=".SleepTracker"></activity>
     </application>
+
 
 </manifest>
