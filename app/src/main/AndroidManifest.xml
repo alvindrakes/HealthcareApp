@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.alvindrakes.loginpage">
+    package="com.alvindrakes.loginpage"
+    android:installLocation="internalOnly">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:theme">
+
+
         <activity
             android:name=".Login"
             android:screenOrientation="portrait" />
@@ -48,6 +57,16 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Account" />
         <activity android:name=".SleepTracker"></activity>
+
+        <activity android:name=".alarm.AlarmActivity" android:theme="@style/AppTheme" />
+        <receiver android:name=".alarm.AlarmReceiver" />
+        <receiver android:name=".alarm.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".alarm.AlarmService" />
+
     </application>
 
 </manifest>

@@ -1,10 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 
 repositories {
     flatDir {
         dirs 'libs'
     }
+
+    jcenter()
+    maven { url 'https://jitpack.io/' }
 }
 
 
@@ -21,6 +25,9 @@ android {
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release
+    }
 
     buildTypes {
         debug {
@@ -38,6 +45,15 @@ android {
     }
 
     productFlavors {
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -75,9 +91,18 @@ dependencies {
     //for google sign in button
     compile 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
 
+    compile 'com.github.trikita:jedux:-SNAPSHOT'
+    compile 'com.github.trikita:promote:-SNAPSHOT'
+    compile 'co.trikita:anvil-sdk15:0.3.1'
+    compile 'org.immutables:gson:2.1.14'
+    annotationProcessor 'org.immutables:value:2.1.14'
+    provided 'org.immutables:value:2.1.14'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+apply from: 'https://raw.github.com/trikita/gradle-android-signing/master/gradle-android-signing.gradle'
 
 configurations.all {
     resolutionStrategy.eachDependency { details ->

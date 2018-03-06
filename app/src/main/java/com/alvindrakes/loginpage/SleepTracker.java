@@ -10,17 +10,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.alvindrakes.loginpage.Login;
-import com.alvindrakes.loginpage.MainActivity;
-import com.alvindrakes.loginpage.ProfilePage;
-import com.alvindrakes.loginpage.R;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.firebase.auth.FirebaseAuth;
+import android.view.WindowManager;
+
+import com.alvindrakes.loginpage.ui.AlarmLayout;
+
+import trikita.anvil.Anvil;
+
+import trikita.anvil.RenderableView;
 
 public class SleepTracker extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -53,7 +50,22 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // updateTheme();
+
+        setContentView(new RenderableView(this) {
+            public void view() {
+                    AlarmLayout.view();
+                }
+            });
+        }
+
+
+    public void onResume() {
+        super.onResume();
+        Anvil.render();
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
