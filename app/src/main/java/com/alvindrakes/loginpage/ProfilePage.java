@@ -148,13 +148,28 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     }
     
     private void insertData () {
-        
-        ageInfo.setText(Integer.toString(user.getAge()));
-        ageInfoEdit.setText(Integer.toString(user.getAge()));
-        heightInfo.setText(Integer.toString(user.getHeight()));
-        heightInfoEdit.setText(Integer.toString(user.getHeight()));
-        weightInfo.setText(Integer.toString(user.getWeight()));
-        weightInfoEdit.setText(Integer.toString(user.getWeight()));
+    
+        if (user.getAge() == 0) {
+            ageInfo.setText("No info");
+            ageInfoEdit.setText(null);
+        } else {
+            ageInfo.setText(Integer.toString(user.getAge()));
+            ageInfoEdit.setText(Integer.toString(user.getAge()));
+        }
+        if (user.getHeight() == 0) {
+            heightInfo.setText("No info");
+            heightInfoEdit.setText(null);
+        } else {
+            heightInfo.setText(Integer.toString(user.getHeight()));
+            heightInfoEdit.setText(Integer.toString(user.getHeight()));
+        }
+        if (user.getWeight() == 0) {
+            weightInfo.setText("No info");
+            weightInfoEdit.setText(null);
+        } else {
+            weightInfo.setText(Integer.toString(user.getWeight()));
+            weightInfoEdit.setText(Integer.toString(user.getWeight()));
+        }
     }
     
     private void updatingData () {

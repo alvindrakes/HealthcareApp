@@ -23,8 +23,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -32,6 +34,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView progress;
     TextView coins;
     TextView dayValue;
-    EditText heartData;
-    CircleProgressBar Goal;
 
     //Data from Firebase
     User user;

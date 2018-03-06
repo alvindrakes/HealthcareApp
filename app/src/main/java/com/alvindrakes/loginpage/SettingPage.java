@@ -73,7 +73,6 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
 
         signOutBtn = (Button) findViewById(R.id.signOutBtn);
 
-
         signOutBtn.setOnClickListener(new View.OnClickListener() {
        @Override
         public void onClick (View v) {

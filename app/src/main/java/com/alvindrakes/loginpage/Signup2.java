@@ -2,15 +2,20 @@ package com.alvindrakes.loginpage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -91,6 +96,20 @@ public class Signup2 extends SignupPage {
         }
 
         User.updateData(user);
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+            .setDisplayName(user.getName())
+            .build();
+    
+        firebaseUser.updateProfile(profileUpdates)
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete (@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("Account","Account details updated");
+                    }
+                }
+            });
+        
         Toast.makeText(Signup2.this, "", Toast.LENGTH_SHORT).show();
         Intent StartPageIntent = new Intent(Signup2.this, MainActivity.class);
         startActivity(StartPageIntent);

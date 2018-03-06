@@ -12,12 +12,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import android.view.WindowManager;
+<<<<<<< HEAD
 
 import com.alvindrakes.loginpage.ui.AlarmLayout;
 
 import trikita.anvil.Anvil;
 
 import trikita.anvil.RenderableView;
+=======
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.alvindrakes.loginpage.Login;
+import com.alvindrakes.loginpage.MainActivity;
+import com.alvindrakes.loginpage.ProfilePage;
+import com.alvindrakes.loginpage.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+>>>>>>> 0c3b063654574bff6de1a2449641e783bac97a37
 
 public class SleepTracker extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,7 +43,12 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
     private NavigationView navigationView;
-
+    
+    TextView userId;
+    TextView userEmail;
+    
+    User user;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +70,14 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
 
         myDrawer.addDrawerListener(myToggle);
         myToggle.syncState();
+    
+        View headerView = navigationView.getHeaderView(0);
+        userId = (TextView) headerView.findViewById(R.id.User_ID);
+        userEmail = (TextView) headerView.findViewById(R.id.User_email);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+<<<<<<< HEAD
 
         // updateTheme();
 
@@ -63,6 +92,27 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     public void onResume() {
         super.onResume();
         Anvil.render();
+=======
+    
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    user = dataSnapshot.getValue(User.class);
+                    userId.setText(user.getName());
+                    userEmail.setText(user.getEmail());
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
+                }
+            });
+        
+>>>>>>> 0c3b063654574bff6de1a2449641e783bac97a37
     }
 
 
