@@ -60,33 +60,32 @@ public class Store extends MainActivity {
         Button price_2 = (Button) findViewById(R.id.button3);
         Button price_3 = (Button) findViewById(R.id.button4);
         price_1.setOnClickListener(new View.OnClickListener() {
-<<<<<<< HEAD
-                                       @Override
-                                       public void onClick(View view) {
-                                           final AlertDialog.Builder builder3 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
-                                           builder3.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                               public void onClick(DialogInterface dialog, int id) {
-                                                   if (user.getCoin() >= 50) {
-                                                       user.setCoin(user.getCoin() - 50);
-                                                       coin.setText(Integer.toString(user.getCoin()));
-                                                       StatisticData.updateCoin(user.getCoin());
-                                                   } else {
-                                                       Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
-                                                   }
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder3 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
+                builder3.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (user.getCoin() >= 50) {
+                            user.setCoin(user.getCoin() - 50);
+                            coin.setText(Integer.toString(user.getCoin()));
+                            StatisticData.updateCoin(user.getCoin());
+                        } else {
+                            Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
+                        }
 
-                                               }
-                                           });
-                                           builder3.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                                               public void onClick(DialogInterface dialog, int id) {
-                                               }
+                    }
+                });
+                builder3.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
 
-                                           });
-                                           builder3.setTitle("Buy the item?");
-                                           builder3.setMessage("Buy the item for 50 coins?");
-                                           final AlertDialog dialog = builder3.create();
-                                           dialog.show();
-                                       }
-                                   });
+                });
+                builder3.setTitle("Buy the item?");
+                builder3.setMessage("Buy the item for 50 coins?");
+                final AlertDialog dialog = builder3.create();
+                dialog.show();
+            }
+        });
 
 
         price_2.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +94,11 @@ public class Store extends MainActivity {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (user.getCoin()>= 100) {
+                        if (user.getCoin() >= 100) {
                             user.setCoin(user.getCoin() - 100);
                             coin.setText(Integer.toString(user.getCoin()));
                             StatisticData.updateCoin(user.getCoin());
-                        }
-                        else {
+                        } else {
                             Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                         }
 
@@ -115,33 +113,6 @@ public class Store extends MainActivity {
                 builder.setMessage("Buy the item for 100 coins?");
                 final AlertDialog dialog = builder.create();
                 dialog.show();
-=======
-            @Override
-            public void onClick(View view) {
-                if (user.getCoin() >= 50) {
-                    user.setCoin(user.getCoin() - 50);
-                    coin.setText(Integer.toString(user.getCoin()));
-                    StatisticData.updateCoin(user.getCoin());
-                    Toast.makeText(Store.this, "Successfully purchased", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-        price_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (user.getCoin() >= 100) {
-                    user.setCoin(user.getCoin() - 100);
-                    coin.setText(Integer.toString(user.getCoin()));
-                    StatisticData.updateCoin(user.getCoin());
-                    Toast.makeText(Store.this, "Successfully purchased", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
-                }
-
->>>>>>> 2a64bc56498d3b8b2444abb89797a9c82c385f84
             }
         });
 
@@ -149,33 +120,22 @@ public class Store extends MainActivity {
         price_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
-               final  AlertDialog.Builder builder2 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
+                final AlertDialog.Builder builder2 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
                 builder2.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                if (user.getCoin()>= 200) {
-                    user.setCoin(user.getCoin() - 200);
-                    coin.setText(Integer.toString(user.getCoin()));
-                    StatisticData.updateCoin(user.getCoin());
-                }
-                else {
-=======
-                if (user.getCoin() >= 200) {
-                    user.setCoin(user.getCoin() - 200);
-                    coin.setText(Integer.toString(user.getCoin()));
-                    StatisticData.updateCoin(user.getCoin());
-                    Toast.makeText(Store.this, "Successfully purchased", Toast.LENGTH_SHORT).show();
-                } else {
->>>>>>> 2a64bc56498d3b8b2444abb89797a9c82c385f84
-                    Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
-                }
+                        if (user.getCoin() >= 200) {
+                            user.setCoin(user.getCoin() - 200);
+                            coin.setText(Integer.toString(user.getCoin()));
+                            StatisticData.updateCoin(user.getCoin());
+                        } else {
+                            Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
+                        }
 
-            }
-        });
+                    }
+                });
                 builder2.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
-
                 });
                 builder2.setTitle("Buy the item?");
                 builder2.setMessage("Buy the item for 200 coins?");
