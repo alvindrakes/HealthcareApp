@@ -91,6 +91,8 @@ dependencies {
     //for google sign in button
     compile 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
 
+
+    // for sleep tracker alarm
     compile 'com.github.trikita:jedux:-SNAPSHOT'
     compile 'com.github.trikita:promote:-SNAPSHOT'
     compile 'co.trikita:anvil-sdk15:0.3.1'

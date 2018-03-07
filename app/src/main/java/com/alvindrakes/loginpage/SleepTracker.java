@@ -11,15 +11,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.view.WindowManager;
-<<<<<<< HEAD
+
 
 import com.alvindrakes.loginpage.ui.AlarmLayout;
 
 import trikita.anvil.Anvil;
 
 import trikita.anvil.RenderableView;
-=======
+
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
->>>>>>> 0c3b063654574bff6de1a2449641e783bac97a37
+
 
 public class SleepTracker extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -77,7 +78,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-<<<<<<< HEAD
+
 
         // updateTheme();
 
@@ -92,7 +93,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     public void onResume() {
         super.onResume();
         Anvil.render();
-=======
+
     
         FirebaseDatabase.getInstance()
             .getReference()
@@ -111,8 +112,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 
                 }
             });
-        
->>>>>>> 0c3b063654574bff6de1a2449641e783bac97a37
+
     }
 
 
