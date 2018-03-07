@@ -15,11 +15,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 
-import com.alvindrakes.loginpage.ui.AlarmLayout;
-
-import trikita.anvil.Anvil;
-
-import trikita.anvil.RenderableView;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -80,19 +75,6 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        // updateTheme();
-
-        setContentView(new RenderableView(this) {
-            public void view() {
-                    AlarmLayout.view();
-                }
-            });
-        }
-
-
-    public void onResume() {
-        super.onResume();
-        Anvil.render();
 
     
         FirebaseDatabase.getInstance()

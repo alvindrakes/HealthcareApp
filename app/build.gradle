@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
+
 
 
 repositories {
@@ -92,19 +92,11 @@ dependencies {
     compile 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
 
 
-    // for sleep tracker alarm
-    compile 'com.github.trikita:jedux:-SNAPSHOT'
-    compile 'com.github.trikita:promote:-SNAPSHOT'
-    compile 'co.trikita:anvil-sdk15:0.3.1'
-    compile 'org.immutables:gson:2.1.14'
-    annotationProcessor 'org.immutables:value:2.1.14'
-    provided 'org.immutables:value:2.1.14'
-
 }
 
 apply plugin: 'com.google.gms.google-services'
 
-apply from: 'https://raw.github.com/trikita/gradle-android-signing/master/gradle-android-signing.gradle'
+
 
 configurations.all {
     resolutionStrategy.eachDependency { details ->

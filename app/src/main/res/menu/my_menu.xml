@@ -11,7 +11,6 @@
     <item
         android:id="@+id/sleep_tracker"
         android:icon="@drawable/moonsleep"
-
         android:title="Sleep" />
 
 
