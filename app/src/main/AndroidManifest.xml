@@ -48,6 +48,13 @@
             android:name=".SettingPage"
             android:screenOrientation="portrait" />
         <activity android:name=".SleepTracker"></activity>
+
+        <receiver android:name=".AlarmReceiver"/>
+        
+        <service android:name=".RingtonePlayingService"
+            android:enabled="true">
+
+        </service>
     </application>
 
 
