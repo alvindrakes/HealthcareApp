@@ -18,4 +18,20 @@
     <string name="todo2">TODO</string>
     <string name="todo3">TODO</string>
     <string name="todo4">TODO</string>
+
+    <string name="hour">1 hour</string>
+    <string name="hours">%s hours</string>
+    <string name="minute">1 minute</string>
+    <string name="minutes">%s minutes</string>
+
+    <string-array name="alarm_set">
+        <item>This alarm is set for less than 1 minute from now</item>
+        <item>This alarm is set for %1$s from now</item>
+        <item>This alarm is set for %2$s from now</item>
+        <item>This alarm is set for %1$s and %2$s from now</item>
+    </string-array>
+
+
+    <string name="tv_start_alarm_text">Tap here\nto set alarm</string>
+
 </resources>
