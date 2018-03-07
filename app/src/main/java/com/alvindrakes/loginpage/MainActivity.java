@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bar.setTitle("Home");
         getSupportActionBar().show();
     
+
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
