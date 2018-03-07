@@ -48,10 +48,49 @@
         android:layout_height="match_parent"
         android:background="#280a48">
 
+        <ImageView
+            android:id="@+id/coin2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignEnd="@+id/button2"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/todo3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.978"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/coinbackground" />
+
+        <TextView
+            android:id="@+id/amount3"
+            android:layout_width="60dp"
+            android:layout_height="19dp"
+            android:layout_alignTop="@+id/coin2"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toStartOf="@+id/coin2"
+            android:background="@drawable/border"
+            android:gravity="left"
+            android:paddingLeft="8dp"
+            android:text="@string/_0"
+            android:textAlignment="gravity"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/coin2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
         <EditText
             android:id="@+id/heightInfo_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="128dp"
+            android:layout_height="24dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -63,15 +102,15 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.365"
+            app:layout_constraintHorizontal_bias="0.314"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.473" />
+            app:layout_constraintVertical_bias="0.474" />
 
         <EditText
             android:id="@+id/weightInfo_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="128dp"
+            android:layout_height="24dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -83,10 +122,10 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.365"
+            app:layout_constraintHorizontal_bias="0.313"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.195" />
+            app:layout_constraintVertical_bias="0.374" />
 
         <TextView
             android:id="@+id/heightInfo"
@@ -203,6 +242,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="83dp"
             android:layout_marginTop="8dp"
+            android:background="#FF69B4"
             android:text="Edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.16"
@@ -247,8 +287,8 @@
 
         <EditText
             android:id="@+id/ageInfo_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
+            android:layout_width="128dp"
+            android:layout_height="24dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -260,35 +300,36 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.365"
+            app:layout_constraintHorizontal_bias="0.314"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.295" />
+            app:layout_constraintVertical_bias="0.3" />
 
         <ImageView
-            android:id="@+id/imageView12"
+            android:id="@+id/sprite"
             android:layout_width="163dp"
             android:layout_height="275dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/sprite2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.965"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.339"
-            app:srcCompat="@drawable/sprite2" />
+            app:layout_constraintVertical_bias="0.339" />
 
         <TableLayout
             android:id="@+id/tableLayout"
-            android:layout_width="395dp"
+            android:layout_width="match_parent"
             android:layout_height="154dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -298,8 +339,13 @@
 
             <TableRow>
 
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="154dp"
+                    android:background="#FFFFFF" />
+
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/s0"
                     android:layout_width="80dp"
                     android:layout_height="130dp"
                     android:layout_marginBottom="8dp"
@@ -315,8 +361,13 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.953" />
 
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF" />
+
                 <Button
-                    android:id="@+id/button6"
+                    android:id="@+id/s1"
                     android:layout_width="80dp"
                     android:layout_height="130dp"
                     android:layout_marginBottom="8dp"
@@ -332,8 +383,13 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.953" />
 
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="154dp"
+                    android:background="#FFFFFF" />
+
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/s2"
                     android:layout_width="80dp"
                     android:layout_height="130dp"
                     android:layout_marginBottom="8dp"
@@ -349,8 +405,13 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.953" />
 
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="154dp"
+                    android:background="#FFFFFF" />
+
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/s3"
                     android:layout_width="80dp"
                     android:layout_height="130dp"
                     android:layout_marginBottom="8dp"
@@ -365,6 +426,11 @@
                     app:layout_constraintStart_toStartOf="@+id/tableLayout"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.953" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="154dp"
+                    android:background="#FFFFFF" />
 
             </TableRow>
 

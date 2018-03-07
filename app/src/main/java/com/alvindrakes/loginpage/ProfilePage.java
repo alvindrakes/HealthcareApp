@@ -1,5 +1,6 @@
 package com.alvindrakes.loginpage;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,8 +15,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlertDialog;
 import android.view.Window;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,14 +42,22 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     Button editBtn;
     Button cancelBtn;
     Button updateBtn;
+    Button s0;
+    Button s1;
+    int x;
+    Button s2;
+    Button s3;
     TextView ageInfo;
     TextView weightInfo;
     TextView heightInfo;
     EditText ageInfoEdit;
     EditText weightInfoEdit;
     EditText heightInfoEdit;
+    ImageView sprite;
+
     
     TextView userId;
+    TextView coin;
     TextView userEmail;
     
     FirebaseUser firebaseUser;
@@ -87,11 +98,29 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         heightInfoEdit = (EditText) findViewById(R.id.heightInfo_edit);
         userId = (TextView) headerView.findViewById(R.id.User_ID);
         userEmail = (TextView) headerView.findViewById(R.id.User_email);
+        coin = (TextView) findViewById(R.id.amount3) ;
+        sprite = (ImageView) findViewById(R.id.sprite);
+        s0 = (Button) findViewById(R.id.s0);
+        s1 = (Button) findViewById(R.id.s1);
+        s2 = (Button) findViewById(R.id.s2);
+        s3 = (Button) findViewById(R.id.s3);
+
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                sprite.setBackgroundResource(x);
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+        builder.setTitle("Buy the item?");
+        builder.setMessage("Buy the item for 100 coins?");
+        final AlertDialog dialog = builder.create();
 
-
-    
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -126,6 +155,37 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
+        s0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                x = (R.drawable.sprite2);
+                dialog.show();
+            }
+        });
+        s1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                x = (R.drawable.sprite3);
+                dialog.show();
+            }
+        });
+        s2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                x = (R.drawable.sprite);
+                dialog.show();
+            }
+        });
+        s3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                x = (R.drawable.sprite1);
+                dialog.show();
+            }
+        });
+
+
+
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
@@ -137,6 +197,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     insertData();
                     clock = false;
                     userId.setText(user.getName());
+                    coin.setText(Integer.toString(user.getCoin()));
                     userEmail.setText(user.getEmail());
                 }
             
