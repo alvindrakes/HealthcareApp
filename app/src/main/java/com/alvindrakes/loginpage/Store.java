@@ -22,7 +22,7 @@ import android.app.AlertDialog;
  * Created by ming on 24/1/2018.
  */
 
-public class Store extends MainActivity{
+public class Store extends MainActivity {
     TextView coin;
 
     //for navigation drawer
@@ -54,12 +54,13 @@ public class Store extends MainActivity{
             }
         });
 
-        int value= getIntent().getExtras().getInt("coin");
+        int value = getIntent().getExtras().getInt("coin");
         coin.setText(Integer.toString(value));
         Button price_1 = (Button) findViewById(R.id.button2);
         Button price_2 = (Button) findViewById(R.id.button3);
         Button price_3 = (Button) findViewById(R.id.button4);
         price_1.setOnClickListener(new View.OnClickListener() {
+<<<<<<< HEAD
                                        @Override
                                        public void onClick(View view) {
                                            final AlertDialog.Builder builder3 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
@@ -114,6 +115,33 @@ public class Store extends MainActivity{
                 builder.setMessage("Buy the item for 100 coins?");
                 final AlertDialog dialog = builder.create();
                 dialog.show();
+=======
+            @Override
+            public void onClick(View view) {
+                if (user.getCoin() >= 50) {
+                    user.setCoin(user.getCoin() - 50);
+                    coin.setText(Integer.toString(user.getCoin()));
+                    StatisticData.updateCoin(user.getCoin());
+                    Toast.makeText(Store.this, "Successfully purchased", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        price_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (user.getCoin() >= 100) {
+                    user.setCoin(user.getCoin() - 100);
+                    coin.setText(Integer.toString(user.getCoin()));
+                    StatisticData.updateCoin(user.getCoin());
+                    Toast.makeText(Store.this, "Successfully purchased", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
+                }
+
+>>>>>>> 2a64bc56498d3b8b2444abb89797a9c82c385f84
             }
         });
 
@@ -121,6 +149,7 @@ public class Store extends MainActivity{
         price_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                final  AlertDialog.Builder builder2 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
                 builder2.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -130,6 +159,14 @@ public class Store extends MainActivity{
                     StatisticData.updateCoin(user.getCoin());
                 }
                 else {
+=======
+                if (user.getCoin() >= 200) {
+                    user.setCoin(user.getCoin() - 200);
+                    coin.setText(Integer.toString(user.getCoin()));
+                    StatisticData.updateCoin(user.getCoin());
+                    Toast.makeText(Store.this, "Successfully purchased", Toast.LENGTH_SHORT).show();
+                } else {
+>>>>>>> 2a64bc56498d3b8b2444abb89797a9c82c385f84
                     Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                 }
 
@@ -147,50 +184,5 @@ public class Store extends MainActivity{
             }
         });
 
-//        myDrawer = (DrawerLayout) findViewById(R.id.myDrawer);
-//        myToggle = new ActionBarDrawerToggle(this, myDrawer, R.string.open, R.string.close);
-//
-//        navigationView = (NavigationView) findViewById(R.id.my_navigation);
-//        navigationView.bringToFront();
-//
-//        navigationView.setNavigationItemSelectedListener(this);
-//
-//        myDrawer.addDrawerListener(myToggle);
-//        myToggle.syncState();
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if (myToggle.onOptionsItemSelected(item)) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-//
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        switch (id) {
-//            case R.id.profile_page:
-//                Intent i = new Intent(Store.this, ProfilePage.class);
-//                startActivity(i);
-//                break;
-//
-//            case R.id.setting_page:
-//                Intent h = new Intent(Store.this, SettingPage.class);
-//                startActivity(h);
-//                break;
-//
-//            case R.id.home_page:
-//                Intent g = new Intent(Store.this, MainActivity.class);
-//                startActivity(g);
-//                break;
-//        }
-//
-//        return true;
-//    }
 }

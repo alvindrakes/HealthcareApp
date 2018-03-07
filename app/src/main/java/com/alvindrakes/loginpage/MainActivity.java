@@ -4,6 +4,8 @@ package com.alvindrakes.loginpage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bar.setTitle("Home");
         getSupportActionBar().show();
     
+
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
         dayValue = (TextView) findViewById(R.id.dayValue);
@@ -283,5 +286,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
         System.out.print("Game is running !!!!!!!");
     }
-
 }
