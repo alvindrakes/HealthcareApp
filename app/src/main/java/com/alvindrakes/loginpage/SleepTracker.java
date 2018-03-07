@@ -128,16 +128,22 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                     hour=timePicker.getCurrentHour();
                     minute=timePicker.getCurrentMinute();
                 }
-                
+                if(calendar.before(Calendar.getInstance())) {
+                    calendar.add(Calendar.DATE, 1);
+                }
+    
                 String hourString = String.valueOf(hour);
                 String minuteString = String.valueOf(minute);
-                
-                if (hour > 12)
+    
+                if (hour > 12) {
                     hourString = String.valueOf(hour - 12);
-                if (minute < 10)
+                }
+                if (minute < 10) {
                     minuteString = "0" + String.valueOf(minute);
-                
+                }
+    
                 updateText.setText("Alarm set to " + hourString + ":" + minuteString);
+    
                 
                 alarmReceiver.putExtra("extra", "alarm on");
                 pendingIntent = PendingIntent.getBroadcast(SleepTracker.this, 0, alarmReceiver, PendingIntent.FLAG_UPDATE_CURRENT);
