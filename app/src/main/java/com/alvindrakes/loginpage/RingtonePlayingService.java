@@ -35,25 +35,32 @@ public class RingtonePlayingService extends Service {
       case "alarm on":
         startId = 1;
         break;
+      case "alarm off":
+        startId = 0;
+        break;
       default:
         startId = 0;
         break;
     }
   
+    //alarm not ringing and alarm on button pressed
     if(!this.isRunning && startId == 1){
       mediaPlayer = MediaPlayer.create(this, R.raw.sexiest_romantic_mp3);
       mediaPlayer.start();
       
       this.isRunning = true;
   
-    } else if (this.isRunning && startId == 0){
+    }
+    //alarm ringing and alarm off button pressed
+    else if (this.isRunning && startId == 0){
       mediaPlayer.stop();
       mediaPlayer.reset();
       
       this.isRunning = false;
   
     }
-/*    else if (!this.isRunning && startId == 0){
+    //alarm not ringing and off button pressed
+    else if (!this.isRunning && startId == 0){
     
       this.isRunning = false;
   
@@ -61,7 +68,7 @@ public class RingtonePlayingService extends Service {
       
       this.isRunning = true;
   
-    }*/
+    }
     
   
     return START_NOT_STICKY;

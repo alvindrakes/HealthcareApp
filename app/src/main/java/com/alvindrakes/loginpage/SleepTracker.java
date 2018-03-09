@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +36,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class SleepTracker extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -106,9 +109,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         timePicker = (TimePicker) findViewById(R.id.time_picker);
         updateText = (TextView) findViewById(R.id.update_text);
-        final Calendar calendar = Calendar.getInstance();
         Button alarmOn = (Button) findViewById(R.id.on_alarm);
-        Button alarmOff = (Button) findViewById(R.id.off_alarm);
+        final Button alarmOff = (Button) findViewById(R.id.off_alarm);
         
         final Intent alarmReceiver = new Intent(this.context, AlarmReceiver.class);
         
@@ -117,6 +119,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
             public void onClick (View v) {
                 int hour;
                 int minute;
+                Calendar calendar = Calendar.getInstance();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
                     calendar.set(Calendar.MINUTE, timePicker.getMinute());
@@ -129,6 +132,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                     hour=timePicker.getCurrentHour();
                     minute=timePicker.getCurrentMinute();
                 }
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
                 if(calendar.before(Calendar.getInstance())) {
                     calendar.add(Calendar.DATE, 1);
                 }
@@ -144,12 +149,15 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 }
     
                 updateText.setText("Alarm set to " + hourString + ":" + minuteString);
+                Log.e("Calendar", String.valueOf(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(calendar.getTime())));
     
                 
                 alarmReceiver.putExtra("extra", "alarm on");
                 pendingIntent = PendingIntent.getBroadcast(SleepTracker.this, 0, alarmReceiver, PendingIntent.FLAG_UPDATE_CURRENT);
                 
                 alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+                
+                alarmOff.setVisibility(View.VISIBLE);
         
             }
         });
@@ -163,6 +171,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 
                 alarmReceiver.putExtra("extra", "alarm off");
                 sendBroadcast(alarmReceiver);
+                
+                alarmOff.setVisibility(View.INVISIBLE);
         
             }
         });
