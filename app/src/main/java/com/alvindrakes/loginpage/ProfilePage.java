@@ -51,7 +51,6 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     TextView weightInfo;
     TextView heightInfo;
     TextView sleepInfo;
-    TextView stepInfo;
     EditText ageInfoEdit;
     EditText weightInfoEdit;
     EditText heightInfoEdit;
@@ -94,7 +93,6 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         cancelBtn = (Button) findViewById(R.id.cancel_edit_account_button);
         updateBtn = (Button) findViewById(R.id.update_account_button);
         ageInfo = (TextView) findViewById(R.id.ageInfo);
-        stepInfo = (TextView) findViewById(R.id.stepsInfo);
         sleepInfo = (TextView) findViewById(R.id.sleepInfo);
         weightInfo = (TextView) findViewById(R.id.weightInfo);
         heightInfo = (TextView) findViewById(R.id.heightInfo);
@@ -104,7 +102,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         userId = (TextView) headerView.findViewById(R.id.User_ID);
         userEmail = (TextView) headerView.findViewById(R.id.User_email);
         coin = (TextView) findViewById(R.id.amount3) ;
-        totalSteps = (TextView) findViewById(R.id.totalStepsValue) ;
+        totalSteps = (TextView) findViewById(R.id.stepsInfo) ;
         sprite = (ImageView) findViewById(R.id.sprite);
         s0 = (Button) findViewById(R.id.s0);
         s1 = (Button) findViewById(R.id.s1);
@@ -237,6 +235,11 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         } else {
             weightInfo.setText(String.valueOf(user.getWeight()));
             weightInfoEdit.setText(String.valueOf(user.getWeight()));
+        }
+        if (user.getTotalSteps() == 0) {
+            totalSteps.setText("No info");
+        } else {
+            totalSteps.setText(String.valueOf(user.getWeight()));
         }
     }
     
