@@ -60,25 +60,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dayText"
+        android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="28dp"
-        android:text="Day : "
+        android:text="Date :"
         android:textColor="#FFFFFF"
         app:layout_constraintLeft_toLeftOf="parent"
         custom:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dayValue"
+        android:id="@+id/dateValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:text="0"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/dayText"
+        app:layout_constraintStart_toEndOf="@+id/dateText"
         custom:layout_constraintTop_toTopOf="parent" />
 
     <!--<Button-->
@@ -208,7 +208,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@android:color/holo_blue_bright"
-        android:max="1000"
+        android:max="100"
         android:min="0"
         app:layout_constraintBottom_toTopOf="@+id/signOutBtn"
         app:layout_constraintEnd_toEndOf="parent"
