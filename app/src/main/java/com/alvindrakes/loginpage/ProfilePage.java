@@ -50,6 +50,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     TextView ageInfo;
     TextView weightInfo;
     TextView heightInfo;
+    TextView sleepInfo;
+    TextView stepInfo;
     EditText ageInfoEdit;
     EditText weightInfoEdit;
     EditText heightInfoEdit;
@@ -91,6 +93,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         cancelBtn = (Button) findViewById(R.id.cancel_edit_account_button);
         updateBtn = (Button) findViewById(R.id.update_account_button);
         ageInfo = (TextView) findViewById(R.id.ageInfo);
+        stepInfo = (TextView) findViewById(R.id.stepsInfo);
+        sleepInfo = (TextView) findViewById(R.id.sleepInfo);
         weightInfo = (TextView) findViewById(R.id.weightInfo);
         heightInfo = (TextView) findViewById(R.id.heightInfo);
         ageInfoEdit = (EditText) findViewById(R.id.ageInfo_edit);
