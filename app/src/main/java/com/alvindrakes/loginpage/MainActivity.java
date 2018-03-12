@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         progress_of_steps.setProgress(dataValue.getSteps());
         
         User.updateData(user);
-        StatisticData.updateData(dataValue, date);
+        StatisticData.updateData(dataValue, date, "steps");
     }
 
     @Override

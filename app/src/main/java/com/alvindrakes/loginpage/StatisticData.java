@@ -2,7 +2,6 @@ package com.alvindrakes.loginpage;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -14,7 +13,7 @@ import java.util.Map;
 
 public class StatisticData {
   private int steps;
-  private int heartData;
+  private int sleepData;
   
   public int getSteps () {
     return steps;
@@ -24,46 +23,27 @@ public class StatisticData {
     this.steps = steps;
   }
   
-  public int getHeartData () {
-    return heartData;
+  public int getSleepData () {
+    return sleepData;
   }
   
-  public void setHeartData (int heartData) {
-    this.heartData = heartData;
+  public void setSleepData (int sleepData) {
+    this.sleepData = sleepData;
   }
   
-  public static void updateData (StatisticData data, String day) {
+  public static void updateData (StatisticData data, String day, String type) {
     
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     
     Map<String, Object> childUpdates = new HashMap<>();
     
+    if (type.equals("steps"))
     childUpdates.put("/users/" + firebaseUser.getUid() + "/data/" + day + "/steps/" , data.getSteps());
-    
-    // childUpdates.put("/data/" + firebaseUser.getUid() + day + "/heartbeat/" , data.getHeartData());
+    else if (type.equals("sleep"))
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/data/" + day + "/sleep/" , data.getSleepData());
     
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
 
   }
   
-  public static void incrementDay (int day){
-    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-  
-    Map<String, Object> childUpdates = new HashMap<>();
-  
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/day/", day + 1);
-  
-    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
-  }
-  
-  public static void updateCoin (int coin){
-    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-  
-    Map<String, Object> childUpdates = new HashMap<>();
-  
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", coin);
-  
-    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
-  
-  }
 }

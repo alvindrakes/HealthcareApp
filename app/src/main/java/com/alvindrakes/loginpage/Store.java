@@ -3,19 +3,13 @@ package com.alvindrakes.loginpage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.content.DialogInterface;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.Window;
 import android.app.AlertDialog;
 
 /**
@@ -68,7 +62,7 @@ public class Store extends MainActivity {
                         if (user.getCoin() >= 50) {
                             user.setCoin(user.getCoin() - 50);
                             coin.setText(Integer.toString(user.getCoin()));
-                            StatisticData.updateCoin(user.getCoin());
+                            User.updateCoin(user.getCoin());
                         } else {
                             Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                         }
@@ -97,7 +91,7 @@ public class Store extends MainActivity {
                         if (user.getCoin() >= 100) {
                             user.setCoin(user.getCoin() - 100);
                             coin.setText(Integer.toString(user.getCoin()));
-                            StatisticData.updateCoin(user.getCoin());
+                            User.updateCoin(user.getCoin());
                         } else {
                             Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                         }
@@ -126,7 +120,7 @@ public class Store extends MainActivity {
                         if (user.getCoin() >= 200) {
                             user.setCoin(user.getCoin() - 200);
                             coin.setText(Integer.toString(user.getCoin()));
-                            StatisticData.updateCoin(user.getCoin());
+                            User.updateCoin(user.getCoin());
                         } else {
                             Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                         }

@@ -39,6 +39,8 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class SleepTracker extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -52,13 +54,16 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     
     User user;
     FirebaseUser firebaseUser;
+    StatisticData dataValue;
     
     AlarmManager alarmManager;
     TimePicker timePicker;
     TextView updateText;
     Context context;
     PendingIntent pendingIntent;
-
+    
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +103,28 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                     user = dataSnapshot.getValue(User.class);
                     userId.setText(user.getName());
                     userEmail.setText(user.getEmail());
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
+                }
+            });
+        
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .child("data")
+            .child(date)
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    dataValue = dataSnapshot.getValue(StatisticData.class);
+                    if (dataValue == null){
+                        dataValue = new StatisticData();
+                    }
+
                 }
             
                 @Override
@@ -150,15 +177,18 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     
                 updateText.setText("Alarm set to " + hourString + ":" + minuteString);
                 Log.e("Calendar", String.valueOf(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(calendar.getTime())));
+                Log.e("Calendar", String.valueOf(Calendar.getInstance().getTimeInMillis()));
     
                 
                 alarmReceiver.putExtra("extra", "alarm on");
+                alarmReceiver.putExtra("sleep", String.valueOf(Calendar.getInstance().getTimeInMillis()));
                 pendingIntent = PendingIntent.getBroadcast(SleepTracker.this, 0, alarmReceiver, PendingIntent.FLAG_UPDATE_CURRENT);
-                
+    
                 alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
-                
+    
                 alarmOff.setVisibility(View.VISIBLE);
-        
+    
+                
             }
         });
         
@@ -170,6 +200,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 alarmManager.cancel(pendingIntent);
                 
                 alarmReceiver.putExtra("extra", "alarm off");
+                alarmReceiver.putExtra("sleepData", dataValue.getSleepData());
                 sendBroadcast(alarmReceiver);
                 
                 alarmOff.setVisibility(View.INVISIBLE);

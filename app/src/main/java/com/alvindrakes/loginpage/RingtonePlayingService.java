@@ -8,6 +8,11 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by super on 3/7/2018.
  */
@@ -17,6 +22,10 @@ public class RingtonePlayingService extends Service {
   // int startId;
   MediaPlayer mediaPlayer;
   boolean isRunning;
+  private static long sleepTime;
+  private static long awakeTime;
+  
+  String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
   
   @Nullable
   @Override
@@ -34,9 +43,12 @@ public class RingtonePlayingService extends Service {
     switch (state) {
       case "alarm on":
         startId = 1;
+        sleepTime = Long.parseLong(intent.getExtras().getString("sleep"));
+        Log.e("time started", String.valueOf(sleepTime));
         break;
       case "alarm off":
         startId = 0;
+        awakeTime = Calendar.getInstance().getTimeInMillis();
         break;
       default:
         startId = 0;
@@ -57,7 +69,13 @@ public class RingtonePlayingService extends Service {
       mediaPlayer.reset();
       
       this.isRunning = false;
-  
+      Log.e("Time", String.valueOf(((awakeTime-sleepTime)/1000)));
+      int sleepData = (int)((awakeTime-sleepTime)/1000);
+      if (sleepData > 300){
+        StatisticData dataValue = new StatisticData();
+        dataValue.setSleepData(intent.getExtras().getInt("sleepData") + sleepData);
+        StatisticData.updateData(dataValue, date, "sleep");
+      }
     }
     //alarm not ringing and off button pressed
     else if (!this.isRunning && startId == 0){

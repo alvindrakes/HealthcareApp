@@ -47,6 +47,17 @@ public class User {
     this.totalSteps = 0;
   }
   
+  public static void updateCoin (int coin){
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+  
+    Map<String, Object> childUpdates = new HashMap<>();
+  
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", coin);
+  
+    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
+  
+  }
+  
   public void setAge (int age) {
     this.age = age;
   }
