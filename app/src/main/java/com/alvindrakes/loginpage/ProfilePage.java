@@ -46,6 +46,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     Button s1;
     int x;
     Button s2;
+    int bmi;
     Button s3;
     TextView ageInfo;
     TextView weightInfo;
@@ -56,7 +57,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     EditText heightInfoEdit;
     TextView totalSteps;
     ImageView sprite;
-
+    TextView bmiInfo;
     
     TextView userId;
     TextView coin;
@@ -95,6 +96,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         ageInfo = (TextView) findViewById(R.id.ageInfo);
         sleepInfo = (TextView) findViewById(R.id.sleepInfo);
         weightInfo = (TextView) findViewById(R.id.weightInfo);
+        bmiInfo = (TextView) findViewById(R.id.bmiInfo);
         heightInfo = (TextView) findViewById(R.id.heightInfo);
         ageInfoEdit = (EditText) findViewById(R.id.ageInfo_edit);
         weightInfoEdit = (EditText) findViewById(R.id.weightInfo_edit);
@@ -135,7 +137,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 heightInfoEdit.setError(null);
             }
         });
-    
+
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -143,8 +145,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 viewingData();
             }
         });
-    
-    
+
+
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -204,11 +206,12 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     coin.setText(String.valueOf(user.getCoin()));
                     userEmail.setText(user.getEmail());
                     totalSteps.setText(String.valueOf(user.getTotalSteps()));
+                    bmiInfo.setText(String.valueOf(bmi_calculation(user.getHeight(),user.getWeight())));
                 }
-            
+
                 @Override
                 public void onCancelled (DatabaseError databaseError) {
-                
+
                 }
             });
     }
@@ -235,11 +238,6 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         } else {
             weightInfo.setText(String.valueOf(user.getWeight()));
             weightInfoEdit.setText(String.valueOf(user.getWeight()));
-        }
-        if (user.getTotalSteps() == 0) {
-            totalSteps.setText("No info");
-        } else {
-            totalSteps.setText(String.valueOf(user.getWeight()));
         }
     }
     
@@ -334,5 +332,13 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         }
 
         return true;
+    }
+    //Method for Bmi calculation
+    public float bmi_calculation(int h, int w)
+    {
+        float x = (float) h/100;
+        x = w/(x*x);
+        int y = (int)x;
+        return y;
     }
 }
