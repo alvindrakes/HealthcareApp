@@ -4,8 +4,6 @@ package com.alvindrakes.loginpage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
@@ -24,8 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +32,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -52,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView userEmail;
     TextView progress;
     TextView coins;
-    TextView dayValue;
+    TextView dateText;
 
     //Data from Firebase
     User user;
@@ -134,9 +129,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         progress = (TextView) findViewById(R.id.Progress);
         coins = (TextView) findViewById(R.id.amount);
-        dayValue = (TextView) findViewById(R.id.dayValue);
+        dateText = (TextView) findViewById(R.id.dateValue);
         userId = (TextView) headerView.findViewById(R.id.User_ID);
         userEmail = (TextView) headerView.findViewById(R.id.User_email);
+        
+        dateText.setText(date);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
@@ -148,8 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onDataChange (DataSnapshot dataSnapshot) {
                     user = dataSnapshot.getValue(User.class);
-                    dayValue.setText(Integer.toString(user.getDay()));
-                    coins.setText(Integer.toString(user.getCoin()));
+                    coins.setText(String.valueOf(user.getCoin()));
                     userId.setText(user.getName());
                     userEmail.setText(user.getEmail());
                 }
@@ -223,10 +219,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             dataValue = new StatisticData();
         }
         dataValue.setSteps(dataValue.getSteps() + 1);
+        user.setTotalSteps(user.getTotalSteps() + 1);
+        
+        if (dataValue.getSteps() % 10 == 0)
+            user.setCoin(user.getCoin() + 1);
+        
+        if (progress_of_steps.getMax() == dataValue.getSteps()){
+            user.setCoin(user.getCoin() + 100);
+            Toast.makeText(this, "100 coins for reaching goal!", Toast.LENGTH_LONG).show();
+        }
         
         TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
         progress_of_steps.setProgress(dataValue.getSteps());
         
+        User.updateData(user);
         StatisticData.updateData(dataValue, date);
     }
 

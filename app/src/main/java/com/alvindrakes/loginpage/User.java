@@ -2,7 +2,6 @@ package com.alvindrakes.loginpage;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -18,7 +17,7 @@ public class User {
   private String email;
   private String password;
   private int age;
-  private int day;
+  private int totalSteps;
   private int weight;
   private int height;
   private int coin;
@@ -29,14 +28,12 @@ public class User {
   public User(String name, String email) {
     this.name = name;
     this.email = email;
-    this.day = 1;
   }
 
   public User (String name, String email, String password) {
     this.name = name;
     this.email = email;
     this.password = password;
-    this.day = 1;
   }
   
   public User (String name, String email, String password, int age, int weight, int height) {
@@ -47,7 +44,7 @@ public class User {
     this.weight = weight;
     this.height = height;
     this.coin = 0;
-    this.day = 1;
+    this.totalSteps = 0;
   }
   
   public void setAge (int age) {
@@ -74,16 +71,16 @@ public class User {
     return height;
   }
   
-  public int getDay () {
-    return day;
+  public int getTotalSteps () {
+    return totalSteps;
   }
   
   public String getName () {
     return name;
   }
   
-  public void setDay (int day) {
-    this.day = day;
+  public void setTotalSteps (int totalSteps) {
+    this.totalSteps = totalSteps;
   }
   
   public String getEmail () {
@@ -114,7 +111,7 @@ public class User {
     childUpdates.put("/users/" + firebaseUser.getUid() + "/weight/", user.getWeight());
     childUpdates.put("/users/" + firebaseUser.getUid() + "/height/", user.getHeight());
     childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", user.getCoin());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/day/", user.getDay());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/totalSteps/", user.getTotalSteps());
 
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
   }

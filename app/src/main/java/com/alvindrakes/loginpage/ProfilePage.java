@@ -55,6 +55,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     EditText ageInfoEdit;
     EditText weightInfoEdit;
     EditText heightInfoEdit;
+    TextView totalSteps;
     ImageView sprite;
 
     
@@ -103,6 +104,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         userId = (TextView) headerView.findViewById(R.id.User_ID);
         userEmail = (TextView) headerView.findViewById(R.id.User_email);
         coin = (TextView) findViewById(R.id.amount3) ;
+        totalSteps = (TextView) findViewById(R.id.totalStepsValue) ;
         sprite = (ImageView) findViewById(R.id.sprite);
         s0 = (Button) findViewById(R.id.s0);
         s1 = (Button) findViewById(R.id.s1);
@@ -201,8 +203,9 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     insertData();
                     clock = false;
                     userId.setText(user.getName());
-                    coin.setText(Integer.toString(user.getCoin()));
+                    coin.setText(String.valueOf(user.getCoin()));
                     userEmail.setText(user.getEmail());
+                    totalSteps.setText(String.valueOf(user.getTotalSteps()));
                 }
             
                 @Override
@@ -218,22 +221,22 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             ageInfo.setText("No info");
             ageInfoEdit.setText(null);
         } else {
-            ageInfo.setText(Integer.toString(user.getAge()));
-            ageInfoEdit.setText(Integer.toString(user.getAge()));
+            ageInfo.setText(String.valueOf(user.getAge()));
+            ageInfoEdit.setText(String.valueOf(user.getAge()));
         }
         if (user.getHeight() == 0) {
             heightInfo.setText("No info");
             heightInfoEdit.setText(null);
         } else {
-            heightInfo.setText(Integer.toString(user.getHeight()));
-            heightInfoEdit.setText(Integer.toString(user.getHeight()));
+            heightInfo.setText(String.valueOf(user.getHeight()));
+            heightInfoEdit.setText(String.valueOf(user.getHeight()));
         }
         if (user.getWeight() == 0) {
             weightInfo.setText("No info");
             weightInfoEdit.setText(null);
         } else {
-            weightInfo.setText(Integer.toString(user.getWeight()));
-            weightInfoEdit.setText(Integer.toString(user.getWeight()));
+            weightInfo.setText(String.valueOf(user.getWeight()));
+            weightInfoEdit.setText(String.valueOf(user.getWeight()));
         }
     }
     
