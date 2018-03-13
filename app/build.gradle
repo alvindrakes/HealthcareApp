@@ -75,6 +75,11 @@ dependencies {
     //for google sign in button
     compile 'com.shobhitpuri.custombuttons:google-signin:1.0.0'
 
+    // for location tracker
+    compile 'com.google.android.gms:play-services-location:11.8.0'
+
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
