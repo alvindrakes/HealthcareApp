@@ -213,8 +213,12 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     userEmail.setText(user.getEmail());
                     totalSteps.setText(String.valueOf(user.getTotalSteps()));
                     bmiInfo.setText(String.valueOf(bmi_calculation(user.getHeight(),user.getWeight())));
-                    if (user.getSleepToday() != 0)
-                        sleepInfo.setText(String.valueOf(user.getSleepToday()) + " (" + date + ")");
+                    if (user.getSleepToday() != 0){
+                        int hour = user.getSleepToday()/60;
+                        int minute = user.getSleepToday() % 60;
+                        sleepInfo.setText(String.valueOf(hour) + "hours " + String.valueOf(minute) +"minutes" + " (" + date + ")");
+    
+                    }
                     else
                         sleepInfo.setText("No info");
                 }
