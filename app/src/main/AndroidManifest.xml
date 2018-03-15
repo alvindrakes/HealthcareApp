@@ -21,6 +21,10 @@
             android:name=".Login"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".GoogleSigninAuthentication"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity

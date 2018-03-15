@@ -155,14 +155,8 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete (@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            User user = new User(acct.getDisplayName(),acct.getEmail());
-                            User.updateData(user);
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(Login.this,"Sign in success", Toast.LENGTH_SHORT).show();
-
-                            Intent mainIntent = new Intent(Login.this, MainActivity.class);
+                            
+                            Intent mainIntent = new Intent(Login.this, GoogleSigninAuthentication.class);
                             startActivity(mainIntent);
                         } else {
                             // If sign in fails, display a message to the user.
