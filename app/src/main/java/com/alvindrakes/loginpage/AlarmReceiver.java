@@ -17,6 +17,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     
     String getString = intent.getExtras().getString("extra");
     String initialTime = intent.getExtras().getString("sleep");
+    int sleepData = intent.getExtras().getInt("sleepData");
     
     Log.e("What is string", getString);
     
@@ -24,6 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     
     serviceIntent.putExtra("extra", getString);
     serviceIntent.putExtra("sleep", initialTime);
+    serviceIntent.putExtra("sleepData", sleepData);
     context.startService(serviceIntent);
   }
 }

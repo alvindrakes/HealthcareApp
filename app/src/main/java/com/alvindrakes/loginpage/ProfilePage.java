@@ -28,6 +28,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class ProfilePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //for navigation drawer
@@ -64,6 +68,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     TextView userEmail;
     
     FirebaseUser firebaseUser;
+    
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,6 +213,10 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     userEmail.setText(user.getEmail());
                     totalSteps.setText(String.valueOf(user.getTotalSteps()));
                     bmiInfo.setText(String.valueOf(bmi_calculation(user.getHeight(),user.getWeight())));
+                    if (user.getSleepToday() != 0)
+                        sleepInfo.setText(String.valueOf(user.getSleepToday()) + " (" + date + ")");
+                    else
+                        sleepInfo.setText("No info");
                 }
 
                 @Override

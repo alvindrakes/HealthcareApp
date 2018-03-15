@@ -68,8 +68,7 @@ public class SignupPage extends AppCompatActivity {
           passwordText.setError("Field is empty");
         } else {
           User user = new User(nameText.getText().toString().trim(),
-                               emailText.getText().toString().trim(),
-                  passwordText.getText().toString().trim());
+                               emailText.getText().toString().trim());
           createAccount(user);
         }
       }
@@ -95,12 +94,12 @@ public class SignupPage extends AppCompatActivity {
       validate = false;
     }
     
-    if ((user.getPassword()).length() < 6) {
+    if (passwordText.getText().toString().length() < 6) {
       passwordText.setError("Must be at least 6 characters long");
       validate = false;
     }
     
-    if (!Objects.equals(user.getPassword(), checkPasswordText.getText().toString())) {
+    if (!Objects.equals(passwordText.getText().toString(), checkPasswordText.getText().toString())) {
       checkPasswordText.setError("Password does not match");
       validate = false;
     }
@@ -109,7 +108,7 @@ public class SignupPage extends AppCompatActivity {
   
   private void authenticateAccount (final User user) {
     
-    auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+    auth.createUserWithEmailAndPassword(user.getEmail(), passwordText.getText().toString())
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
           @Override
           public void onComplete (@NonNull Task<AuthResult> task) {

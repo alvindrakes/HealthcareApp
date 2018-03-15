@@ -71,9 +71,11 @@ public class RingtonePlayingService extends Service {
       this.isRunning = false;
       Log.e("Time", String.valueOf(((awakeTime-sleepTime)/1000)));
       int sleepData = (int)((awakeTime-sleepTime)/1000);
-      if (sleepData > 300){
+      if (sleepData != 0) { //testing purpose
+      // if (sleepData > 300){
         StatisticData dataValue = new StatisticData();
         dataValue.setSleepData(intent.getExtras().getInt("sleepData") + sleepData);
+        User.updateSleep(dataValue.getSleepData());
         StatisticData.updateData(dataValue, date, "sleep");
       }
     }
