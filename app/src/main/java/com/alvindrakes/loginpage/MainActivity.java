@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
+import com.alvindrakes.loginpage.LocationUtil.LocationHelper;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View mTextView;
     Activity mActivity;
 
+    // LocationHelper locationHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -89,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+//        locationHelper=new LocationHelper(MainActivity.this);
+//        locationHelper.checkpermission();
 
 
 //        mContext = getApplicationContext();
