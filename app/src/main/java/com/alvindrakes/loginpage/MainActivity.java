@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Alvindrakes.HealthcareApp.UnityPlayerActivity;
-import com.alvindrakes.loginpage.LocationUtil.LocationHelper;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -42,7 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener{
+public class MainActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener, StepListener {
 
     TextView userId;
     TextView userEmail;
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ProgressBar progress_of_steps;
     
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
-
+    
+    
     Context mContext;
     View mTextView;
     Activity mActivity;
@@ -138,9 +138,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dateText = (TextView) findViewById(R.id.dateValue);
         userId = (TextView) headerView.findViewById(R.id.User_ID);
         userEmail = (TextView) headerView.findViewById(R.id.User_email);
-        
+    
         dateText.setText(date);
-
+    
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         FirebaseDatabase.getInstance()
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
     
+        
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
                     progress_of_steps.setProgress(dataValue.getSteps());
+    
                 }
             
                 @Override
@@ -194,15 +196,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         
-      //----------------Game section---------------------------------
-
-      Button LaunchButton = (Button) findViewById(R.id.launchGame);
-
-      LaunchButton.setOnClickListener(new View.OnClickListener() {
+        Intent locationService = new Intent(MainActivity.this, MyLocationUsingLocationAPI.class);
+        startActivity(locationService);
+        
+        //----------------Game section---------------------------------
+        
+        Button LaunchButton = (Button) findViewById(R.id.launchGame);
+        
+        LaunchButton.setOnClickListener(new View.OnClickListener() {
           public void onClick(View v) { GoToUnity(v); }
-      });
-
-      //---------------------------------------------------------------
+        });
+        
+        //---------------------------------------------------------------
 
     }
 
@@ -240,6 +245,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         
         User.updateData(user);
         StatisticData.updateData(dataValue, date, "steps");
+    
+        Intent locationService = new Intent(MainActivity.this, MyLocationUsingLocationAPI.class);
+        startActivity(locationService);
     }
 
     @Override
@@ -291,6 +299,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
     
+    
+    
     // go to game when button is clicked
     public void GoToUnity(View view)
     {
@@ -298,4 +308,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
         System.out.print("Game is running !!!!!!!");
     }
+    
 }

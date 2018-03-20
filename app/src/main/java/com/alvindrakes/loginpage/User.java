@@ -118,4 +118,13 @@ public class User {
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
   }
   
+  public static void updateLocation (String location){
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+  
+    Map<String, Object> childUpdates = new HashMap<>();
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/location/", location);
+  
+    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
+  }
+  
 }

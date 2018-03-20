@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Login page</string>
+    <string name="app_name">SpaceFit</string>
     <string name="email">Email:</string>
     <string name="signup">Signup</string>
     <string name="password">Password:</string>

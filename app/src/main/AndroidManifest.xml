@@ -58,18 +58,18 @@
 
         <activity
             android:name=".MyLocationUsingHelper"
-            android:label="MyLocation"
-            android:screenOrientation="portrait" />
-
-        <activity android:name=".MyLocationUsingLocationAPI">
-
+            android:theme="@android:style/Theme.NoDisplay"
+            android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".MyLocationUsingLocationAPI"
+            android:theme="@android:style/Theme.NoDisplay"/>
 
         <activity
             android:name=".SettingPage"
             android:screenOrientation="portrait" />
-        <activity android:name=".SleepTracker"></activity>
+        <activity android:name=".SleepTracker" />
 
         <receiver android:name=".AlarmReceiver"/>
         
