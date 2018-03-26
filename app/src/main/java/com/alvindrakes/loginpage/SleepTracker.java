@@ -201,6 +201,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 
                 alarmReceiver.putExtra("extra", "alarm off");
                 alarmReceiver.putExtra("sleepData", dataValue.getSleepData());
+                alarmReceiver.putExtra("coin", user.getCoin());
                 sendBroadcast(alarmReceiver);
                 
                 alarmOff.setVisibility(View.INVISIBLE);

@@ -252,7 +252,6 @@ public class MyLocationUsingLocationAPI extends Activity implements ConnectionCa
         tvAddress.setText(currentLocation);
         tvAddress.setVisibility(View.VISIBLE);
 */
-        Toast.makeText(this, currentLocation, Toast.LENGTH_SHORT).show();
         User.updateLocation(currentLocation);
         
       }

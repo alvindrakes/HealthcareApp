@@ -195,9 +195,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(StartPageIntent);
             }
         });
-        
-        Intent locationService = new Intent(MainActivity.this, MyLocationUsingLocationAPI.class);
-        startActivity(locationService);
+    
         
         //----------------Game section---------------------------------
         

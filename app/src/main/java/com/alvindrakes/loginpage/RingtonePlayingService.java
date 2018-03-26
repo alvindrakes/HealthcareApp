@@ -77,6 +77,9 @@ public class RingtonePlayingService extends Service {
         dataValue.setSleepData(intent.getExtras().getInt("sleepData") + sleepData);
         User.updateSleep(dataValue.getSleepData());
         StatisticData.updateData(dataValue, date, "sleep");
+        
+        if (sleepData > 420)
+          User.updateCoin(intent.getExtras().getInt("coin") + 500);
       }
     }
     //alarm not ringing and off button pressed
