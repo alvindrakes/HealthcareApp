@@ -214,9 +214,9 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     totalSteps.setText(String.valueOf(user.getTotalSteps()));
                     bmiInfo.setText(String.valueOf(bmi_calculation(user.getHeight(),user.getWeight())));
                     if (user.getSleepToday() != 0){
-                        int hour = user.getSleepToday()/60;
-                        int minute = user.getSleepToday() % 60;
-                        sleepInfo.setText(String.valueOf(hour) + "hours " + String.valueOf(minute) +"minutes" + " (" + date + ")");
+                        int hour = user.getSleepToday()/3600;
+                        int minute = (user.getSleepToday() % 3600) / 60;
+                        sleepInfo.setText(String.valueOf(hour) + "hours " + String.valueOf(minute) +"minutes");
     
                     }
                     else
