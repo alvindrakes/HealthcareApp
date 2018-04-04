@@ -21,13 +21,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.alvindrakes.loginpage.Login;
-import com.alvindrakes.loginpage.MainActivity;
-import com.alvindrakes.loginpage.ProfilePage;
-import com.alvindrakes.loginpage.R;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,8 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -68,7 +60,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar bar = getSupportActionBar();
-        bar.setTitle("Sleep");
+        bar.setTitle("Sleep Tracker");
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6F2D84")));
         getSupportActionBar().show();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -242,6 +234,11 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
             case R.id.sleep_tracker:
                 Intent b = new Intent(SleepTracker.this, SleepTracker.class);
                 startActivity(b);
+                break;
+
+            case R.id.caffeine_tracker:
+                Intent a = new Intent(SleepTracker.this, CaffeineTracker.class);
+                startActivity(a);
                 break;
         }
 

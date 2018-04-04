@@ -297,6 +297,11 @@ public class MainActivity extends AppCompatActivity
                 Intent h = new Intent(MainActivity.this, SettingPage.class);
                 startActivity(h);
                 break;
+
+            case R.id.caffeine_tracker:
+                Intent a = new Intent(MainActivity.this, CaffeineTracker.class);
+                startActivity(a);
+                break;
         }
         return true;
     }
@@ -308,7 +313,6 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent = new Intent(this, UnityPlayerActivity.class);
         startActivity(intent);
-        System.out.print("Game is running !!!!!!!");
     }
     
 }

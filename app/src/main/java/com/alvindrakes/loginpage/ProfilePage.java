@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
-import android.view.Window;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -342,6 +341,11 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             case R.id.sleep_tracker:
                 Intent b = new Intent(ProfilePage.this, SleepTracker.class);
                 startActivity(b);
+                break;
+
+            case R.id.caffeine_tracker:
+                Intent a = new Intent(ProfilePage.this, CaffeineTracker.class);
+                startActivity(a);
                 break;
         }
 
