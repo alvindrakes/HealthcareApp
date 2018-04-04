@@ -27,7 +27,7 @@
     </android.support.design.widget.NavigationView>
 
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -36,9 +36,21 @@
             android:id="@+id/store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/amount2"
+            android:clickable="true"
+            android:focusable="true"
             app:backgroundTint="#6f2e82"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.943"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.978"
             app:srcCompat="@drawable/ic_check_box_outline_blank_black_24dp" />
 
         <android.support.design.widget.AppBarLayout
@@ -50,7 +62,7 @@
         </android.support.design.widget.AppBarLayout>
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.v4.widget.DrawerLayout>
