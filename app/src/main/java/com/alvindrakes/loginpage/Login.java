@@ -156,7 +156,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete (@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            
+                            // Check if Google account is new or old, then go to respective page
                             Intent mainIntent = new Intent(Login.this, GoogleSigninAuthentication.class);
                             startActivity(mainIntent);
                         } else {
