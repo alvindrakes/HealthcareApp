@@ -9,10 +9,15 @@
         android:title="Home" />
 
     <item
+        android:id="@+id/caffeine_tracker"
+        android:icon="@drawable/coffeecup"
+        android:title="Caffeine Tracker" />
+
+    <item
         android:id="@+id/sleep_tracker"
         android:icon="@drawable/moonsleep"
         android:background="@android:color/transparent"
-        android:title="Sleep" />
+        android:title="Sleep Tracker" />
 
 
     <item
@@ -23,6 +28,7 @@
         android:id="@+id/setting_page"
         android:icon="@drawable/settings"
         android:title="Setting" />
+
 
 
 </menu>

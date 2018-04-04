@@ -22,8 +22,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".GoogleSigninAuthentication"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoDisplay" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -52,32 +52,36 @@
             android:name=".ProfilePage"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".CaffeineTracker"
+            android:screenOrientation="portrait" />
+
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MyLocationUsingHelper"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoDisplay"></activity>
         <activity
             android:name=".MyLocationUsingLocationAPI"
-            android:theme="@android:style/Theme.NoDisplay"/>
-
+            android:theme="@android:style/Theme.NoDisplay" />
         <activity
             android:name=".SettingPage"
             android:screenOrientation="portrait" />
-        <activity android:name=".SleepTracker" />
 
-        <receiver android:name=".AlarmReceiver"/>
-        
-        <service android:name=".RingtonePlayingService"
-            android:enabled="true">
+        <activity
+            android:name=".SleepTracker"
+            android:screenOrientation="portrait"/>
 
-        </service>
+        <receiver android:name=".AlarmReceiver" />
+
+        <service
+            android:name=".RingtonePlayingService"
+            android:enabled="true"></service>
+
     </application>
-
 
 </manifest>

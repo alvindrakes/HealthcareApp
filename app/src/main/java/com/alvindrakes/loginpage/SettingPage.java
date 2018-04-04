@@ -15,7 +15,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.Window;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -137,6 +136,11 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
             case R.id.sleep_tracker:
                 Intent b = new Intent(SettingPage.this, SleepTracker.class);
                 startActivity(b);
+                break;
+
+            case R.id.caffeine_tracker:
+                Intent a = new Intent(SettingPage.this, CaffeineTracker.class);
+                startActivity(a);
                 break;
         }
 

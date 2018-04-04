@@ -107,7 +107,7 @@
                 android:contentDescription="@string/todo3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/coinbackground" />
+                app:srcCompat="@drawable/coin2" />
 
             <TextView
                 android:id="@+id/amount2"
