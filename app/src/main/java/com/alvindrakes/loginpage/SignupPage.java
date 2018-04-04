@@ -99,7 +99,7 @@ public class SignupPage extends AppCompatActivity {
       validate = false;
     }
     
-    if (!Objects.equals(passwordText.getText().toString(), checkPasswordText.getText().toString())) {
+    if (!passwordText.getText().toString().equals(checkPasswordText.getText().toString())) {
       checkPasswordText.setError("Password does not match");
       validate = false;
     }

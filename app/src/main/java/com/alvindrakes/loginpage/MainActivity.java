@@ -230,17 +230,21 @@ public class MainActivity extends AppCompatActivity
         dataValue.setSteps(dataValue.getSteps() + 1);
         user.setTotalSteps(user.getTotalSteps() + 1);
         
+        //Every 10 steps increase the coin value by 1
         if (dataValue.getSteps() % 10 == 0)
             user.setCoin(user.getCoin() + 1);
         
+        //Reaching the goal awards the user 100 coins
         if (progress_of_steps.getMax() == dataValue.getSteps()){
             user.setCoin(user.getCoin() + 100);
             Toast.makeText(this, "100 coins for reaching goal!", Toast.LENGTH_LONG).show();
         }
         
+        //Update the UI
         TvSteps.setText(TEXT_NUM_STEPS + dataValue.getSteps());
         progress_of_steps.setProgress(dataValue.getSteps());
         
+        //Update the database
         User.updateData(user);
         StatisticData.updateData(dataValue, date, "steps");
     

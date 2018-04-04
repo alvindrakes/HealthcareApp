@@ -44,7 +44,7 @@ public class GoogleSigninAuthentication extends Activity {
           public void onDataChange (DataSnapshot dataSnapshot) {
             Log.e("entered2","test");
             user = dataSnapshot.getValue(User.class);
-            
+            //if user is new, direct to 2nd page of sign up
             if (user == null) {
               GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
               User user = new User(acct.getDisplayName(), acct.getEmail());
@@ -53,6 +53,7 @@ public class GoogleSigninAuthentication extends Activity {
               Intent infoIntent = new Intent(GoogleSigninAuthentication.this, Signup2.class);
               startActivity(infoIntent);
             }
+            //login into the app
             else {
               Toast.makeText(GoogleSigninAuthentication.this, "Successfully login", Toast.LENGTH_SHORT).show();
               Intent infoIntent = new Intent(GoogleSigninAuthentication.this, MainActivity.class);
