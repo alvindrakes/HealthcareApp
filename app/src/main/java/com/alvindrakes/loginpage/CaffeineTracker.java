@@ -16,6 +16,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class CaffeineTracker extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,8 +38,11 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
     TextView showValue;
     Button increaseButton;
     Button decreaseButton;
-    int counter = 0 ;//click value add counter
 
+    StatisticData dataValue;
+    FirebaseUser firebaseUser;
+    
+    String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +71,29 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
         showValue = (TextView) findViewById(R.id.CounterValue);
         increaseButton = (Button) findViewById(R.id.incButton);
         decreaseButton = (Button) findViewById(R.id.decButton);
+    
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .child("data")
+            .child(date)
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    dataValue = dataSnapshot.getValue(StatisticData.class);
+                    if (dataValue == null){
+                        dataValue = new StatisticData();
+                    }
+                    showValue.setText(String.valueOf(dataValue.getCaffeine()));
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
+                }
+            });
 
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,22 +156,17 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
 
     public void  countIN(View view){
         //On each click increase the counter value
-        counter++;
-        showValue.setText(Integer.toString(counter));
+        dataValue.setCaffeine(dataValue.getCaffeine() + 1);
+        StatisticData.updateData(dataValue, date, "caffeine");
 
     }
     public void  countDE(View view){
         //On each click decrease the counter value
-        counter--;
-        if (counter<0)
-            counter=0;
-        showValue.setText(Integer.toString(counter));
+        if (dataValue.getCaffeine() > 0) {
+            dataValue.setCaffeine(dataValue.getCaffeine() - 1);
+            StatisticData.updateData(dataValue, date, "caffeine");
+        }
 
-    }
-    public void  reset(View view){
-        //On each click resets
-        counter=0;
-        showValue.setText(String.valueOf(counter));
     }
 
 }

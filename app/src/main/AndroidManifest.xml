@@ -64,7 +64,7 @@
         <activity
             android:name=".MyLocationUsingHelper"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoDisplay"></activity>
+            android:theme="@android:style/Theme.NoDisplay" />
         <activity
             android:name=".MyLocationUsingLocationAPI"
             android:theme="@android:style/Theme.NoDisplay" />
@@ -80,7 +80,7 @@
 
         <service
             android:name=".RingtonePlayingService"
-            android:enabled="true"></service>
+            android:enabled="true" />
 
     </application>
 

@@ -57,9 +57,6 @@ public class MainActivity extends AppCompatActivity
     //Firebase Authentication
     FirebaseUser firebaseUser;
     
-    //Google Sign-In Authentication
-    GoogleSignInClient googleSignInClient;
-
     //for navigation drawer
     private DrawerLayout myDrawer;
     private ActionBarDrawerToggle myToggle;
@@ -142,7 +139,6 @@ public class MainActivity extends AppCompatActivity
         dateText.setText(date);
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN);
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
