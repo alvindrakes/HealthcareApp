@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -61,7 +62,13 @@ public class Login extends AppCompatActivity {
     check.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick (View view) {
-        login();
+        if (TextUtils.isEmpty(emailText.getText().toString())) {
+          emailText.setError("Field is empty");
+        } else if (TextUtils.isEmpty(passwordText.getText().toString())) {
+          passwordText.setError("Field is empty");
+        } else {
+          login();
+        }
       }
     });
 
@@ -115,7 +122,7 @@ public class Login extends AppCompatActivity {
             } else {
               // If sign in fails, display a message to the user.
               Log.w("LogIn", "signInWithEmail:failure", task.getException());
-              Toast.makeText(Login.this, "Incorrect credentials.", Toast.LENGTH_SHORT).show();
+              Toast.makeText(Login.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
             
             // ...
@@ -140,7 +147,7 @@ public class Login extends AppCompatActivity {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 Log.e("error", e.getMessage());
-                Toast.makeText(this,"Google sign in failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 // ...
             }
         }
@@ -162,7 +169,7 @@ public class Login extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(Login.this,"Sign in Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this,task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     }

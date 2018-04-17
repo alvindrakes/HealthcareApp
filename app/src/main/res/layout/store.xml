@@ -276,7 +276,7 @@
                 app:layout_constraintVertical_bias="0.916" />
 
             <TextView
-                android:id="@+id/coupenown"
+                android:id="@+id/coupon_100"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -293,7 +293,7 @@
                 app:layout_constraintVertical_bias="0.609" />
 
             <TextView
-                android:id="@+id/couponown2"
+                android:id="@+id/coupon_200"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -310,7 +310,7 @@
                 app:layout_constraintVertical_bias="0.911" />
 
             <TextView
-                android:id="@+id/couponown3"
+                android:id="@+id/coupon_50"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

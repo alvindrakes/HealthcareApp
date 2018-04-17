@@ -12,13 +12,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 /**
  * Created by ming on 24/1/2018.
  */
 
 public class Store extends MainActivity {
     TextView coin;
-
+    Transaction transaction;
+    
+    TextView coupon_50;
+    TextView coupon_100;
+    TextView coupon_200;
     //for navigation drawer
 //    private DrawerLayout myDrawer;
 //    private ActionBarDrawerToggle myToggle;
@@ -34,12 +44,38 @@ public class Store extends MainActivity {
         bar.setTitle("Store");
         getSupportActionBar().show();
         setContentView(R.layout.store);
-
-
+        
         coin = (TextView) findViewById(R.id.amount2);
 
         FloatingActionButton back = (FloatingActionButton) findViewById(R.id.close_store);
-
+        coupon_50 = findViewById(R.id.coupon_50);
+        coupon_100 = findViewById(R.id.coupon_100);
+        coupon_200 = findViewById(R.id.coupon_200);
+    
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .child("transaction")
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    transaction = dataSnapshot.getValue(Transaction.class);
+                    if (transaction == null){
+                        transaction = new Transaction();
+                    }
+                    coupon_50.setText(String.valueOf(transaction.getCoupon_50()));
+                    coupon_100.setText(String.valueOf(transaction.getCoupon_100()));
+                    coupon_200.setText(String.valueOf(transaction.getCoupon_200()));
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
+                }
+            });
+        
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +99,8 @@ public class Store extends MainActivity {
                             user.setCoin(user.getCoin() - 50);
                             coin.setText(Integer.toString(user.getCoin()));
                             User.updateCoin(user.getCoin());
+                            transaction.setCoupon_50(transaction.getCoupon_50() + 1);
+                            Transaction.updateData(transaction);
                         } else {
                             Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                         }
@@ -92,6 +130,8 @@ public class Store extends MainActivity {
                             user.setCoin(user.getCoin() - 100);
                             coin.setText(Integer.toString(user.getCoin()));
                             User.updateCoin(user.getCoin());
+                            transaction.setCoupon_100(transaction.getCoupon_100() + 1);
+                            Transaction.updateData(transaction);
                         } else {
                             Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                         }
@@ -121,6 +161,8 @@ public class Store extends MainActivity {
                             user.setCoin(user.getCoin() - 200);
                             coin.setText(Integer.toString(user.getCoin()));
                             User.updateCoin(user.getCoin());
+                            transaction.setCoupon_200(transaction.getCoupon_200() + 1);
+                            Transaction.updateData(transaction);
                         } else {
                             Toast.makeText(Store.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
                         }

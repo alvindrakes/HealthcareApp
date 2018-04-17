@@ -67,6 +67,12 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     TextView userEmail;
     
     FirebaseUser firebaseUser;
+    Transaction transaction;
+    ImageView spacesuit1;
+    ImageView spacesuit2;
+    ImageView spacesuit3;
+    ImageView spacesuit4;
+    int indicatorSpacesuit;
     
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
     
@@ -115,13 +121,31 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         s1 = (Button) findViewById(R.id.s1);
         s2 = (Button) findViewById(R.id.s2);
         s3 = (Button) findViewById(R.id.s3);
-
+        spacesuit1 = findViewById(R.id.sold1);
+        spacesuit2 = findViewById(R.id.sold2);
+        spacesuit3 = findViewById(R.id.sold3);
+        spacesuit4 = findViewById(R.id.sold4);
     
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                sprite.setBackgroundResource(x);
+                if (user.getCoin() >= 100){
+                    user.setCoin(user.getCoin() - 100);
+                    User.updateCoin(user.getCoin());
+                    sprite.setBackgroundResource(x);
+                    if (indicatorSpacesuit == 1)
+                        transaction.setSpacesuit1(true);
+                    if (indicatorSpacesuit == 2)
+                        transaction.setSpacesuit2(true);
+                    if (indicatorSpacesuit == 3)
+                        transaction.setSpacesuit3(true);
+                    if (indicatorSpacesuit == 4)
+                        transaction.setSpacesuit4(true);
+                    Transaction.updateData(transaction);
+                }
+                else
+                    Toast.makeText(ProfilePage.this, "Insufficient coins", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -170,28 +194,48 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick (View v) {
                 x = (R.drawable.sprite2);
-                dialog.show();
+                if (transaction.isSpacesuit1())
+                    sprite.setBackgroundResource(x);
+                else {
+                    indicatorSpacesuit = 1;
+                    dialog.show();
+                }
             }
         });
         s1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
                 x = (R.drawable.sprite3);
-                dialog.show();
+                if (transaction.isSpacesuit2())
+                    sprite.setBackgroundResource(x);
+                else {
+                    indicatorSpacesuit = 2;
+                    dialog.show();
+                }
             }
         });
         s2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
                 x = (R.drawable.sprite);
-                dialog.show();
+                if (transaction.isSpacesuit3())
+                    sprite.setBackgroundResource(x);
+                else {
+                    indicatorSpacesuit = 3;
+                    dialog.show();
+                }
             }
         });
         s3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
                 x = (R.drawable.sprite1);
-                dialog.show();
+                if (transaction.isSpacesuit4())
+                    sprite.setBackgroundResource(x);
+                else {
+                    indicatorSpacesuit = 4;
+                    dialog.show();
+                }
             }
         });
 
@@ -225,6 +269,35 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 @Override
                 public void onCancelled (DatabaseError databaseError) {
 
+                }
+            });
+    
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .child("transaction")
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    transaction = dataSnapshot.getValue(Transaction.class);
+                    if (transaction == null){
+                        transaction = new Transaction();
+                    }
+                    if (transaction.isSpacesuit1())
+                        spacesuit1.setVisibility(View.VISIBLE);
+                    if (transaction.isSpacesuit2())
+                        spacesuit2.setVisibility(View.VISIBLE);
+                    if (transaction.isSpacesuit3())
+                        spacesuit3.setVisibility(View.VISIBLE);
+                    if (transaction.isSpacesuit4())
+                        spacesuit4.setVisibility(View.VISIBLE);
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
                 }
             });
     }
