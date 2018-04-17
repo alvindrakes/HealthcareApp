@@ -169,14 +169,12 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     
                 updateText.setText("Alarm set to " + hourString + ":" + minuteString);
                 Log.e("Calendar", String.valueOf(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(calendar.getTime())));
-                Log.e("Calendar", String.valueOf(Calendar.getInstance().getTimeInMillis()));
-    
                 
                 alarmReceiver.putExtra("extra", "alarm on");
                 alarmReceiver.putExtra("sleep", String.valueOf(Calendar.getInstance().getTimeInMillis()));
                 pendingIntent = PendingIntent.getBroadcast(SleepTracker.this, 0, alarmReceiver, PendingIntent.FLAG_UPDATE_CURRENT);
     
-                alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
     
                 alarmOff.setVisibility(View.VISIBLE);
     
