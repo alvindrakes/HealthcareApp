@@ -42,6 +42,11 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
     StatisticData dataValue;
     FirebaseUser firebaseUser;
     
+    TextView userId;
+    TextView userEmail;
+    
+    User user;
+    
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     @Override
@@ -66,8 +71,11 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
         myToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
+        
+        View headerView = navigationView.getHeaderView(0);
+        userId = (TextView) headerView.findViewById(R.id.User_ID);
+        userEmail = (TextView) headerView.findViewById(R.id.User_email);
+        
         showValue = (TextView) findViewById(R.id.CounterValue);
         increaseButton = (Button) findViewById(R.id.incButton);
         decreaseButton = (Button) findViewById(R.id.decButton);
@@ -87,6 +95,24 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
                         dataValue = new StatisticData();
                     }
                     showValue.setText(String.valueOf(dataValue.getCaffeine()));
+                }
+            
+                @Override
+                public void onCancelled (DatabaseError databaseError) {
+                
+                }
+            });
+    
+        FirebaseDatabase.getInstance()
+            .getReference()
+            .child("users")
+            .child(firebaseUser.getUid())
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange (DataSnapshot dataSnapshot) {
+                    user = dataSnapshot.getValue(User.class);
+                    userId.setText(user.getName());
+                    userEmail.setText(user.getEmail());
                 }
             
                 @Override

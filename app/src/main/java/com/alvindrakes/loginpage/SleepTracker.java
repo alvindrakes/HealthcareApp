@@ -41,6 +41,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle myToggle;
     private NavigationView navigationView;
     
+    public static boolean alarmSet;
+    
     TextView userId;
     TextView userEmail;
     
@@ -132,6 +134,9 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
         final Button alarmOff = (Button) findViewById(R.id.off_alarm);
         
         final Intent alarmReceiver = new Intent(this.context, AlarmReceiver.class);
+        
+        if (alarmSet)
+            alarmOff.setVisibility(View.VISIBLE);
         
         alarmOn.setOnClickListener(new View.OnClickListener() {
             @Override
