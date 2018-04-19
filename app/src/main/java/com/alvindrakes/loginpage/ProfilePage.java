@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -179,7 +180,13 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                if (validateInfo()) {
+                if (TextUtils.isEmpty(ageInfoEdit.getText().toString())) {
+                    ageInfoEdit.setError("Field is empty");
+                } else if (TextUtils.isEmpty(weightInfoEdit.getText().toString())) {
+                    weightInfoEdit.setError("Field is empty");
+                } else if (TextUtils.isEmpty(heightInfoEdit.getText().toString())) {
+                    heightInfoEdit.setError("Field is empty");
+                } else if (validateInfo()) {
                     User.updateData(user);
                     while (clock) {
                     }

@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 /**
  * Created by super on 3/15/2018.
  */
-
+//Temporary disabled
 public class GoogleSigninAuthentication extends Activity {
   
   User user;

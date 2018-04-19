@@ -76,7 +76,7 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
        @Override
         public void onClick (View v) {
             if (googleSignInClient != null)
-                googleSignInClient.revokeAccess();
+                googleSignInClient.signOut();
             FirebaseAuth.getInstance().signOut();
 
             Toast.makeText(SettingPage.this, "Log out successfully", Toast.LENGTH_SHORT).show();
