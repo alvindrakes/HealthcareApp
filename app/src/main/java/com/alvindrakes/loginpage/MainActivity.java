@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity
     
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
         progress_of_steps = (ProgressBar)findViewById(R.id.steps_progress);
+        progress_of_steps.setMax(15);
     
         //============== End of Pedometer==============
     
@@ -231,7 +232,8 @@ public class MainActivity extends AppCompatActivity
             user.setCoin(user.getCoin() + 1);
         
         //Reaching the goal awards the user 100 coins
-        if (progress_of_steps.getMax() == dataValue.getSteps()){
+        // if (progress_of_steps.getMax() == dataValue.getSteps()){
+        if (dataValue.getSteps() == 15){
             user.setCoin(user.getCoin() + 100);
             Toast.makeText(this, "100 coins for reaching goal!", Toast.LENGTH_LONG).show();
         }

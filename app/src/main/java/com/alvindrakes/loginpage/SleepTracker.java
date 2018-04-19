@@ -56,6 +56,10 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     Context context;
     PendingIntent pendingIntent;
     
+    Button alarmOff;
+    public static String hourString;
+    public static String minuteString;
+    
     String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
     
     @Override
@@ -131,12 +135,9 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
         timePicker = (TimePicker) findViewById(R.id.time_picker);
         updateText = (TextView) findViewById(R.id.update_text);
         Button alarmOn = (Button) findViewById(R.id.on_alarm);
-        final Button alarmOff = (Button) findViewById(R.id.off_alarm);
+        alarmOff = (Button) findViewById(R.id.off_alarm);
         
         final Intent alarmReceiver = new Intent(this.context, AlarmReceiver.class);
-        
-        if (alarmSet)
-            alarmOff.setVisibility(View.VISIBLE);
         
         alarmOn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,8 +163,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                     calendar.add(Calendar.DATE, 1);
                 }
     
-                String hourString = String.valueOf(hour);
-                String minuteString = String.valueOf(minute);
+                hourString = String.valueOf(hour);
+                minuteString = String.valueOf(minute);
     
                 if (hour > 12) {
                     hourString = String.valueOf(hour - 12);
@@ -183,7 +184,7 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
     
                 alarmOff.setVisibility(View.VISIBLE);
     
-                
+                alarmSet = true;
             }
         });
         
@@ -201,10 +202,20 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 
                 alarmOff.setVisibility(View.INVISIBLE);
         
+                alarmSet = false;
             }
         });
     }
-
+    
+    @Override
+    protected void onStart () {
+        super.onStart();
+        if (alarmSet) {
+            alarmOff.setVisibility(View.VISIBLE);
+            updateText.setText("Alarm set to " + hourString + ":" + minuteString);
+        }
+    }
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
