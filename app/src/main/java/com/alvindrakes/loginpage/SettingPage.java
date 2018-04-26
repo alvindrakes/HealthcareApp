@@ -83,6 +83,7 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
             Toast.makeText(SettingPage.this, "Log out successfully", Toast.LENGTH_SHORT).show();
             //Transition back to login page
             Intent startIntent = new Intent(SettingPage.this, Login.class);
+            startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(startIntent);
         }
       });
@@ -149,5 +150,11 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
         }
 
         return true;
+    }
+    
+    @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        user = null;
     }
 }

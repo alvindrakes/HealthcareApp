@@ -194,4 +194,10 @@ public class Store extends MainActivity {
         });
 
     }
+    
+    @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        transaction = null;
+    }
 }

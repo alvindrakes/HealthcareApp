@@ -82,6 +82,12 @@ public class Signup2 extends SignupPage {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         user = dataSnapshot.getValue(User.class);
+                        
+                        if(user.getHeight() != 0){
+                            Toast.makeText(Signup2.this, "Account details updated", Toast.LENGTH_SHORT).show();
+                            Intent StartPageIntent = new Intent(Signup2.this, MainActivity.class);
+                            startActivity(StartPageIntent);
+                        }
                     }
 
                     @Override
@@ -142,5 +148,11 @@ public class Signup2 extends SignupPage {
 
         return validate;
     }
-
+    
+    @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        user = null;
+    }
+    
 }

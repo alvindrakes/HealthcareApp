@@ -91,12 +91,7 @@ public class MainActivity extends AppCompatActivity
         //=======================Pedometer============
         // Get an instance of the SensorManager
         TvSteps = (TextView) findViewById(R.id.tv_steps);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        simpleStepDetector = new StepDetector();
-        simpleStepDetector.registerListener(this);
-    
-        sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+        
         progress_of_steps = (ProgressBar)findViewById(R.id.steps_progress);
         progress_of_steps.setMax(15);
     
@@ -195,8 +190,18 @@ public class MainActivity extends AppCompatActivity
         //---------------------------------------------------------------
 
     }
-
-
+    
+    @Override
+    protected void onStart () {
+        super.onStart();
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
+    
+        sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+    }
+    
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
@@ -258,6 +263,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        user = null;
+        dataValue = null;
+        simpleStepDetector = null;
+        accel = null;
+        sensorManager = null;
+    }
+    
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
