@@ -390,6 +390,13 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     }
     
     @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        user = null;
+        transaction = null;
+    }
+    
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (myToggle.onOptionsItemSelected(item)) {

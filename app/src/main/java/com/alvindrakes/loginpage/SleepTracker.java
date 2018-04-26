@@ -258,4 +258,11 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
+    
+    @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        user = null;
+        dataValue = null;
+    }
 }

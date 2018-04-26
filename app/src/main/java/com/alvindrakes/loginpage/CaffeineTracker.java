@@ -194,5 +194,11 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
         }
 
     }
-
+    
+    @Override
+    protected void onDestroy () {
+        super.onDestroy();
+        user = null;
+        dataValue = null;
+    }
 }

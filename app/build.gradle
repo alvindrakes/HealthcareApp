@@ -14,6 +14,12 @@ android {
             keyAlias 'MyAndroidKey'
             keyPassword 'myKeyPassword'
         }
+        SpaceFit_config {
+            keyAlias 'keySpaceFit'
+            keyPassword 'spacefit'
+            storeFile file('C:/Users/super/Desktop/Computer Science/SE Project/HealthcareApp/keystoreSpaceFit.jks')
+            storePassword 'spacefit'
+        }
     }
     compileSdkVersion 26
     buildToolsVersion '27.0.3'
@@ -33,11 +39,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'
             jniDebuggable true
         }
-        release {
-            minifyEnabled false
-            useProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'
-            signingConfig signingConfigs.config
+        SpaceFit {
         }
     }
     productFlavors {

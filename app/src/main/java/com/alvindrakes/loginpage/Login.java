@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.view.Window;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -164,7 +163,8 @@ public class Login extends AppCompatActivity {
                     public void onComplete (@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Login to main page
-                            Intent mainIntent = new Intent(Login.this, MainActivity.class);
+                            Intent mainIntent = new Intent(Login.this, LoginAuthentication.class);
+                            mainIntent.putExtra("auth", true);
                             startActivity(mainIntent);
                         } else {
                             // If sign in fails, display a message to the user.
