@@ -26,14 +26,14 @@ import org.apache.commons.validator.routines.EmailValidator;
 //Signup page that stores user email and password
 public class SignupPage extends AppCompatActivity {
   
-  DatabaseReference database;
-  FirebaseAuth auth;
-  
   EditText nameText;
   EditText emailText;
   EditText passwordText;
   EditText checkPasswordText;
-
+  Button register;
+  
+  //Firebase variables
+  FirebaseAuth auth;
   
   public SignupPage () {
     // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -43,20 +43,20 @@ public class SignupPage extends AppCompatActivity {
   protected void onCreate (Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getSupportActionBar().hide();
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                         WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.signup);
     
-    auth = FirebaseAuth.getInstance();
-    
-    database = FirebaseDatabase.getInstance().getReference();
-    
+    //Initialize variables
     nameText = (EditText) findViewById(R.id.nameform);
     emailText = (EditText) findViewById(R.id.emailform);
     passwordText = (EditText) findViewById(R.id.passform);
     checkPasswordText = (EditText) findViewById(R.id.cform);
+    register = (Button) findViewById(R.id.Next);
     
-    Button register = (Button) findViewById(R.id.Next);
-
+    //Intialize firebase variables
+    auth = FirebaseAuth.getInstance();
+    
     //Check if any data forms is left empty
     register.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -83,9 +83,9 @@ public class SignupPage extends AppCompatActivity {
       return;
     }
     authenticateAccount(user);
-
+    
   }
-
+  
   //Validate user data
   public boolean validateForm (User user) {
     
@@ -107,7 +107,7 @@ public class SignupPage extends AppCompatActivity {
     }
     return validate;
   }
-
+  
   //Store user data
   private void authenticateAccount (final User user) {
     
@@ -118,8 +118,8 @@ public class SignupPage extends AppCompatActivity {
             if (task.isSuccessful()) {
               
               User.updateData(user);
-
-
+              
+              
               Log.d("EmailPassword", "createUserWithEmail:success");
               Toast.makeText(SignupPage.this, "Account created", Toast.LENGTH_SHORT).show();
               Intent StartPageIntent = new Intent(SignupPage.this, Signup2.class);
@@ -136,5 +136,3 @@ public class SignupPage extends AppCompatActivity {
   }
   
 }
-
-

@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by Jaison
+ * Location Service Helper
  */
 
 public class LocationHelper implements PermissionUtils.PermissionResultCallback{

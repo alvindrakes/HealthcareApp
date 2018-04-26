@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 /**
- * Created by Jaison on 02/05/17.
+ * Permission Utilities for Location Service
  */
 
 public class PermissionUtils

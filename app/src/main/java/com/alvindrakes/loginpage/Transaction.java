@@ -73,20 +73,28 @@ public class Transaction {
     this.spacesuit4 = spacesuit4;
   }
   
+  //Update purchased goods in firebase
   public static void updateData (Transaction transaction) {
-  
+    
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-  
+    
     Map<String, Object> childUpdates = new HashMap<>();
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/coupon_50", transaction.getCoupon_50());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/coupon_100", transaction.getCoupon_100());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/coupon_200", transaction.getCoupon_200());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit1", transaction.isSpacesuit1());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit2", transaction.isSpacesuit2());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit3", transaction.isSpacesuit3());
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit4", transaction.isSpacesuit4());
-
-  
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/coupon_50",
+                     transaction.getCoupon_50());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/coupon_100",
+                     transaction.getCoupon_100());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/coupon_200",
+                     transaction.getCoupon_200());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit1",
+                     transaction.isSpacesuit1());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit2",
+                     transaction.isSpacesuit2());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit3",
+                     transaction.isSpacesuit3());
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/transaction/spacesuit4",
+                     transaction.isSpacesuit4());
+    
+    
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
     
   }

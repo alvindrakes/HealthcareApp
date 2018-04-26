@@ -11,6 +11,9 @@ import java.util.Map;
  * Created by super on 11/26/2017.
  */
 
+/**
+ * User information
+ */
 public class User {
   
   private String name;
@@ -24,22 +27,10 @@ public class User {
   
   public User () {
   }
-
-  public User(String name, String email) {
+  
+  public User (String name, String email) {
     this.name = name;
     this.email = email;
-  }
-
-
-  public static void updateCoin (int coin){
-    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-  
-    Map<String, Object> childUpdates = new HashMap<>();
-  
-    childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", coin);
-  
-    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
-  
   }
   
   public void setAge (int age) {
@@ -93,7 +84,7 @@ public class User {
   public int getSleepToday () {
     return sleepToday;
   }
-
+  
   //Update user data
   public static void updateData (User user) {
     
@@ -107,25 +98,39 @@ public class User {
     childUpdates.put("/users/" + firebaseUser.getUid() + "/height/", user.getHeight());
     childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", user.getCoin());
     childUpdates.put("/users/" + firebaseUser.getUid() + "/totalSteps/", user.getTotalSteps());
-
+    
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
   }
   
+  //Update coins in firebase
+  public static void updateCoin (int coin) {
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    
+    Map<String, Object> childUpdates = new HashMap<>();
+    
+    childUpdates.put("/users/" + firebaseUser.getUid() + "/coin/", coin);
+    
+    FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
+    
+  }
+  
+  //Update sleep data for the day
   public static void updateSleep (int sleepToday) {
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-  
+    
     Map<String, Object> childUpdates = new HashMap<>();
     childUpdates.put("/users/" + firebaseUser.getUid() + "/sleepToday/", sleepToday);
     
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
   }
   
-  public static void updateLocation (String location){
+  //Store location in firebase
+  public static void updateLocation (String location) {
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-  
+    
     Map<String, Object> childUpdates = new HashMap<>();
     childUpdates.put("/users/" + firebaseUser.getUid() + "/location/", location);
-  
+    
     FirebaseDatabase.getInstance().getReference().updateChildren(childUpdates);
   }
   
