@@ -72,6 +72,7 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
 
         signOutBtn = (Button) findViewById(R.id.signOutBtn);
 
+        //Signout from user's account
         signOutBtn.setOnClickListener(new View.OnClickListener() {
        @Override
         public void onClick (View v) {
@@ -80,11 +81,13 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
             FirebaseAuth.getInstance().signOut();
 
             Toast.makeText(SettingPage.this, "Log out successfully", Toast.LENGTH_SHORT).show();
+            //Transition back to login page
             Intent startIntent = new Intent(SettingPage.this, Login.class);
             startActivity(startIntent);
         }
       });
-    
+
+        //===============Data Retrieval from firebase ==============
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
@@ -103,7 +106,9 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
                 }
             });
     }
+    //===============End of data Retrieval from firebase ==============
 
+    //Side Pane
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -114,7 +119,6 @@ public class SettingPage extends AppCompatActivity implements NavigationView.OnN
     }
 
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {

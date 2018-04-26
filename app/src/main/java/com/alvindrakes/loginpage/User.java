@@ -29,7 +29,8 @@ public class User {
     this.name = name;
     this.email = email;
   }
-  
+
+
   public static void updateCoin (int coin){
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
   
@@ -92,7 +93,8 @@ public class User {
   public int getSleepToday () {
     return sleepToday;
   }
-  
+
+  //Update user data
   public static void updateData (User user) {
     
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

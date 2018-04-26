@@ -87,17 +87,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-//        locationHelper=new LocationHelper(MainActivity.this);
-//        locationHelper.checkpermission();
-
-
-//        mContext = getApplicationContext();
-//        mTextView = (TextView) findViewById(R.id.ConstraintLayout);
-//        mActivity = MainActivity.this;
-    
     
         //=======================Pedometer============
         // Get an instance of the SensorManager
@@ -138,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         userEmail = (TextView) headerView.findViewById(R.id.User_email);
     
         dateText.setText(date);
-    
+        //=============== Data Retrieval from firebase ==============
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance()
             .getReference()
@@ -157,8 +146,7 @@ public class MainActivity extends AppCompatActivity
                 public void onCancelled (DatabaseError databaseError) {
                 }
             });
-    
-        
+
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
@@ -182,7 +170,9 @@ public class MainActivity extends AppCompatActivity
                 
                 }
             });
-    
+        //=============== End of data Retrieval from firebase ==============
+
+        //Store button
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.store);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,7 +200,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
-
+    //Change in steps
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
@@ -257,6 +247,7 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 
+    //Side Pane
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -266,11 +257,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-    // TODO need to implement the buttons to move to other pages
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {

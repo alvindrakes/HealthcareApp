@@ -126,10 +126,13 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         spacesuit2 = findViewById(R.id.sold2);
         spacesuit3 = findViewById(R.id.sold3);
         spacesuit4 = findViewById(R.id.sold4);
-    
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //Prompt for transaction
         AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        //If buy button is clicked
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
             public void onClick(DialogInterface dialog, int id) {
                 if (user.getCoin() >= 100){
                     user.setCoin(user.getCoin() - 100);
@@ -157,6 +160,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         builder.setMessage("Buy the item for 100 coins?");
         final AlertDialog dialog = builder.create();
 
+        //Edit data
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -168,6 +172,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
+        //Cancel edits
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -176,7 +181,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
-
+        //Update edited data
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -196,7 +201,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         });
-
+        //============== show or purchase sprite=============
         s0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -245,9 +250,10 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 }
             }
         });
+        //=============== End of show or purchase sprite=============
 
 
-
+        //=============== Data Retrieval from firebase ==============
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
@@ -308,7 +314,9 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 }
             });
     }
-    
+    //===============End of data Retrieval from firebase ==============
+
+    //Display user data
     private void insertData () {
     
         if (user.getAge() == 0) {
@@ -357,7 +365,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         updateBtn.setVisibility(View.INVISIBLE);
         cancelBtn.setVisibility(View.INVISIBLE);
     }
-    
+
+    //Data validation
     private boolean validateInfo () {
         
         boolean validate = true;
@@ -388,7 +397,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         
         return validate;
     }
-    
+
+    //Side Pane
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -399,7 +409,6 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     }
 
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {

@@ -47,11 +47,14 @@ public class Store extends MainActivity {
         
         coin = (TextView) findViewById(R.id.amount2);
 
+
         FloatingActionButton back = (FloatingActionButton) findViewById(R.id.close_store);
+
         coupon_50 = findViewById(R.id.coupon_50);
         coupon_100 = findViewById(R.id.coupon_100);
         coupon_200 = findViewById(R.id.coupon_200);
-    
+
+        //===============Data Retrieval from firebase ==============
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance()
             .getReference()
@@ -75,7 +78,10 @@ public class Store extends MainActivity {
                 
                 }
             });
-        
+
+        //===============End of data Retrieval from firebase ==============
+
+        //Back to homepage
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,11 +95,14 @@ public class Store extends MainActivity {
         Button price_1 = (Button) findViewById(R.id.button2);
         Button price_2 = (Button) findViewById(R.id.button3);
         Button price_3 = (Button) findViewById(R.id.button4);
+
         price_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Transaction prompt
                 final AlertDialog.Builder builder3 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
                 builder3.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    //Purchasing voucher
                     public void onClick(DialogInterface dialog, int id) {
                         if (user.getCoin() >= 50) {
                             user.setCoin(user.getCoin() - 50);
@@ -123,8 +132,10 @@ public class Store extends MainActivity {
         price_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Transaction prompt
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    //Purchasing voucher
                     public void onClick(DialogInterface dialog, int id) {
                         if (user.getCoin() >= 100) {
                             user.setCoin(user.getCoin() - 100);
@@ -154,8 +165,10 @@ public class Store extends MainActivity {
         price_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Transaction Prompt
                 final AlertDialog.Builder builder2 = new AlertDialog.Builder(Store.this, android.R.style.Theme_Material_Dialog_Alert);
                 builder2.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    //Purchasing voucher
                     public void onClick(DialogInterface dialog, int id) {
                         if (user.getCoin() >= 200) {
                             user.setCoin(user.getCoin() - 200);

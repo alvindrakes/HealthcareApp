@@ -58,7 +58,8 @@ public class Login extends AppCompatActivity {
     Button googleSignIn = (Button) findViewById(R.id.google_signinBtn);
 
     mAuth = FirebaseAuth.getInstance();
-    
+
+    //Check if any space is left empty else login
     check.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick (View view) {

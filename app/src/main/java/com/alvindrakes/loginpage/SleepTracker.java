@@ -90,7 +90,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    
+
+        //=============== Data Retrieval from firebase ==============
         FirebaseDatabase.getInstance()
             .getReference()
             .child("users")
@@ -130,7 +131,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 
                 }
             });
-        
+        //=============== End of data Retrieval from firebase ==============
+
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         timePicker = (TimePicker) findViewById(R.id.time_picker);
         updateText = (TextView) findViewById(R.id.update_text);
@@ -138,7 +140,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
         alarmOff = (Button) findViewById(R.id.off_alarm);
         
         final Intent alarmReceiver = new Intent(this.context, AlarmReceiver.class);
-        
+
+        //Alarm function
         alarmOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -187,7 +190,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
                 alarmSet = true;
             }
         });
-        
+
+        //Send sleep data to database
         alarmOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -215,6 +219,8 @@ public class SleepTracker extends AppCompatActivity implements NavigationView.On
             updateText.setText("Alarm set to " + hourString + ":" + minuteString);
         }
     }
+
+    //Side Pane
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

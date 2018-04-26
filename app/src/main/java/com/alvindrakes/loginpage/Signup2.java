@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+//Gets user's age weight and height upon signup
 public class Signup2 extends SignupPage {
 
     DatabaseReference database;
@@ -51,6 +52,7 @@ public class Signup2 extends SignupPage {
         heightText = (EditText) findViewById(R.id.heightf);
         register = (Button) findViewById(R.id.Next);
 
+        //If user has unfilled data
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +73,7 @@ public class Signup2 extends SignupPage {
 
             }
         });
-
+        //===============Data Retrieval from firebase ==============
         FirebaseDatabase.getInstance()
                 .getReference()
                 .child("users")
@@ -88,7 +90,9 @@ public class Signup2 extends SignupPage {
                     }
                 });
     }
+    //===============End of data Retrieval from firebase ==============
 
+    //Create user account and store in database
     private void createAccount(User user) {
 
         if (!validateForm(user)) {
@@ -111,10 +115,12 @@ public class Signup2 extends SignupPage {
             });
         
         Toast.makeText(Signup2.this, "", Toast.LENGTH_SHORT).show();
+        //Transition to main page
         Intent StartPageIntent = new Intent(Signup2.this, MainActivity.class);
         startActivity(StartPageIntent);
     }
 
+    //Validate user data
     public boolean validateForm(User user) {
 
         boolean validate = true;

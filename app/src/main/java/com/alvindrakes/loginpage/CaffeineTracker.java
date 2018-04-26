@@ -79,7 +79,8 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
         showValue = (TextView) findViewById(R.id.CounterValue);
         increaseButton = (Button) findViewById(R.id.incButton);
         decreaseButton = (Button) findViewById(R.id.decButton);
-    
+
+        //===============Data Retrieval from firebase ==============
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance()
             .getReference()
@@ -120,6 +121,7 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
                 
                 }
             });
+        //===============End of data Retrieval from firebase ==============
 
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +139,7 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
 
     }
 
+    //Side Pane
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -147,7 +150,6 @@ public class CaffeineTracker extends AppCompatActivity implements NavigationView
     }
 
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {

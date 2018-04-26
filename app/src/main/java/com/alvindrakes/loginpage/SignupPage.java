@@ -23,6 +23,7 @@ import java.util.Objects;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+//Signup page that stores user email and password
 public class SignupPage extends AppCompatActivity {
   
   DatabaseReference database;
@@ -56,7 +57,7 @@ public class SignupPage extends AppCompatActivity {
     
     Button register = (Button) findViewById(R.id.Next);
 
-    
+    //Check if any data forms is left empty
     register.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick (View view) {
@@ -84,7 +85,8 @@ public class SignupPage extends AppCompatActivity {
     authenticateAccount(user);
 
   }
-  
+
+  //Validate user data
   public boolean validateForm (User user) {
     
     boolean validate = true;
@@ -105,7 +107,8 @@ public class SignupPage extends AppCompatActivity {
     }
     return validate;
   }
-  
+
+  //Store user data
   private void authenticateAccount (final User user) {
     
     auth.createUserWithEmailAndPassword(user.getEmail(), passwordText.getText().toString())

@@ -8,9 +8,7 @@ import android.view.WindowManager;
 import android.view.Window;
 
 
-/**
- * Created by ming on 20/2/2018.
- */
+    //Splash art on startup
 
 public class Splash extends AppCompatActivity {
     private static int timeout= 4000;
