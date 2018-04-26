@@ -62,11 +62,9 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     TextView totalSteps;
     ImageView sprite;
     TextView bmiInfo;
-    
     TextView userId;
     TextView coin;
     TextView userEmail;
-    
     FirebaseUser firebaseUser;
     Transaction transaction;
     ImageView spacesuit1;
@@ -205,7 +203,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         s0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                x = (R.drawable.sprite2);
+                x = (R.drawable.spritew);
                 if (transaction.isSpacesuit1())
                     sprite.setBackgroundResource(x);
                 else {
@@ -217,7 +215,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         s1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                x = (R.drawable.sprite3);
+                x = (R.drawable.spriter);
                 if (transaction.isSpacesuit2())
                     sprite.setBackgroundResource(x);
                 else {
@@ -229,7 +227,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         s2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                x = (R.drawable.sprite);
+                x = (R.drawable.spriteg);
                 if (transaction.isSpacesuit3())
                     sprite.setBackgroundResource(x);
                 else {
@@ -241,7 +239,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         s3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                x = (R.drawable.sprite1);
+                x = (R.drawable.spriteb);
                 if (transaction.isSpacesuit4())
                     sprite.setBackgroundResource(x);
                 else {
