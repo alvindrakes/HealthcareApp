@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by super on 1/26/2018.
  */
-
+//Get user data
 public class StatisticData {
   private int steps;
   private int sleepData;

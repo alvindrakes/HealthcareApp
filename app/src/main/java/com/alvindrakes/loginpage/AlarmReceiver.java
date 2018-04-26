@@ -9,10 +9,11 @@ import android.util.Log;
  * Created by super on 3/7/2018.
  */
 
+
 public class AlarmReceiver extends BroadcastReceiver {
   @Override
   public void onReceive (Context context, Intent intent) {
-  
+    //Get time that alarm is supposed to ring
     Log.e("We are in the receiver", "YAY");
     
     String getString = intent.getExtras().getString("extra");
@@ -26,6 +27,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     serviceIntent.putExtra("extra", getString);
     serviceIntent.putExtra("sleep", initialTime);
     serviceIntent.putExtra("sleepData", sleepData);
+    //Ring the alarm
     context.startService(serviceIntent);
   }
 }

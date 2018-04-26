@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+//Storage of user purchased goods
 public class Transaction {
   private int coupon_50;
   private int coupon_100;

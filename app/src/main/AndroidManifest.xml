@@ -34,9 +34,6 @@
             android:name=".Store"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StartPage"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Signup2"
             android:screenOrientation="portrait" />
         <activity
