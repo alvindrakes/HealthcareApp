@@ -19,3 +19,12 @@
 - a space invader game that features different spaceships and levels
 
 ## Screenshots
+![](screenshots/home.png)
+![](screenshots/side.png)
+![](screenshots/game.png)
+![](screenshots/sleep.png)
+![](screenshots/profile.png)
+![](screenshots/store.png)
+
+
+
