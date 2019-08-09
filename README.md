@@ -25,6 +25,8 @@
 ![](screenshots/sleep.png)
 ![](screenshots/profile.png)
 ![](screenshots/store.png)
+![](screenshots/setting.png)
+
 
 
 
