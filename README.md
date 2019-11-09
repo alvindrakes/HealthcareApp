@@ -6,7 +6,7 @@
 2. Yap Cheng Yee
 3. Lim Way Shearn
 4. Law Zhe Ming
-5. Omar
+5. Omar M. Hussein
 
 ## App functions 
 
